@@ -3,157 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INDRAM — Área de Producción</title>
+<title>INDRAM — Producción</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --orange:#e85d00;--navy:#1a1a2e;--navy2:#16213e;
-  --green:#16a34a;--yellow:#ca8a04;--gray:#6b7280;
-  --bg:#0f0f1a;--card:#1a1a2e;--border:rgba(255,255,255,0.08);
+  --orange:#e85d00;--navy:#1a1a2e;--bg:#0f0f1a;--card:#1a1a2e;
+  --border:rgba(255,255,255,0.08);--gray:#6b7280;
+  --green:#16a34a;--red:#dc2626;
   --m1:#f59e0b;--m2:#0d9488;--m3:#3b82f6;--m4:#ec4899;--m5:#8b5cf6;
+  --m1b:rgba(245,158,11,.15);--m2b:rgba(13,148,136,.15);
+  --m3b:rgba(59,130,246,.15);--m4b:rgba(236,72,153,.15);--m5b:rgba(139,92,246,.15);
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e7eb;min-height:100vh}
 
 /* ── LOGIN ── */
-#login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
 .login-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:380px}
-.login-logo{display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-bottom:1.5rem}
-.login-logo-circle{width:46px;height:46px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.5px}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1.5rem}
+.login-logo-circle{width:46px;height:46px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
 .login-brand{font-size:1.4rem;font-weight:800;color:#fff}
-.login-subtitle{text-align:center;font-size:0.83rem;color:var(--gray);margin-bottom:2rem}
+.login-subtitle{text-align:center;font-size:.83rem;color:var(--gray);margin-bottom:2rem}
 .login-field{margin-bottom:1rem}
-.login-field label{display:block;font-size:0.78rem;color:#9ca3af;margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
-.login-field input{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+.login-field label{display:block;font-size:.78rem;color:#9ca3af;margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.login-field input{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:.9rem;outline:none;transition:border-color .2s}
 .login-field input:focus{border-color:var(--orange)}
-#login-error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;border-radius:8px;padding:10px 14px;font-size:0.83rem;margin-bottom:1rem;display:none}
-.btn-login{width:100%;background:var(--orange);color:#fff;border:none;border-radius:8px;padding:12px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;letter-spacing:0.3px}
-.btn-login:hover{opacity:0.9}
-.btn-login:disabled{opacity:0.5;cursor:not-allowed}
+#login-error{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:8px;padding:10px 14px;font-size:.83rem;margin-bottom:1rem;display:none}
+.btn-login{width:100%;background:var(--orange);color:#fff;border:none;border-radius:8px;padding:12px;font-size:.95rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.btn-login:hover{opacity:.9}
+.btn-login:disabled{opacity:.5;cursor:not-allowed}
 
-/* ── DASHBOARD ── */
+/* ── TOP BAR ── */
 #dashboard{display:none;min-height:100vh}
-.top-bar{background:var(--navy);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.top-bar{background:var(--navy);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
 .top-bar-left{display:flex;align-items:center;gap:1rem}
 .top-bar-logo{width:34px;height:34px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
-.top-bar-title{font-size:0.95rem;font-weight:700;color:#fff}
-.top-bar-badge{background:rgba(232,93,0,0.15);color:var(--orange);border:1px solid rgba(232,93,0,0.3);border-radius:20px;font-size:0.72rem;padding:2px 10px;font-weight:600}
-.top-bar-right{display:flex;align-items:center;gap:0.75rem}
-.user-label{font-size:0.78rem;color:var(--gray)}
-.btn-refresh{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;padding:6px 14px;font-size:0.78rem;cursor:pointer;transition:background 0.2s}
-.btn-refresh:hover{background:rgba(255,255,255,0.1)}
-.btn-logout{background:none;border:1px solid rgba(255,255,255,0.1);color:var(--gray);border-radius:7px;padding:6px 12px;font-size:0.78rem;cursor:pointer}
-.btn-logout:hover{border-color:rgba(239,68,68,0.4);color:#fca5a5}
+.top-bar-title{font-size:.95rem;font-weight:700;color:#fff}
+.top-bar-badge{background:rgba(232,93,0,.15);color:var(--orange);border:1px solid rgba(232,93,0,.3);border-radius:20px;font-size:.72rem;padding:2px 10px;font-weight:600}
+.top-bar-right{display:flex;align-items:center;gap:.75rem}
+.user-label{font-size:.78rem;color:var(--gray)}
+.btn-sm{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:background .2s}
+.btn-sm:hover{background:rgba(255,255,255,.12)}
+.btn-logout{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gray);border-radius:7px;padding:6px 12px;font-size:.78rem;cursor:pointer}
+.btn-logout:hover{border-color:rgba(239,68,68,.4);color:#fca5a5}
 
-.main-content{padding:1.5rem;max-width:1280px;margin:0 auto}
-
-/* Stats bar */
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:1.5rem}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
-.stat-label{font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
-.stat-value{font-size:1.6rem;font-weight:800;color:#fff}
-.stat-sub{font-size:0.73rem;color:var(--gray);margin-top:2px}
-
-/* Refresh bar */
-.refresh-bar{font-size:0.75rem;color:var(--gray);text-align:right;margin-bottom:1rem;display:flex;align-items:center;justify-content:flex-end;gap:6px}
+/* ── MAIN ── */
+.main{padding:1.5rem;max-width:1400px;margin:0 auto}
+.refresh-bar{font-size:.74rem;color:var(--gray);text-align:right;margin-bottom:1.25rem}
 #refresh-countdown{color:var(--orange);font-weight:600}
 
-/* ── CALENDAR ── */
-.cal-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.5rem}
+/* Stats */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem}
+.stat-lbl{font-size:.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.stat-val{font-size:1.55rem;font-weight:800;color:#fff}
+.stat-sub{font-size:.7rem;color:var(--gray);margin-top:2px}
 
-.cal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border)}
-.cal-nav{display:flex;align-items:center;gap:8px}
-.cal-nav-btn{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.15s}
-.cal-nav-btn:hover{background:rgba(255,255,255,0.12)}
-.cal-month{font-size:1.05rem;font-weight:700;color:#fff;min-width:180px;text-align:center;text-transform:capitalize}
+/* ── MACHINE PANELS ── */
+.machines-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:16px}
 
-.cal-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.cal-legend-item{display:flex;align-items:center;gap:5px;font-size:0.72rem;color:#9ca3af}
-.cal-legend-dot{width:10px;height:10px;border-radius:50%}
+.machine-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
-.cal-dow{text-align:center;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray);padding:8px 4px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border)}
+.mpanel-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.mpanel-title{display:flex;align-items:center;gap:10px}
+.mpanel-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.mpanel-name{font-size:1rem;font-weight:800;color:#fff}
+.mpanel-count{font-size:.72rem;color:var(--gray);background:rgba(255,255,255,.06);padding:2px 9px;border-radius:20px}
 
-.cal-day{
-  min-height:90px;
-  padding:6px 5px 5px;
-  border-right:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  cursor:pointer;
-  transition:background 0.15s;
-  position:relative;
-  vertical-align:top;
-}
-.cal-day:hover{background:rgba(255,255,255,0.04)}
-.cal-day.selected{background:rgba(232,93,0,0.08);box-shadow:inset 0 0 0 1px rgba(232,93,0,0.35)}
-.cal-day.today .cal-day-num{background:var(--orange);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;margin-bottom:4px}
-.cal-day.other-month{opacity:0.35}
-.cal-day-num{font-size:0.82rem;font-weight:600;color:#cbd5e1;margin-bottom:4px;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
-.cal-day.has-orders .cal-day-num{color:#fff}
+.mpanel-body{flex:1;overflow-y:auto;max-height:480px}
+.mpanel-empty{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.83rem}
 
-.cal-pills{display:flex;flex-direction:column;gap:2px}
-.cal-pill{font-size:0.62rem;font-weight:600;border-radius:4px;padding:1px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;color:#fff;line-height:1.5}
-.cal-more{font-size:0.62rem;color:var(--gray);margin-top:2px;padding-left:2px}
+/* ── ORDER ITEM ── */
+.order-item{padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;position:relative}
+.order-item:last-child{border-bottom:none}
+.order-item:hover{background:rgba(255,255,255,.04)}
 
-/* ── DETAIL PANEL ── */
-.detail-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;animation:fadeUp 0.2s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.detail-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
-.detail-panel-date{font-size:1.1rem;font-weight:700;color:#fff;text-transform:capitalize}
-.detail-panel-count{font-size:0.78rem;color:var(--gray)}
-.detail-panel-close{background:none;border:none;color:var(--gray);font-size:1.2rem;cursor:pointer;line-height:1;padding:2px 6px;border-radius:5px}
-.detail-panel-close:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.oi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:8px}
+.oi-id{font-size:.93rem;font-weight:800;color:#fff}
+.oi-product{font-size:.75rem;color:#9ca3af;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.oi-badges{display:flex;gap:6px;flex-shrink:0}
 
-.order-list{display:flex;flex-direction:column;gap:12px}
-.order-row{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start}
-.order-row.en-proceso{border-left:3px solid var(--orange)}
-.order-row.en-cola{border-left:3px solid var(--m3)}
-.order-row-id{font-size:0.95rem;font-weight:800;color:#fff;white-space:nowrap}
-.order-row-meta{font-size:0.72rem;color:var(--gray);margin-top:2px}
-.order-row-main{min-width:0}
-.order-row-product{font-size:0.82rem;color:#d1d5db;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:.67rem;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.badge-proceso{background:rgba(232,93,0,.15);color:#fb923c;border:1px solid rgba(232,93,0,.3)}
+.badge-cola{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
+.badge-vencido{background:rgba(220,38,38,.15);color:#f87171;border:1px solid rgba(220,38,38,.3)}
 
-.prog-wrap{margin-bottom:4px}
-.prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-.prog-label{font-size:0.72rem;color:var(--gray)}
-.prog-pct{font-size:1rem;font-weight:800;color:var(--orange)}
-.prog-track{height:6px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden}
-.prog-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--orange),#ff8c42);transition:width 0.6s ease}
-.prog-fill.done{background:linear-gradient(90deg,var(--green),#22c55e)}
-.prog-nums{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--gray);margin-top:3px}
+/* Time progress */
+.time-prog{margin-bottom:8px}
+.time-prog-labels{display:flex;justify-content:space-between;font-size:.67rem;color:var(--gray);margin-bottom:3px}
+.time-prog-track{height:8px;background:rgba(255,255,255,.07);border-radius:6px;overflow:visible;position:relative}
+.time-prog-fill{height:100%;border-radius:6px;transition:width .5s ease;position:relative}
+.time-prog-marker{position:absolute;right:-1px;top:-3px;width:3px;height:14px;border-radius:2px;background:#fff;opacity:.7}
+.time-prog-info{display:flex;justify-content:space-between;font-size:.67rem;color:var(--gray);margin-top:3px}
+.time-prog-info .day-count{color:#cbd5e1;font-weight:600}
 
-.maq-badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:3px 10px;font-size:0.72rem;font-weight:600;color:#fff;white-space:nowrap}
-.status-badge-sm{font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
-.status-badge-sm.en-proceso{background:rgba(232,93,0,0.15);color:#fb923c;border:1px solid rgba(232,93,0,0.3)}
-.status-badge-sm.en-cola{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3)}
+/* Pieces progress */
+.pieces-prog{margin-top:6px}
+.pieces-prog-row{display:flex;align-items:center;gap:8px}
+.pieces-prog-track{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.pieces-prog-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.pieces-prog-label{font-size:.68rem;color:var(--gray);white-space:nowrap}
+.pieces-pct{font-size:.72rem;font-weight:700;white-space:nowrap;min-width:32px;text-align:right}
 
-/* product sub-table */
-.sub-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:0.75rem}
-.sub-table th{color:var(--gray);text-transform:uppercase;letter-spacing:0.4px;font-size:0.65rem;padding:3px 6px;border-bottom:1px solid var(--border);text-align:left}
-.sub-table td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,0.04);color:#d1d5db}
-.sub-table tr:last-child td{border-bottom:none}
-.text-green{color:#4ade80;font-weight:600}
-.text-yellow{color:#fbbf24;font-weight:600}
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;animation:popIn .2s ease}
+@keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 
-/* Loading / empty */
-.loading-state{text-align:center;padding:4rem 2rem;color:var(--gray)}
-.loading-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,0.1);border-top-color:var(--orange);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1rem}
+.modal-header{padding:20px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:#1a1a2e;z-index:1}
+.modal-id{font-size:1.25rem;font-weight:800;color:#fff}
+.modal-sub{font-size:.78rem;color:var(--gray);margin-top:3px}
+.modal-close{background:rgba(255,255,255,.08);border:none;color:#9ca3af;border-radius:8px;width:32px;height:32px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.modal-close:hover{background:rgba(255,255,255,.15);color:#fff}
+
+.modal-body{padding:20px 22px}
+.modal-section{margin-bottom:20px}
+.modal-section-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Info grid */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.info-cell{background:rgba(255,255,255,.04);border-radius:10px;padding:10px 12px}
+.info-cell-lbl{font-size:.67rem;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.info-cell-val{font-size:.88rem;font-weight:600;color:#e5e7eb}
+
+/* Timeline in modal */
+.modal-timeline{background:rgba(255,255,255,.04);border-radius:12px;padding:14px}
+.mt-track-wrap{position:relative;margin:10px 0 6px}
+.mt-track{height:10px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
+.mt-fill{height:100%;border-radius:6px;transition:width .6s ease}
+.mt-today-line{position:absolute;top:-4px;height:18px;width:2px;border-radius:2px;background:#fff;transform:translateX(-50%);box-shadow:0 0 6px rgba(255,255,255,.5)}
+.mt-dates{display:flex;justify-content:space-between;font-size:.7rem;color:var(--gray)}
+.mt-today-lbl{text-align:center;font-size:.7rem;color:#cbd5e1;font-weight:600;margin-top:4px}
+
+/* Pieces modal */
+.pieces-big{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.pieces-big-val{font-size:2rem;font-weight:800}
+.pieces-big-total{font-size:1rem;color:var(--gray)}
+.pieces-bar-track{height:12px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin-bottom:6px}
+.pieces-bar-fill{height:100%;border-radius:8px}
+
+/* Workers table */
+.workers-table{width:100%;border-collapse:collapse}
+.workers-table th{font-size:.67rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);padding:6px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.workers-table td{font-size:.82rem;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:#d1d5db}
+.workers-table tr:last-child td{border-bottom:none}
+.workers-table tr:hover td{background:rgba(255,255,255,.03)}
+.wt-pct-bar{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin-left:6px}
+
+/* Loading */
+.loading-state{text-align:center;padding:4rem 1rem;color:var(--gray)}
+.spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
 @keyframes spin{to{transform:rotate(360deg)}}
-.empty-state{text-align:center;padding:2rem;color:var(--gray);font-size:0.9rem}
 
-@media(max-width:700px){
-  .cal-day{min-height:60px;padding:4px 3px}
-  .cal-pill{display:none}
-  .cal-day.has-orders::after{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--orange);margin:2px auto 0}
+@media(max-width:600px){
+  .machines-grid{grid-template-columns:1fr}
   .stats-bar{grid-template-columns:repeat(2,1fr)}
   .top-bar-title{display:none}
-  .order-row{grid-template-columns:1fr;gap:8px}
-  .cal-legend{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════ LOGIN ══════════════════════════ -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
@@ -174,7 +186,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
   </div>
 </div>
 
-<!-- ══════════════════════════ DASHBOARD ══════════════════════ -->
+<!-- DASHBOARD -->
 <div id="dashboard">
   <div class="top-bar">
     <div class="top-bar-left">
@@ -184,55 +196,41 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
     </div>
     <div class="top-bar-right">
       <span class="user-label" id="user-label"></span>
-      <button class="btn-refresh" onclick="loadData()">↺ Actualizar</button>
+      <button class="btn-sm" onclick="loadData()">↺ Actualizar</button>
       <button class="btn-logout" onclick="doLogout()">Salir</button>
     </div>
   </div>
 
-  <div class="main-content">
+  <div class="main">
     <div class="refresh-bar">
       Última actualización: <span id="last-updated">—</span>
-      &nbsp;·&nbsp; Actualización en <span id="refresh-countdown">60</span>s
+      &nbsp;·&nbsp; Próxima actualización en <span id="refresh-countdown">60</span>s
     </div>
 
     <!-- Stats -->
     <div class="stats-bar">
-      <div class="stat-card">
-        <div class="stat-label">En proceso</div>
-        <div class="stat-value" id="stat-proceso">—</div>
-        <div class="stat-sub">órdenes activas</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">En cola</div>
-        <div class="stat-value" id="stat-cola">—</div>
-        <div class="stat-sub">esperando máquina</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Piezas activas</div>
-        <div class="stat-value" id="stat-piezas">—</div>
-        <div class="stat-sub">total en producción</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Máquinas activas</div>
-        <div class="stat-value" id="stat-maquinas">—</div>
-        <div class="stat-sub">de 5 disponibles</div>
-      </div>
+      <div class="stat-card"><div class="stat-lbl">En proceso</div><div class="stat-val" id="stat-proceso">—</div><div class="stat-sub">órdenes activas</div></div>
+      <div class="stat-card"><div class="stat-lbl">En cola</div><div class="stat-val" id="stat-cola">—</div><div class="stat-sub">esperando</div></div>
+      <div class="stat-card"><div class="stat-lbl">Piezas activas</div><div class="stat-val" id="stat-piezas">—</div><div class="stat-sub">en producción</div></div>
+      <div class="stat-card"><div class="stat-lbl">Máquinas activas</div><div class="stat-val" id="stat-maquinas">—</div><div class="stat-sub">de 5 disponibles</div></div>
     </div>
 
-    <!-- Calendar -->
-    <div id="cal-container">
-      <div class="loading-state"><div class="loading-spinner"></div>Cargando calendario…</div>
+    <!-- Machine panels -->
+    <div id="machines-container">
+      <div class="loading-state"><div class="spinner"></div>Cargando producción…</div>
     </div>
-
-    <!-- Detail panel (injected when day is clicked) -->
-    <div id="detail-panel" style="display:none"></div>
   </div>
 </div>
 
+<!-- MODAL -->
+<div class="modal-overlay hidden" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box"></div>
+</div>
+
 <script>
-// ══════════════════════════════════════════════════════
-// USUARIOS AUTORIZADOS  sha256(email:password)
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
+// USERS
+// ══════════════════════════════════════
 const USERS = {
   "diego@indram.net":         "9e34c31df1032dc4b4b7a8d2505fd74b0456f32bb57e12befd2d129588491e9f",
   "online@indram.net":        "c3b61ddb32dcf4c8df5afe2ba84f205db94dce925b330cec870a118910f261c2",
@@ -241,42 +239,39 @@ const USERS = {
   "sercho3121@gmail.com":     "26fbd956b2b459c2dfff453f6d0234fbb68055a1b2c5a49587d3e77089d18f01"
 };
 
-// ══════════════════════════════════════════════════════
-// APPSHEET CONFIG
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
+// APPSHEET
+// ══════════════════════════════════════
 const AS_APP  = 'd911f699-9021-4bf3-a892-6eb81926c6fe';
 const AS_KEY  = 'V2-x1VkT-hyljn-EF7IT-qTksN-5CsNG-2bx0W-2rrtI-ciqHH';
 const AS_BASE = `https://api.appsheet.com/api/v2/apps/${AS_APP}/tables`;
 
-// ══════════════════════════════════════════════════════
-// MACHINE COLORS
-// ══════════════════════════════════════════════════════
-const MAQ_COLOR = {
-  '1':'#f59e0b','2':'#0d9488','3':'#3b82f6','4':'#ec4899','5':'#8b5cf6'
-};
-const MAQ_BG = {
-  '1':'rgba(245,158,11,0.18)','2':'rgba(13,148,136,0.18)',
-  '3':'rgba(59,130,246,0.18)','4':'rgba(236,72,153,0.18)','5':'rgba(139,92,246,0.18)'
-};
+// ══════════════════════════════════════
+// MACHINE CONFIG
+// ══════════════════════════════════════
+const MACHINES = [
+  { num:'1', label:'Máquina 1', color:'var(--m1)', bg:'var(--m1b)' },
+  { num:'2', label:'Máquina 2', color:'var(--m2)', bg:'var(--m2b)' },
+  { num:'3', label:'Máquina 3', color:'var(--m3)', bg:'var(--m3b)' },
+  { num:'4', label:'Máquina 4', color:'var(--m4)', bg:'var(--m4b)' },
+  { num:'5', label:'Máquina 5', color:'var(--m5)', bg:'var(--m5b)' },
+];
+const MAQ_COLOR = {'1':'var(--m1)','2':'var(--m2)','3':'var(--m3)','4':'var(--m4)','5':'var(--m5)'};
+const MAQ_HEX   = {'1':'#f59e0b','2':'#0d9488','3':'#3b82f6','4':'#ec4899','5':'#8b5cf6'};
 
 function maqNum(raw) {
   if (!raw) return '?';
-  const s = String(raw).trim();
-  const m = s.match(/(\d+)/);
-  return m ? m[1] : s;
+  const m = String(raw).trim().match(/(\d+)/);
+  return m ? m[1] : String(raw).trim();
 }
-function maqLabel(raw){ return 'Máq ' + maqNum(raw); }
-function maqColor(raw){ return MAQ_COLOR[maqNum(raw)] || '#6b7280'; }
-function maqBg(raw)   { return MAQ_BG[maqNum(raw)]   || 'rgba(107,114,128,0.18)'; }
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 // AUTH
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pass  = document.getElementById('login-pass').value;
@@ -295,44 +290,36 @@ async function doLogin() {
   sessionStorage.setItem('prod_user', email);
   startDashboard(email);
 }
-
 function showErr(msg) {
   const el = document.getElementById('login-error');
   el.textContent = msg; el.style.display = 'block';
 }
-
 function doLogout() {
   sessionStorage.removeItem('prod_user');
-  clearInterval(window._autoRefresh);
   clearInterval(window._cdTimer);
   document.getElementById('dashboard').style.display   = 'none';
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('login-email').value = '';
   document.getElementById('login-pass').value  = '';
 }
-
-document.getElementById('login-pass').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doLogin();
-});
+document.getElementById('login-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
 window.addEventListener('DOMContentLoaded', () => {
   const u = sessionStorage.getItem('prod_user');
   if (u && USERS[u]) startDashboard(u);
 });
 
-// ══════════════════════════════════════════════════════
-// DASHBOARD BOOTSTRAP
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════
 function startDashboard(email) {
-  document.getElementById('login-screen').style.display  = 'none';
+  document.getElementById('login-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
-  document.getElementById('user-label').textContent  = email;
+  document.getElementById('user-label').textContent = email;
   loadData();
   startAutoRefresh();
 }
-
 let _cd = 60;
 function startAutoRefresh() {
-  clearInterval(window._autoRefresh);
   clearInterval(window._cdTimer);
   _cd = 60;
   window._cdTimer = setInterval(() => {
@@ -343,282 +330,312 @@ function startAutoRefresh() {
   }, 1000);
 }
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 // APPSHEET FETCH
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 async function fetchAS(table) {
   const res = await fetch(`${AS_BASE}/${encodeURIComponent(table)}/Action`, {
-    method: 'POST',
-    headers: { 'ApplicationAccessKey': AS_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ Action:'Find', Properties:{ Locale:'en-US', Timezone:'America/Mexico_City' }, Rows:[] })
+    method:'POST',
+    headers:{'ApplicationAccessKey':AS_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({Action:'Find',Properties:{Locale:'en-US',Timezone:'America/Mexico_City'},Rows:[]})
   });
   return res.json();
 }
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 // DATE HELPERS
-// ══════════════════════════════════════════════════════
-// AppSheet dates can be "MM/DD/YYYY HH:MM:SS" or "MM/DD/YYYY"
+// ══════════════════════════════════════
 function parseDate(str) {
   if (!str) return null;
-  const s = str.trim().split(' ')[0]; // take date part only
-  // Try MM/DD/YYYY
+  const s = str.trim().split(' ')[0];
   const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
   if (m) return new Date(+m[3], +m[1]-1, +m[2]);
-  // Try YYYY-MM-DD
   const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (m2) return new Date(+m2[1], +m2[2]-1, +m2[3]);
   return null;
 }
-
-function dateKey(d) {
-  // "YYYY-MM-DD"
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+function parseDateTime(str) {
+  if (!str) return null;
+  // Try "MM/DD/YYYY HH:MM:SS"
+  const m = str.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
+  if (m) return new Date(+m[3], +m[1]-1, +m[2], +(m[4]||0), +(m[5]||0), +(m[6]||0));
+  return parseDate(str);
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});
+}
+function daysBetween(a, b) {
+  return Math.round((b - a) / 86400000);
 }
 
-function addDays(d, n) {
-  const r = new Date(d); r.setDate(r.getDate() + n); return r;
-}
-
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 // GLOBAL STATE
-// ══════════════════════════════════════════════════════
-let _calYear  = new Date().getFullYear();
-let _calMonth = new Date().getMonth();  // 0-based
-let _dayMap   = {};   // "YYYY-MM-DD" -> [order, ...]
-let _infoMap  = {};   // ID Produccion -> [info items]
-let _selectedDay = null;
+// ══════════════════════════════════════
+let _infoMap = {};  // id -> [info rows]
+let _allOrders = [];
 
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 // LOAD DATA
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════
 async function loadData() {
   document.getElementById('refresh-countdown').textContent = '60';
   _cd = 60;
-
   try {
     const [ordenes, infos] = await Promise.all([
       fetchAS('orden de produccion'),
       fetchAS('informacion de produccion')
     ]);
 
-    // Build infoMap
     _infoMap = {};
-    (infos || []).forEach(i => {
+    (infos||[]).forEach(i => {
       const id = i['ID Produccion'];
       if (!_infoMap[id]) _infoMap[id] = [];
       _infoMap[id].push(i);
     });
 
-    // Filter active orders
-    const activas = (ordenes || []).filter(o =>
+    _allOrders = (ordenes||[]).filter(o =>
       ['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase())
     );
 
-    // Stats
-    const proceso = activas.filter(o => (o['Estado de produccion']||'').toLowerCase() === 'en proceso');
-    const cola    = activas.filter(o => (o['Estado de produccion']||'').toLowerCase() === 'en cola');
+    const proceso = _allOrders.filter(o => (o['Estado de produccion']||'').toLowerCase()==='en proceso');
+    const cola    = _allOrders.filter(o => (o['Estado de produccion']||'').toLowerCase()==='en cola');
     document.getElementById('stat-proceso').textContent = proceso.length;
     document.getElementById('stat-cola').textContent    = cola.length;
     document.getElementById('stat-piezas').textContent  =
-      activas.reduce((s,o) => s + (parseInt(o['Total de Produccion'])||0), 0).toLocaleString('es-MX');
-    const maqsActivas = new Set(activas.map(o=>maqNum(o['Maquina'])).filter(x=>x&&x!=='?'));
-    document.getElementById('stat-maquinas').textContent = maqsActivas.size;
+      _allOrders.reduce((s,o)=>s+(parseInt(o['Total de Produccion'])||0),0).toLocaleString('es-MX');
+    const maqsSet = new Set(_allOrders.map(o=>maqNum(o['Maquina'])).filter(x=>x&&x!=='?'));
+    document.getElementById('stat-maquinas').textContent = maqsSet.size;
     document.getElementById('last-updated').textContent =
       new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 
-    // Build dayMap: each order occupies days from Fecha de inicio to Fecha de terminacion
-    // Fallback: use Fecha de Pedido for single-day placement
-    _dayMap = {};
-    activas.forEach(o => {
-      const inicio = parseDate(o['Fecha de inicio'] || o['Fecha de Inicio']);
-      const fin    = parseDate(o['Fecha de terminacion'] || o['Fecha de Terminacion']);
-      const pedido = parseDate(o['Fecha de Pedido']);
-
-      if (inicio && fin) {
-        let cur = new Date(inicio);
-        const last = new Date(fin);
-        let guard = 0;
-        while (cur <= last && guard < 365) {
-          const k = dateKey(cur);
-          if (!_dayMap[k]) _dayMap[k] = [];
-          _dayMap[k].push(o);
-          cur = addDays(cur, 1);
-          guard++;
-        }
-      } else if (inicio) {
-        const k = dateKey(inicio);
-        if (!_dayMap[k]) _dayMap[k] = [];
-        _dayMap[k].push(o);
-      } else if (pedido) {
-        const k = dateKey(pedido);
-        if (!_dayMap[k]) _dayMap[k] = [];
-        _dayMap[k].push(o);
-      }
-      // orders with no date at all: skip from calendar (still counted in stats)
-    });
-
-    renderCalendar();
-
-    // Re-render detail panel if a day is still selected
-    if (_selectedDay && _dayMap[_selectedDay]) {
-      showDetail(_selectedDay);
-    } else if (_selectedDay) {
-      document.getElementById('detail-panel').style.display = 'none';
-      _selectedDay = null;
-    }
-
+    renderMachines();
   } catch(e) {
-    document.getElementById('cal-container').innerHTML =
-      '<div class="empty-state">Error al cargar datos. Intenta actualizar.</div>';
+    document.getElementById('machines-container').innerHTML =
+      '<div class="loading-state" style="color:#fca5a5">Error al cargar datos. Intenta actualizar.</div>';
     console.error(e);
   }
 }
 
-// ══════════════════════════════════════════════════════
-// CALENDAR RENDER
-// ══════════════════════════════════════════════════════
-const MESES = ['enero','febrero','marzo','abril','mayo','junio',
-               'julio','agosto','septiembre','octubre','noviembre','diciembre'];
-const DIAS  = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+// ══════════════════════════════════════
+// RENDER MACHINE PANELS
+// ══════════════════════════════════════
+function renderMachines() {
+  const now = new Date();
 
-function renderCalendar() {
-  const today = new Date();
-  const todayKey = dateKey(today);
+  const html = `<div class="machines-grid">` +
+    MACHINES.map(maq => {
+      const orders = _allOrders.filter(o => maqNum(o['Maquina']) === maq.num);
+      const countLabel = orders.length
+        ? `${orders.length} orden${orders.length!==1?'es':''}`
+        : 'libre';
 
-  const firstDay = new Date(_calYear, _calMonth, 1);
-  const lastDay  = new Date(_calYear, _calMonth + 1, 0);
-  const startDow = firstDay.getDay(); // 0=Sun
+      const bodyHTML = orders.length === 0
+        ? `<div class="mpanel-empty">Sin órdenes activas</div>`
+        : orders.map(o => renderOrderItem(o, maq, now)).join('');
 
-  // Pad with days from previous month
-  const cells = [];
-  for (let i = 0; i < startDow; i++) {
-    const d = new Date(_calYear, _calMonth, -startDow + i + 1);
-    cells.push({ date: d, current: false });
-  }
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    cells.push({ date: new Date(_calYear, _calMonth, d), current: true });
-  }
-  // Pad end to complete grid rows
-  const remaining = (7 - (cells.length % 7)) % 7;
-  for (let i = 1; i <= remaining; i++) {
-    cells.push({ date: new Date(_calYear, _calMonth + 1, i), current: false });
-  }
-
-  // Legend HTML
-  const legendHTML = Object.entries(MAQ_COLOR).map(([n,c]) =>
-    `<span class="cal-legend-item"><span class="cal-legend-dot" style="background:${c}"></span>Máq ${n}</span>`
-  ).join('');
-
-  // Day cells HTML
-  const cellsHTML = cells.map(cell => {
-    const k = dateKey(cell.date);
-    const orders = _dayMap[k] || [];
-    const isToday   = k === todayKey;
-    const isSelected = k === _selectedDay;
-    const hasOrders  = orders.length > 0;
-
-    let cls = 'cal-day';
-    if (!cell.current) cls += ' other-month';
-    if (isToday)       cls += ' today';
-    if (isSelected)    cls += ' selected';
-    if (hasOrders)     cls += ' has-orders';
-
-    // Up to 3 pills, then "+N más"
-    const maxPills = 3;
-    const pillsHTML = orders.slice(0, maxPills).map(o => {
-      const mn = maqNum(o['Maquina']);
-      const c  = maqColor(o['Maquina']);
-      const id = o['ID Produccion'] || '—';
-      return `<div class="cal-pill" style="background:${c}">${maqLabel(o['Maquina'])} · ${id}</div>`;
-    }).join('');
-    const moreHTML = orders.length > maxPills
-      ? `<div class="cal-more">+${orders.length - maxPills} más</div>` : '';
-
-    const numHTML = isToday
-      ? `<div class="cal-day-num">${cell.date.getDate()}</div>`
-      : `<div class="cal-day-num">${cell.date.getDate()}</div>`;
-
-    return `<div class="${cls}" onclick="onDayClick('${k}')" data-date="${k}">
-      ${numHTML}
-      <div class="cal-pills">${pillsHTML}${moreHTML}</div>
-    </div>`;
-  }).join('');
-
-  const dowRow = DIAS.map(d => `<div class="cal-dow">${d}</div>`).join('');
-
-  document.getElementById('cal-container').innerHTML = `
-    <div class="cal-wrap">
-      <div class="cal-header">
-        <div class="cal-nav">
-          <button class="cal-nav-btn" onclick="changeMonth(-1)">&#8249;</button>
-          <div class="cal-month">${MESES[_calMonth]} ${_calYear}</div>
-          <button class="cal-nav-btn" onclick="changeMonth(1)">&#8250;</button>
+      return `
+      <div class="machine-panel" style="border-top:3px solid ${maq.color}">
+        <div class="mpanel-header">
+          <div class="mpanel-title">
+            <span class="mpanel-dot" style="background:${maq.color}"></span>
+            <span class="mpanel-name">${maq.label}</span>
+          </div>
+          <span class="mpanel-count">${countLabel}</span>
         </div>
-        <div class="cal-legend">${legendHTML}</div>
-      </div>
-      <div class="cal-grid">
-        ${dowRow}
-        ${cellsHTML}
-      </div>
-    </div>`;
+        <div class="mpanel-body">${bodyHTML}</div>
+      </div>`;
+    }).join('') + `</div>`;
+
+  document.getElementById('machines-container').innerHTML = html;
 }
 
-function changeMonth(delta) {
-  _calMonth += delta;
-  if (_calMonth > 11) { _calMonth = 0;  _calYear++; }
-  if (_calMonth < 0)  { _calMonth = 11; _calYear--; }
-  _selectedDay = null;
-  document.getElementById('detail-panel').style.display = 'none';
-  renderCalendar();
-}
+function renderOrderItem(o, maq, now) {
+  const id     = o['ID Produccion'] || '—';
+  const estado = (o['Estado de produccion']||'').toLowerCase();
+  const items  = _infoMap[id] || [];
+  const prods  = [...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ') || (o['Descripcion']||'—');
 
-// ══════════════════════════════════════════════════════
-// DAY CLICK → DETAIL PANEL
-// ══════════════════════════════════════════════════════
-function onDayClick(k) {
-  const orders = _dayMap[k] || [];
-  if (!orders.length) {
-    // Deselect if clicking empty day
-    if (_selectedDay === k) {
-      _selectedDay = null;
-      document.getElementById('detail-panel').style.display = 'none';
-      renderCalendar();
-    }
-    return;
+  // Piece progress
+  const total  = parseInt(o['Total de Produccion'])||0;
+  const avance = parseInt(o['Avance de produccion'])||0;
+  const piecesPct = total > 0 ? Math.min(100, Math.round(avance/total*100)) : 0;
+  const piecesColor = piecesPct>=100 ? '#22c55e' : MAQ_HEX[maq.num] || '#e85d00';
+
+  // Time progress
+  const inicio = parseDate(o['Fecha de inicio']||o['Fecha de Inicio']);
+  const fin    = parseDate(o['Fecha de terminacion']||o['Fecha de Terminacion']);
+  const pedido = parseDate(o['Fecha de Pedido']);
+  const startD = inicio || pedido;
+  const endD   = fin;
+
+  let timePct = null, daysTotal = 0, daysElapsed = 0, isOverdue = false;
+  if (startD && endD) {
+    daysTotal   = Math.max(1, daysBetween(startD, endD));
+    daysElapsed = daysBetween(startD, now);
+    timePct     = Math.min(100, Math.max(0, Math.round(daysElapsed/daysTotal*100)));
+    isOverdue   = now > endD && piecesPct < 100;
   }
-  _selectedDay = k;
-  renderCalendar();
-  showDetail(k);
-  // Scroll to detail panel
-  setTimeout(() => {
-    document.getElementById('detail-panel').scrollIntoView({ behavior:'smooth', block:'nearest' });
-  }, 100);
+
+  // Status badge
+  let badgeCls = estado === 'en proceso' ? 'badge-proceso' : 'badge-cola';
+  let badgeTxt = o['Estado de produccion'] || '—';
+  if (isOverdue) { badgeCls = 'badge-vencido'; badgeTxt = 'Vencida'; }
+
+  const timeProgHTML = (timePct !== null) ? `
+    <div class="time-prog">
+      <div class="time-prog-labels">
+        <span>${fmtDate(startD)}</span>
+        <span style="color:${isOverdue?'#f87171':'#cbd5e1'};font-weight:600">
+          ${isOverdue ? 'Venció '+fmtDate(endD) : 'Día '+Math.max(0,daysElapsed)+' de '+daysTotal}
+        </span>
+        <span>${fmtDate(endD)}</span>
+      </div>
+      <div class="time-prog-track">
+        <div class="time-prog-fill" style="width:${timePct}%;background:${isOverdue?'#dc2626':MAQ_HEX[maq.num]||'#e85d00'}">
+          <div class="time-prog-marker"></div>
+        </div>
+      </div>
+    </div>` : `<div style="font-size:.7rem;color:var(--gray);margin-bottom:6px">Sin fechas de producción</div>`;
+
+  return `
+  <div class="order-item" onclick="openModal('${id}')">
+    <div class="oi-top">
+      <div>
+        <div class="oi-id">${id}</div>
+        <div class="oi-product">${prods}</div>
+      </div>
+      <div class="oi-badges">
+        <span class="badge ${badgeCls}">${badgeTxt}</span>
+      </div>
+    </div>
+    ${timeProgHTML}
+    <div class="pieces-prog">
+      <div class="pieces-prog-row">
+        <div class="pieces-prog-track">
+          <div class="pieces-prog-fill" style="width:${piecesPct}%;background:${piecesColor}"></div>
+        </div>
+        <span class="pieces-pct" style="color:${piecesColor}">${piecesPct}%</span>
+        <span class="pieces-prog-label">${avance.toLocaleString('es-MX')} / ${total.toLocaleString('es-MX')} pzas</span>
+      </div>
+    </div>
+  </div>`;
 }
 
-function showDetail(k) {
-  const orders = _dayMap[k] || [];
-  const [yyyy, mm, dd] = k.split('-');
-  const dateLabel = new Date(+yyyy, +mm-1, +dd)
-    .toLocaleDateString('es-MX', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+// ══════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════
+function openModal(id) {
+  const o = _allOrders.find(x => x['ID Produccion'] === id);
+  if (!o) return;
+  const items   = _infoMap[id] || [];
+  const now     = new Date();
+  const mn      = maqNum(o['Maquina']);
+  const maqCfg  = MACHINES.find(m=>m.num===mn) || {label:'Máquina '+mn, color:'#9ca3af', bg:'rgba(156,163,175,.15)'};
+  const hex     = MAQ_HEX[mn] || '#9ca3af';
 
-  const rowsHTML = orders.map(o => {
-    const estado = (o['Estado de produccion']||'').toLowerCase() === 'en proceso' ? 'en-proceso' : 'en-cola';
-    const pct    = Math.min(100, Math.round(parseFloat(o['PORCENTAJE AVANCE']||0) * 100));
-    const total  = parseInt(o['Total de Produccion'])||0;
-    const avance = parseInt(o['Avance de produccion'])||0;
-    const id     = o['ID Produccion'] || '—';
-    const mc     = maqColor(o['Maquina']);
-    const mbg    = maqBg(o['Maquina']);
-    const pctCls = pct >= 100 ? 'done' : '';
-    const items  = _infoMap[id] || [];
+  const estado  = (o['Estado de produccion']||'').toLowerCase();
+  const badgeCls= estado==='en proceso' ? 'badge-proceso' : 'badge-cola';
 
-    const subTableHTML = items.length ? `
-      <table class="sub-table">
-        <thead><tr>
-          <th>Producto</th><th>Máquina</th><th>Avance</th><th>Restante</th>
-        </tr></thead>
-        <tbody>${items.map(i => {
+  // Dates
+  const inicio  = parseDate(o['Fecha de inicio']||o['Fecha de Inicio']);
+  const fin     = parseDate(o['Fecha de terminacion']||o['Fecha de Terminacion']);
+  const pedido  = parseDate(o['Fecha de Pedido']);
+  const startD  = inicio || pedido;
+  const endD    = fin;
+
+  // Time progress
+  let timePct=0, daysTotal=0, daysElapsed=0, isOverdue=false;
+  if (startD && endD) {
+    daysTotal   = Math.max(1, daysBetween(startD, endD));
+    daysElapsed = daysBetween(startD, now);
+    timePct     = Math.min(100, Math.max(0, Math.round(daysElapsed/daysTotal*100)));
+    isOverdue   = now > endD;
+  }
+  const todayPct = startD && endD
+    ? Math.min(100, Math.max(0, daysBetween(startD,now)/daysTotal*100)) : null;
+
+  // Piece progress
+  const total  = parseInt(o['Total de Produccion'])||0;
+  const avance = parseInt(o['Avance de produccion'])||0;
+  const piecesPct = total>0 ? Math.min(100,Math.round(avance/total*100)) : 0;
+  const piecesColor = piecesPct>=100 ? '#22c55e' : hex;
+
+  // Products list
+  const prods = [...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ') || '—';
+
+  // Timeline HTML
+  const timelineHTML = (startD && endD) ? `
+    <div class="modal-timeline">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:.75rem;color:#9ca3af">Tiempo transcurrido</span>
+        <span style="font-size:1rem;font-weight:800;color:${isOverdue?'#f87171':hex}">
+          ${isOverdue?'Vencida · '+Math.abs(daysElapsed-daysTotal)+' días tarde':timePct+'%'}
+        </span>
+      </div>
+      <div class="mt-track-wrap">
+        <div class="mt-track">
+          <div class="mt-fill" style="width:${timePct}%;background:${isOverdue?'#dc2626':hex}"></div>
+        </div>
+        ${todayPct!==null?`<div class="mt-today-line" style="left:${todayPct}%;background:${isOverdue?'#f87171':'#fff'}"></div>`:''}
+      </div>
+      <div class="mt-dates">
+        <span>Inicio: ${fmtDate(startD)}</span>
+        <span style="color:${isOverdue?'#f87171':'#cbd5e1'}">Hoy: ${fmtDate(now)}</span>
+        <span>Fin: ${fmtDate(endD)}</span>
+      </div>
+      <div class="mt-today-lbl">Día ${Math.max(0,daysElapsed)} de ${daysTotal} (${daysTotal-Math.max(0,daysElapsed)} días restantes)</div>
+    </div>` : `<p style="font-size:.8rem;color:var(--gray)">No hay fechas de producción registradas.</p>`;
+
+  // Workers breakdown
+  // Detect worker name field (try common names)
+  const workerFieldCandidates = ['Trabajador','Operario','Operador','Nombre','Quien','Empleado','Usuario','Hecho por','By'];
+  let workerField = null;
+  if (items.length) {
+    const keys = Object.keys(items[0]);
+    for (const c of workerFieldCandidates) {
+      if (keys.some(k => k.toLowerCase().includes(c.toLowerCase()))) {
+        workerField = keys.find(k => k.toLowerCase().includes(c.toLowerCase()));
+        break;
+      }
+    }
+  }
+
+  // Group by worker if field found, else by product
+  let workersHTML = '';
+  if (items.length) {
+    const maxAv = Math.max(1, ...items.map(i=>parseInt(i['Avance de produccion'])||0));
+
+    if (workerField) {
+      // Group by worker
+      const byWorker = {};
+      items.forEach(i => {
+        const w = i[workerField] || 'Sin nombre';
+        if (!byWorker[w]) byWorker[w] = { av:0, tot:0, prods:[] };
+        byWorker[w].av  += parseInt(i['Avance de produccion'])||0;
+        byWorker[w].tot += parseInt(i['Cantidad de Piezas'])||0;
+        if (i['Productos']) byWorker[w].prods.push(i['Productos']);
+      });
+      workersHTML = `<table class="workers-table">
+        <thead><tr><th>Trabajador</th><th>Productos</th><th>Producidas</th><th>Meta</th></tr></thead>
+        <tbody>${Object.entries(byWorker).map(([w,d])=>{
+          const pct = d.tot>0?Math.round(d.av/d.tot*100):0;
+          const barW = d.av>0?Math.round(d.av/maxAv*80):0;
+          return `<tr>
+            <td style="font-weight:600;color:#e5e7eb">${w}</td>
+            <td style="color:#9ca3af;font-size:.75rem">${[...new Set(d.prods)].join(', ')||'—'}</td>
+            <td>${d.av.toLocaleString('es-MX')}
+              <span class="wt-pct-bar" style="width:${barW}px;background:${hex}"></span>
+            </td>
+            <td style="color:${pct>=100?'#4ade80':'#fbbf24'};font-weight:600">${d.tot.toLocaleString('es-MX')} (${pct}%)</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>`;
+    } else {
+      // Show by product line
+      workersHTML = `<table class="workers-table">
+        <thead><tr><th>Producto</th><th>Máquina</th><th>Avance</th><th>Restante</th></tr></thead>
+        <tbody>${items.map(i=>{
           const rest = parseInt(i['Restante de Produccion'])||0;
           const av   = parseInt(i['Avance de produccion'])||0;
           const tot  = parseInt(i['Cantidad de Piezas'])||0;
@@ -626,63 +643,88 @@ function showDetail(k) {
             <td>${i['Productos']||'—'}</td>
             <td>${i['Maquina']||'—'}</td>
             <td>${av.toLocaleString('es-MX')} / ${tot.toLocaleString('es-MX')}</td>
-            <td class="${rest<=0?'text-green':'text-yellow'}">${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')}</td>
+            <td class="${rest<=0?'text-green':'text-yellow'}" style="${rest<=0?'color:#4ade80':'color:#fbbf24'};font-weight:600">
+              ${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')+' restantes'}
+            </td>
           </tr>`;
         }).join('')}</tbody>
-      </table>` : '';
+      </table>`;
+    }
+  } else {
+    workersHTML = '<p style="font-size:.8rem;color:var(--gray)">Sin detalle de fabricación registrado.</p>';
+  }
 
-    // primary product name
-    const prodName = items.length ? items.map(i=>i['Productos']||'').filter(Boolean).join(', ') : '—';
-
-    return `
-    <div class="order-row ${estado}">
+  document.getElementById('modal-box').innerHTML = `
+    <div class="modal-header">
       <div>
-        <div class="order-row-id">${id}</div>
-        <div class="order-row-meta" style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
-          <span class="maq-badge" style="background:${mbg};color:${mc}">${maqLabel(o['Maquina'])}</span>
-          <span class="status-badge-sm ${estado}">${o['Estado de produccion']}</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="modal-id">${id}</div>
+          <span class="badge ${badgeCls}">${o['Estado de produccion']}</span>
+          <span class="badge" style="background:${maqCfg.bg};color:${maqCfg.color};border:1px solid ${maqCfg.color}40">${maqCfg.label}</span>
         </div>
+        <div class="modal-sub">${prods}</div>
       </div>
-      <div class="order-row-main">
-        <div class="order-row-product">${prodName}</div>
-        <div class="prog-wrap">
-          <div class="prog-top">
-            <span class="prog-label">Avance</span>
-            <span class="prog-pct" style="color:${pct>=100?'#4ade80':'var(--orange)'}">${pct}%</span>
-          </div>
-          <div class="prog-track">
-            <div class="prog-fill ${pctCls}" style="width:${pct}%"></div>
-          </div>
-          <div class="prog-nums">
-            <span>${avance.toLocaleString('es-MX')} pzas producidas</span>
-            <span>${total.toLocaleString('es-MX')} total</span>
-          </div>
-        </div>
-        ${subTableHTML}
-      </div>
-    </div>`;
-  }).join('');
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
 
-  const panel = document.getElementById('detail-panel');
-  panel.innerHTML = `
-    <div class="detail-panel">
-      <div class="detail-panel-header">
-        <div>
-          <div class="detail-panel-date">${dateLabel}</div>
-          <div class="detail-panel-count">${orders.length} orden${orders.length!==1?'es':''} activa${orders.length!==1?'s':''}</div>
+      <!-- Info grid -->
+      <div class="modal-section">
+        <div class="modal-section-title">Datos generales</div>
+        <div class="info-grid">
+          <div class="info-cell"><div class="info-cell-lbl">Fecha pedido</div><div class="info-cell-val">${fmtDate(pedido)}</div></div>
+          <div class="info-cell"><div class="info-cell-lbl">Inicio producción</div><div class="info-cell-val">${fmtDate(inicio)}</div></div>
+          <div class="info-cell"><div class="info-cell-lbl">Fecha entrega</div><div class="info-cell-val" style="color:${isOverdue?'#f87171':'inherit'}">${fmtDate(endD)}</div></div>
+          <div class="info-cell"><div class="info-cell-lbl">Máquina</div><div class="info-cell-val" style="color:${hex}">${maqCfg.label}</div></div>
+          ${o['Definicion de color']?`<div class="info-cell"><div class="info-cell-lbl">Color</div><div class="info-cell-val">${o['Definicion de color']}</div></div>`:''}
+          ${o['Cliente']?`<div class="info-cell"><div class="info-cell-lbl">Cliente</div><div class="info-cell-val">${o['Cliente']}</div></div>`:''}
         </div>
-        <button class="detail-panel-close" onclick="closeDetail()" title="Cerrar">✕</button>
       </div>
-      <div class="order-list">${rowsHTML}</div>
+
+      <!-- Timeline -->
+      <div class="modal-section">
+        <div class="modal-section-title">Tiempo de producción</div>
+        ${timelineHTML}
+      </div>
+
+      <!-- Pieces progress -->
+      <div class="modal-section">
+        <div class="modal-section-title">Avance de piezas</div>
+        <div class="pieces-big">
+          <span class="pieces-big-val" style="color:${piecesColor}">${avance.toLocaleString('es-MX')}</span>
+          <span class="pieces-big-total">de ${total.toLocaleString('es-MX')} piezas</span>
+          <span style="font-size:1.25rem;font-weight:800;color:${piecesColor};margin-left:4px">${piecesPct}%</span>
+        </div>
+        <div class="pieces-bar-track">
+          <div class="pieces-bar-fill" style="width:${piecesPct}%;background:${piecesColor}"></div>
+        </div>
+        ${total>0?`<div style="font-size:.75rem;color:var(--gray);margin-top:4px">${(total-avance).toLocaleString('es-MX')} piezas restantes</div>`:''}
+      </div>
+
+      <!-- Workers -->
+      <div class="modal-section">
+        <div class="modal-section-title">Detalle de producción</div>
+        ${workersHTML}
+      </div>
+
     </div>`;
-  panel.style.display = 'block';
+
+  document.getElementById('modal-overlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
 }
 
-function closeDetail() {
-  _selectedDay = null;
-  document.getElementById('detail-panel').style.display = 'none';
-  renderCalendar();
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal-overlay')) return;
+  document.getElementById('modal-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
 }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('modal-overlay').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+});
 </script>
 </body>
 </html>
