@@ -193,6 +193,7 @@ const MAQ_HEX = Object.fromEntries(MACH.map(m=>[m.n, m.hex]));
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
 function maqN(raw){ const m=String(raw||'').trim().match(/(\d+)/); return m?m[1]:'?'; }
+function prodName(code){ return _catMap[code] || code; }
 
 // ─── AUTH ─────────────────────────────────────────────
 async function sha256(s){
@@ -271,15 +272,17 @@ function getStart(o){return parseD(o['Fecha de inicio']||o['Fecha de Inicio'])||
 function getEnd(o){return parseD(o['Fecha de terminacion']||o['Fecha de Terminacion']);}
 
 // ─── GLOBAL STATE ─────────────────────────────────────
-let _all=[], _imap={};
+let _all=[], _imap={}, _catMap={};
 
 // ─── LOAD DATA ────────────────────────────────────────
 async function loadData(){
   document.getElementById('cd').textContent='60'; _cd=60;
   try{
-    const [ord,inf]=await Promise.all([fetchAS('orden de produccion'),fetchAS('informacion de produccion')]);
+    const [ord,inf,cat]=await Promise.all([fetchAS('orden de produccion'),fetchAS('informacion de produccion'),fetchAS('catalogo')]);
     _imap={};
     (inf||[]).forEach(i=>{const id=i['ID Produccion'];if(!_imap[id])_imap[id]=[];_imap[id].push(i);});
+    _catMap={};
+    (cat||[]).forEach(c=>{if(c['ID producto']&&c['Productos']) _catMap[c['ID producto']]=c['Productos'];});
     _all=(ord||[]).filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
     const proc=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en proceso');
     const cola=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en cola');
@@ -371,7 +374,7 @@ function renderGantt(){
       const id=o['ID Produccion']||'—';
       const eid=id.replace(/'/g,"\\'").replace(/"/g,'&quot;');
       const items=_imap[id]||[];
-      const prods=[...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ')||'—';
+      const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
       const total=parseInt(o['Total de Produccion'])||0;
       const avance=parseInt(o['Avance de produccion'])||0;
       const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
@@ -515,7 +518,7 @@ function openModal(id){
         if(!byW[w]) byW[w]={av:0,tot:0,prods:[]};
         byW[w].av+=parseInt(i['Avance de produccion'])||0;
         byW[w].tot+=parseInt(i['Cantidad de Piezas'])||0;
-        if(i['Productos']) byW[w].prods.push(i['Productos']);
+        if(i['Productos']) byW[w].prods.push(prodName(i['Productos']));
       });
       wHTML=`<table class="wtable"><thead><tr><th>Trabajador</th><th>Producto(s)</th><th>Piezas</th><th>Meta</th></tr></thead><tbody>
       ${Object.entries(byW).map(([w,d])=>{
@@ -535,7 +538,7 @@ function openModal(id){
         const av=parseInt(i['Avance de produccion'])||0;
         const tot=parseInt(i['Cantidad de Piezas'])||0;
         return `<tr>
-          <td>${i['Productos']||'—'}</td><td>${i['Maquina']||'—'}</td>
+          <td>${prodName(i['Productos'])||'—'}</td><td>${i['Maquina']||'—'}</td>
           <td>${av.toLocaleString('es-MX')} / ${tot.toLocaleString('es-MX')}</td>
           <td style="color:${rest<=0?'#4ade80':'#fbbf24'};font-weight:600">${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')}</td>
         </tr>`;
@@ -550,7 +553,7 @@ function openModal(id){
   if(items.length){
     const byProd={};
     items.forEach(i=>{
-      const pn=i['Productos']||'(sin nombre)';
+      const pn=prodName(i['Productos'])||'(sin nombre)';
       if(!byProd[pn]) byProd[pn]={av:0,tot:0,rest:0};
       byProd[pn].av  += parseInt(i['Avance de produccion'])||0;
       byProd[pn].tot += parseInt(i['Cantidad de Piezas'])||0;
