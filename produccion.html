@@ -9,14 +9,11 @@
 :root{
   --orange:#e85d00;--navy:#1a1a2e;--bg:#0f0f1a;--card:#1a1a2e;
   --border:rgba(255,255,255,0.08);--gray:#6b7280;
-  --green:#16a34a;--red:#dc2626;
   --m1:#f59e0b;--m2:#0d9488;--m3:#3b82f6;--m4:#ec4899;--m5:#8b5cf6;
-  --m1b:rgba(245,158,11,.15);--m2b:rgba(13,148,136,.15);
-  --m3b:rgba(59,130,246,.15);--m4b:rgba(236,72,153,.15);--m5b:rgba(139,92,246,.15);
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e7eb;min-height:100vh}
 
-/* ── LOGIN ── */
+/* LOGIN */
 #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
 .login-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:380px}
 .login-logo{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1.5rem}
@@ -32,134 +29,80 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
 .btn-login:hover{opacity:.9}
 .btn-login:disabled{opacity:.5;cursor:not-allowed}
 
-/* ── TOP BAR ── */
+/* TOP BAR */
 #dashboard{display:none;min-height:100vh}
-.top-bar{background:var(--navy);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
-.top-bar-left{display:flex;align-items:center;gap:1rem}
-.top-bar-logo{width:34px;height:34px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
-.top-bar-title{font-size:.95rem;font-weight:700;color:#fff}
-.top-bar-badge{background:rgba(232,93,0,.15);color:var(--orange);border:1px solid rgba(232,93,0,.3);border-radius:20px;font-size:.72rem;padding:2px 10px;font-weight:600}
-.top-bar-right{display:flex;align-items:center;gap:.75rem}
-.user-label{font-size:.78rem;color:var(--gray)}
-.btn-sm{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:background .2s}
+.top-bar{background:var(--navy);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.tbl{display:flex;align-items:center;gap:1rem}
+.tbl-logo{width:34px;height:34px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.tbl-title{font-size:.95rem;font-weight:700;color:#fff}
+.tbl-badge{background:rgba(232,93,0,.15);color:var(--orange);border:1px solid rgba(232,93,0,.3);border-radius:20px;font-size:.72rem;padding:2px 10px;font-weight:600}
+.tbr{display:flex;align-items:center;gap:.75rem}
+.user-lbl{font-size:.78rem;color:var(--gray)}
+.btn-sm{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;padding:6px 14px;font-size:.78rem;cursor:pointer}
 .btn-sm:hover{background:rgba(255,255,255,.12)}
-.btn-logout{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gray);border-radius:7px;padding:6px 12px;font-size:.78rem;cursor:pointer}
-.btn-logout:hover{border-color:rgba(239,68,68,.4);color:#fca5a5}
+.btn-out{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gray);border-radius:7px;padding:6px 12px;font-size:.78rem;cursor:pointer}
+.btn-out:hover{border-color:rgba(239,68,68,.4);color:#fca5a5}
 
-/* ── MAIN ── */
-.main{padding:1.5rem;max-width:1400px;margin:0 auto}
-.refresh-bar{font-size:.74rem;color:var(--gray);text-align:right;margin-bottom:1.25rem}
-#refresh-countdown{color:var(--orange);font-weight:600}
+/* MAIN */
+.main{padding:1.25rem 1.5rem;max-width:1600px;margin:0 auto}
+.refresh-bar{font-size:.73rem;color:var(--gray);text-align:right;margin-bottom:1rem}
+#cd{color:var(--orange);font-weight:600}
 
-/* Stats */
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1.5rem}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem}
-.stat-lbl{font-size:.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.stat-val{font-size:1.55rem;font-weight:800;color:#fff}
-.stat-sub{font-size:.7rem;color:var(--gray);margin-top:2px}
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.25rem}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.85rem 1rem}
+.sc-lbl{font-size:.68rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.sc-val{font-size:1.5rem;font-weight:800;color:#fff}
+.sc-sub{font-size:.68rem;color:var(--gray);margin-top:2px}
 
-/* ── MACHINE PANELS ── */
-.machines-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:16px}
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.modal-ov.hidden{display:none}
+.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;animation:pop .18s ease}
+@keyframes pop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.mh{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:#1a1a2e;z-index:1}
+.mh-id{font-size:1.2rem;font-weight:800;color:#fff}
+.mh-sub{font-size:.76rem;color:var(--gray);margin-top:3px}
+.mclose{background:rgba(255,255,255,.08);border:none;color:#9ca3af;border-radius:8px;width:32px;height:32px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mclose:hover{background:rgba(255,255,255,.15);color:#fff}
+.mb{padding:18px 22px}
+.ms{margin-bottom:18px}
+.ms-ttl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.ms-ttl::after{content:'';flex:1;height:1px;background:var(--border)}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.ic{background:rgba(255,255,255,.04);border-radius:9px;padding:9px 11px}
+.ic-l{font-size:.64rem;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.ic-v{font-size:.85rem;font-weight:600;color:#e5e7eb}
+.badge{font-size:.66rem;font-weight:600;padding:2px 8px;border-radius:20px}
+.b-proceso{background:rgba(232,93,0,.15);color:#fb923c;border:1px solid rgba(232,93,0,.3)}
+.b-cola{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
+.b-vencido{background:rgba(220,38,38,.15);color:#f87171;border:1px solid rgba(220,38,38,.3)}
+.tl-wrap{background:rgba(255,255,255,.03);border-radius:11px;padding:13px}
+.tl-bar-wrap{position:relative;margin:9px 0 6px}
+.tl-track{height:11px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
+.tl-fill{height:100%;border-radius:6px}
+.tl-now{position:absolute;top:-4px;width:3px;height:19px;border-radius:2px;background:#fff;transform:translateX(-50%);box-shadow:0 0 8px rgba(255,255,255,.5)}
+.tl-dates{display:flex;justify-content:space-between;font-size:.68rem;color:var(--gray)}
+.pieces-big{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+.pb-val{font-size:1.9rem;font-weight:800}
+.pb-tot{font-size:.95rem;color:var(--gray)}
+.pb-pct{font-size:1.2rem;font-weight:800;margin-left:4px}
+.pb-track{height:11px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin-bottom:5px}
+.pb-fill{height:100%;border-radius:8px}
+.wtable{width:100%;border-collapse:collapse}
+.wtable th{font-size:.64rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);padding:5px 9px;text-align:left;border-bottom:1px solid var(--border)}
+.wtable td{font-size:.8rem;padding:7px 9px;border-bottom:1px solid rgba(255,255,255,.04);color:#d1d5db}
+.wtable tr:last-child td{border-bottom:none}
+.wbar{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin-left:5px}
 
-.machine-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-
-.mpanel-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.mpanel-title{display:flex;align-items:center;gap:10px}
-.mpanel-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.mpanel-name{font-size:1rem;font-weight:800;color:#fff}
-.mpanel-count{font-size:.72rem;color:var(--gray);background:rgba(255,255,255,.06);padding:2px 9px;border-radius:20px}
-
-.mpanel-body{flex:1;overflow-y:auto;max-height:480px}
-.mpanel-empty{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.83rem}
-
-/* ── ORDER ITEM ── */
-.order-item{padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;position:relative}
-.order-item:last-child{border-bottom:none}
-.order-item:hover{background:rgba(255,255,255,.04)}
-
-.oi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:8px}
-.oi-id{font-size:.93rem;font-weight:800;color:#fff}
-.oi-product{font-size:.75rem;color:#9ca3af;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
-.oi-badges{display:flex;gap:6px;flex-shrink:0}
-
-.badge{font-size:.67rem;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
-.badge-proceso{background:rgba(232,93,0,.15);color:#fb923c;border:1px solid rgba(232,93,0,.3)}
-.badge-cola{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
-.badge-vencido{background:rgba(220,38,38,.15);color:#f87171;border:1px solid rgba(220,38,38,.3)}
-
-/* Time progress */
-.time-prog{margin-bottom:8px}
-.time-prog-labels{display:flex;justify-content:space-between;font-size:.67rem;color:var(--gray);margin-bottom:3px}
-.time-prog-track{height:8px;background:rgba(255,255,255,.07);border-radius:6px;overflow:visible;position:relative}
-.time-prog-fill{height:100%;border-radius:6px;transition:width .5s ease;position:relative}
-.time-prog-marker{position:absolute;right:-1px;top:-3px;width:3px;height:14px;border-radius:2px;background:#fff;opacity:.7}
-.time-prog-info{display:flex;justify-content:space-between;font-size:.67rem;color:var(--gray);margin-top:3px}
-.time-prog-info .day-count{color:#cbd5e1;font-weight:600}
-
-/* Pieces progress */
-.pieces-prog{margin-top:6px}
-.pieces-prog-row{display:flex;align-items:center;gap:8px}
-.pieces-prog-track{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
-.pieces-prog-fill{height:100%;border-radius:4px;transition:width .5s ease}
-.pieces-prog-label{font-size:.68rem;color:var(--gray);white-space:nowrap}
-.pieces-pct{font-size:.72rem;font-weight:700;white-space:nowrap;min-width:32px;text-align:right}
-
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
-.modal-overlay.hidden{display:none}
-.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;animation:popIn .2s ease}
-@keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-
-.modal-header{padding:20px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:#1a1a2e;z-index:1}
-.modal-id{font-size:1.25rem;font-weight:800;color:#fff}
-.modal-sub{font-size:.78rem;color:var(--gray);margin-top:3px}
-.modal-close{background:rgba(255,255,255,.08);border:none;color:#9ca3af;border-radius:8px;width:32px;height:32px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
-.modal-close:hover{background:rgba(255,255,255,.15);color:#fff}
-
-.modal-body{padding:20px 22px}
-.modal-section{margin-bottom:20px}
-.modal-section-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* Info grid */
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.info-cell{background:rgba(255,255,255,.04);border-radius:10px;padding:10px 12px}
-.info-cell-lbl{font-size:.67rem;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
-.info-cell-val{font-size:.88rem;font-weight:600;color:#e5e7eb}
-
-/* Timeline in modal */
-.modal-timeline{background:rgba(255,255,255,.04);border-radius:12px;padding:14px}
-.mt-track-wrap{position:relative;margin:10px 0 6px}
-.mt-track{height:10px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
-.mt-fill{height:100%;border-radius:6px;transition:width .6s ease}
-.mt-today-line{position:absolute;top:-4px;height:18px;width:2px;border-radius:2px;background:#fff;transform:translateX(-50%);box-shadow:0 0 6px rgba(255,255,255,.5)}
-.mt-dates{display:flex;justify-content:space-between;font-size:.7rem;color:var(--gray)}
-.mt-today-lbl{text-align:center;font-size:.7rem;color:#cbd5e1;font-weight:600;margin-top:4px}
-
-/* Pieces modal */
-.pieces-big{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
-.pieces-big-val{font-size:2rem;font-weight:800}
-.pieces-big-total{font-size:1rem;color:var(--gray)}
-.pieces-bar-track{height:12px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin-bottom:6px}
-.pieces-bar-fill{height:100%;border-radius:8px}
-
-/* Workers table */
-.workers-table{width:100%;border-collapse:collapse}
-.workers-table th{font-size:.67rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);padding:6px 10px;text-align:left;border-bottom:1px solid var(--border)}
-.workers-table td{font-size:.82rem;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:#d1d5db}
-.workers-table tr:last-child td{border-bottom:none}
-.workers-table tr:hover td{background:rgba(255,255,255,.03)}
-.wt-pct-bar{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin-left:6px}
-
-/* Loading */
+/* LOADING */
 .loading-state{text-align:center;padding:4rem 1rem;color:var(--gray)}
 .spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 @media(max-width:600px){
-  .machines-grid{grid-template-columns:1fr}
   .stats-bar{grid-template-columns:repeat(2,1fr)}
-  .top-bar-title{display:none}
+  .tbl-title{display:none}
 }
 </style>
 </head>
@@ -189,48 +132,42 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
 <!-- DASHBOARD -->
 <div id="dashboard">
   <div class="top-bar">
-    <div class="top-bar-left">
-      <div class="top-bar-logo">IND</div>
-      <span class="top-bar-title">Panel de Producción</span>
-      <span class="top-bar-badge">EN VIVO</span>
+    <div class="tbl">
+      <div class="tbl-logo">IND</div>
+      <span class="tbl-title">Producción</span>
+      <span class="tbl-badge">EN VIVO</span>
     </div>
-    <div class="top-bar-right">
-      <span class="user-label" id="user-label"></span>
+    <div class="tbr">
+      <span class="user-lbl" id="user-label"></span>
       <button class="btn-sm" onclick="loadData()">↺ Actualizar</button>
-      <button class="btn-logout" onclick="doLogout()">Salir</button>
+      <button class="btn-out" onclick="doLogout()">Salir</button>
     </div>
   </div>
 
   <div class="main">
     <div class="refresh-bar">
-      Última actualización: <span id="last-updated">—</span>
-      &nbsp;·&nbsp; Próxima actualización en <span id="refresh-countdown">60</span>s
+      Actualizado: <span id="last-updated">—</span>
+      &nbsp;·&nbsp; Próximo en <span id="cd">60</span>s
     </div>
-
-    <!-- Stats -->
     <div class="stats-bar">
-      <div class="stat-card"><div class="stat-lbl">En proceso</div><div class="stat-val" id="stat-proceso">—</div><div class="stat-sub">órdenes activas</div></div>
-      <div class="stat-card"><div class="stat-lbl">En cola</div><div class="stat-val" id="stat-cola">—</div><div class="stat-sub">esperando</div></div>
-      <div class="stat-card"><div class="stat-lbl">Piezas activas</div><div class="stat-val" id="stat-piezas">—</div><div class="stat-sub">en producción</div></div>
-      <div class="stat-card"><div class="stat-lbl">Máquinas activas</div><div class="stat-val" id="stat-maquinas">—</div><div class="stat-sub">de 5 disponibles</div></div>
+      <div class="sc"><div class="sc-lbl">En proceso</div><div class="sc-val" id="s-proceso">—</div><div class="sc-sub">órdenes</div></div>
+      <div class="sc"><div class="sc-lbl">En cola</div><div class="sc-val" id="s-cola">—</div><div class="sc-sub">esperando</div></div>
+      <div class="sc"><div class="sc-lbl">Piezas activas</div><div class="sc-val" id="s-piezas">—</div><div class="sc-sub">en producción</div></div>
+      <div class="sc"><div class="sc-lbl">Máquinas activas</div><div class="sc-val" id="s-maq">—</div><div class="sc-sub">de 5</div></div>
     </div>
-
-    <!-- Machine panels -->
-    <div id="machines-container">
-      <div class="loading-state"><div class="spinner"></div>Cargando producción…</div>
+    <div id="gantt-container">
+      <div class="loading-state"><div class="spinner"></div>Cargando Gantt…</div>
     </div>
   </div>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay hidden" id="modal-overlay" onclick="closeModal(event)">
+<div class="modal-ov hidden" id="modal-ov" onclick="closeModal(event)">
   <div class="modal-box" id="modal-box"></div>
 </div>
 
 <script>
-// ══════════════════════════════════════
-// USERS
-// ══════════════════════════════════════
+// ─── USERS ───────────────────────────────────────────
 const USERS = {
   "diego@indram.net":         "9e34c31df1032dc4b4b7a8d2505fd74b0456f32bb57e12befd2d129588491e9f",
   "online@indram.net":        "c3b61ddb32dcf4c8df5afe2ba84f205db94dce925b330cec870a118910f261c2",
@@ -239,492 +176,428 @@ const USERS = {
   "sercho3121@gmail.com":     "26fbd956b2b459c2dfff453f6d0234fbb68055a1b2c5a49587d3e77089d18f01"
 };
 
-// ══════════════════════════════════════
-// APPSHEET
-// ══════════════════════════════════════
+// ─── APPSHEET ─────────────────────────────────────────
 const AS_APP  = 'd911f699-9021-4bf3-a892-6eb81926c6fe';
 const AS_KEY  = 'V2-x1VkT-hyljn-EF7IT-qTksN-5CsNG-2bx0W-2rrtI-ciqHH';
 const AS_BASE = `https://api.appsheet.com/api/v2/apps/${AS_APP}/tables`;
 
-// ══════════════════════════════════════
-// MACHINE CONFIG
-// ══════════════════════════════════════
-const MACHINES = [
-  { num:'1', label:'Máquina 1', color:'var(--m1)', bg:'var(--m1b)' },
-  { num:'2', label:'Máquina 2', color:'var(--m2)', bg:'var(--m2b)' },
-  { num:'3', label:'Máquina 3', color:'var(--m3)', bg:'var(--m3b)' },
-  { num:'4', label:'Máquina 4', color:'var(--m4)', bg:'var(--m4b)' },
-  { num:'5', label:'Máquina 5', color:'var(--m5)', bg:'var(--m5b)' },
+// ─── MACHINES ─────────────────────────────────────────
+const MACH = [
+  {n:'1', label:'Máquina 1', hex:'#f59e0b'},
+  {n:'2', label:'Máquina 2', hex:'#0d9488'},
+  {n:'3', label:'Máquina 3', hex:'#3b82f6'},
+  {n:'4', label:'Máquina 4', hex:'#ec4899'},
+  {n:'5', label:'Máquina 5', hex:'#8b5cf6'},
 ];
-const MAQ_COLOR = {'1':'var(--m1)','2':'var(--m2)','3':'var(--m3)','4':'var(--m4)','5':'var(--m5)'};
-const MAQ_HEX   = {'1':'#f59e0b','2':'#0d9488','3':'#3b82f6','4':'#ec4899','5':'#8b5cf6'};
+const MAQ_HEX = Object.fromEntries(MACH.map(m=>[m.n, m.hex]));
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
-function maqNum(raw) {
-  if (!raw) return '?';
-  const m = String(raw).trim().match(/(\d+)/);
-  return m ? m[1] : String(raw).trim();
-}
+function maqN(raw){ const m=String(raw||'').trim().match(/(\d+)/); return m?m[1]:'?'; }
 
-// ══════════════════════════════════════
-// AUTH
-// ══════════════════════════════════════
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+// ─── AUTH ─────────────────────────────────────────────
+async function sha256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
 }
-async function doLogin() {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const pass  = document.getElementById('login-pass').value;
-  const errEl = document.getElementById('login-error');
-  const btn   = document.getElementById('login-btn');
-  errEl.style.display = 'none';
-  if (!email || !pass) { showErr('Ingresa tu correo y contraseña.'); return; }
-  if (!USERS[email])   { showErr('Correo no autorizado.'); return; }
-  btn.disabled = true; btn.textContent = 'Verificando…';
-  const hash = await sha256(email + ':' + pass);
-  if (hash !== USERS[email]) {
-    showErr('Contraseña incorrecta.');
-    btn.disabled = false; btn.textContent = 'Entrar al área de producción';
-    return;
-  }
-  sessionStorage.setItem('prod_user', email);
-  startDashboard(email);
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim().toLowerCase();
+  const pass=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-error'), btn=document.getElementById('login-btn');
+  err.style.display='none';
+  if(!email||!pass){showErr('Ingresa tu correo y contraseña.');return;}
+  if(!USERS[email]){showErr('Correo no autorizado.');return;}
+  btn.disabled=true; btn.textContent='Verificando…';
+  const h=await sha256(email+':'+pass);
+  if(h!==USERS[email]){showErr('Contraseña incorrecta.');btn.disabled=false;btn.textContent='Entrar al área de producción';return;}
+  sessionStorage.setItem('prod_user',email);
+  startDash(email);
 }
-function showErr(msg) {
-  const el = document.getElementById('login-error');
-  el.textContent = msg; el.style.display = 'block';
+function showErr(m){const e=document.getElementById('login-error');e.textContent=m;e.style.display='block';}
+function doLogout(){
+  sessionStorage.removeItem('prod_user'); clearInterval(window._cdt);
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('login-email').value='';
+  document.getElementById('login-pass').value='';
 }
-function doLogout() {
-  sessionStorage.removeItem('prod_user');
-  clearInterval(window._cdTimer);
-  document.getElementById('dashboard').style.display   = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-pass').value  = '';
-}
-document.getElementById('login-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-window.addEventListener('DOMContentLoaded', () => {
-  const u = sessionStorage.getItem('prod_user');
-  if (u && USERS[u]) startDashboard(u);
+document.getElementById('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+window.addEventListener('DOMContentLoaded',()=>{
+  const u=sessionStorage.getItem('prod_user');
+  if(u&&USERS[u]) startDash(u);
 });
 
-// ══════════════════════════════════════
-// DASHBOARD
-// ══════════════════════════════════════
-function startDashboard(email) {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
-  document.getElementById('user-label').textContent = email;
-  loadData();
-  startAutoRefresh();
+// ─── DASHBOARD ────────────────────────────────────────
+function startDash(email){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  document.getElementById('user-label').textContent=email;
+  loadData(); startAR();
 }
-let _cd = 60;
-function startAutoRefresh() {
-  clearInterval(window._cdTimer);
-  _cd = 60;
-  window._cdTimer = setInterval(() => {
+let _cd=60;
+function startAR(){
+  clearInterval(window._cdt); _cd=60;
+  window._cdt=setInterval(()=>{
     _cd--;
-    const el = document.getElementById('refresh-countdown');
-    if (el) el.textContent = _cd;
-    if (_cd <= 0) { _cd = 60; loadData(); }
-  }, 1000);
+    const e=document.getElementById('cd'); if(e) e.textContent=_cd;
+    if(_cd<=0){_cd=60; loadData();}
+  },1000);
 }
 
-// ══════════════════════════════════════
-// APPSHEET FETCH
-// ══════════════════════════════════════
-async function fetchAS(table) {
-  const res = await fetch(`${AS_BASE}/${encodeURIComponent(table)}/Action`, {
+// ─── APPSHEET FETCH ───────────────────────────────────
+async function fetchAS(t){
+  const r=await fetch(`${AS_BASE}/${encodeURIComponent(t)}/Action`,{
     method:'POST',
     headers:{'ApplicationAccessKey':AS_KEY,'Content-Type':'application/json'},
     body:JSON.stringify({Action:'Find',Properties:{Locale:'en-US',Timezone:'America/Mexico_City'},Rows:[]})
   });
-  return res.json();
+  return r.json();
 }
 
-// ══════════════════════════════════════
-// DATE HELPERS
-// ══════════════════════════════════════
-function parseDate(str) {
-  if (!str) return null;
-  const s = str.trim().split(' ')[0];
-  const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if (m) return new Date(+m[3], +m[1]-1, +m[2]);
-  const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (m2) return new Date(+m2[1], +m2[2]-1, +m2[3]);
+// ─── DATE HELPERS ─────────────────────────────────────
+function parseD(s){
+  if(!s) return null;
+  const p=s.trim().split(' ')[0];
+  let m=p.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m) return new Date(+m[3],+m[1]-1,+m[2]);
+  m=p.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(m) return new Date(+m[1],+m[2]-1,+m[3]);
   return null;
 }
-function parseDateTime(str) {
-  if (!str) return null;
-  // Try "MM/DD/YYYY HH:MM:SS"
-  const m = str.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
-  if (m) return new Date(+m[3], +m[1]-1, +m[2], +(m[4]||0), +(m[5]||0), +(m[6]||0));
-  return parseDate(str);
-}
-function fmtDate(d) {
-  if (!d) return '—';
-  return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});
-}
-function daysBetween(a, b) {
-  return Math.round((b - a) / 86400000);
-}
+function dKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dBetween(a,b){return Math.round((b-a)/86400000);}
+function dAdd(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
+function fmtD(d){if(!d)return'—';return d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});}
+function getStart(o){return parseD(o['Fecha de inicio']||o['Fecha de Inicio'])||parseD(o['Fecha de Pedido']);}
+function getEnd(o){return parseD(o['Fecha de terminacion']||o['Fecha de Terminacion']);}
 
-// ══════════════════════════════════════
-// GLOBAL STATE
-// ══════════════════════════════════════
-let _infoMap = {};  // id -> [info rows]
-let _allOrders = [];
+// ─── GLOBAL STATE ─────────────────────────────────────
+let _all=[], _imap={};
 
-// ══════════════════════════════════════
-// LOAD DATA
-// ══════════════════════════════════════
-async function loadData() {
-  document.getElementById('refresh-countdown').textContent = '60';
-  _cd = 60;
-  try {
-    const [ordenes, infos] = await Promise.all([
-      fetchAS('orden de produccion'),
-      fetchAS('informacion de produccion')
-    ]);
-
-    _infoMap = {};
-    (infos||[]).forEach(i => {
-      const id = i['ID Produccion'];
-      if (!_infoMap[id]) _infoMap[id] = [];
-      _infoMap[id].push(i);
-    });
-
-    _allOrders = (ordenes||[]).filter(o =>
-      ['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase())
-    );
-
-    const proceso = _allOrders.filter(o => (o['Estado de produccion']||'').toLowerCase()==='en proceso');
-    const cola    = _allOrders.filter(o => (o['Estado de produccion']||'').toLowerCase()==='en cola');
-    document.getElementById('stat-proceso').textContent = proceso.length;
-    document.getElementById('stat-cola').textContent    = cola.length;
-    document.getElementById('stat-piezas').textContent  =
-      _allOrders.reduce((s,o)=>s+(parseInt(o['Total de Produccion'])||0),0).toLocaleString('es-MX');
-    const maqsSet = new Set(_allOrders.map(o=>maqNum(o['Maquina'])).filter(x=>x&&x!=='?'));
-    document.getElementById('stat-maquinas').textContent = maqsSet.size;
-    document.getElementById('last-updated').textContent =
-      new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-
-    renderMachines();
-  } catch(e) {
-    document.getElementById('machines-container').innerHTML =
-      '<div class="loading-state" style="color:#fca5a5">Error al cargar datos. Intenta actualizar.</div>';
+// ─── LOAD DATA ────────────────────────────────────────
+async function loadData(){
+  document.getElementById('cd').textContent='60'; _cd=60;
+  try{
+    const [ord,inf]=await Promise.all([fetchAS('orden de produccion'),fetchAS('informacion de produccion')]);
+    _imap={};
+    (inf||[]).forEach(i=>{const id=i['ID Produccion'];if(!_imap[id])_imap[id]=[];_imap[id].push(i);});
+    _all=(ord||[]).filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
+    const proc=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en proceso');
+    const cola=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en cola');
+    document.getElementById('s-proceso').textContent=proc.length;
+    document.getElementById('s-cola').textContent=cola.length;
+    document.getElementById('s-piezas').textContent=_all.reduce((s,o)=>s+(parseInt(o['Total de Produccion'])||0),0).toLocaleString('es-MX');
+    document.getElementById('s-maq').textContent=new Set(_all.map(o=>maqN(o['Maquina'])).filter(x=>x!=='?')).size;
+    document.getElementById('last-updated').textContent=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    renderGantt();
+  }catch(e){
+    document.getElementById('gantt-container').innerHTML='<div class="loading-state" style="color:#fca5a5">Error al cargar. Intenta actualizar.</div>';
     console.error(e);
   }
 }
 
-// ══════════════════════════════════════
-// RENDER MACHINE PANELS
-// ══════════════════════════════════════
-function renderMachines() {
-  const now = new Date();
+// ─── GANTT ────────────────────────────────────────────
+const DW=30,LW=215,RH=40,MH=30,HH=52;
 
-  const html = `<div class="machines-grid">` +
-    MACHINES.map(maq => {
-      const orders = _allOrders.filter(o => maqNum(o['Maquina']) === maq.num);
-      const countLabel = orders.length
-        ? `${orders.length} orden${orders.length!==1?'es':''}`
-        : 'libre';
+function renderGantt(){
+  const now=new Date(); now.setHours(12,0,0,0);
+  const todayStr=dKey(now);
 
-      const bodyHTML = orders.length === 0
-        ? `<div class="mpanel-empty">Sin órdenes activas</div>`
-        : orders.map(o => renderOrderItem(o, maq, now)).join('');
+  // Compute view window
+  let vs=dAdd(now,-14), ve=dAdd(now,45);
+  _all.forEach(o=>{
+    const s=getStart(o), e=getEnd(o);
+    if(s&&s<vs) vs=dAdd(s,-3);
+    if(e&&e>ve) ve=dAdd(e,3);
+  });
+  vs.setHours(0,0,0,0); ve.setHours(0,0,0,0);
+  const nd=dBetween(vs,ve)+1;
+  const TW=LW+nd*DW;
+  const todayX=LW+dBetween(vs,now)*DW; // left edge of today column
 
-      return `
-      <div class="machine-panel" style="border-top:3px solid ${maq.color}">
-        <div class="mpanel-header">
-          <div class="mpanel-title">
-            <span class="mpanel-dot" style="background:${maq.color}"></span>
-            <span class="mpanel-name">${maq.label}</span>
-          </div>
-          <span class="mpanel-count">${countLabel}</span>
-        </div>
-        <div class="mpanel-body">${bodyHTML}</div>
-      </div>`;
-    }).join('') + `</div>`;
-
-  document.getElementById('machines-container').innerHTML = html;
-}
-
-function renderOrderItem(o, maq, now) {
-  const id     = o['ID Produccion'] || '—';
-  const estado = (o['Estado de produccion']||'').toLowerCase();
-  const items  = _infoMap[id] || [];
-  const prods  = [...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ') || (o['Descripcion']||'—');
-
-  // Piece progress
-  const total  = parseInt(o['Total de Produccion'])||0;
-  const avance = parseInt(o['Avance de produccion'])||0;
-  const piecesPct = total > 0 ? Math.min(100, Math.round(avance/total*100)) : 0;
-  const piecesColor = piecesPct>=100 ? '#22c55e' : MAQ_HEX[maq.num] || '#e85d00';
-
-  // Time progress
-  const inicio = parseDate(o['Fecha de inicio']||o['Fecha de Inicio']);
-  const fin    = parseDate(o['Fecha de terminacion']||o['Fecha de Terminacion']);
-  const pedido = parseDate(o['Fecha de Pedido']);
-  const startD = inicio || pedido;
-  const endD   = fin;
-
-  let timePct = null, daysTotal = 0, daysElapsed = 0, isOverdue = false;
-  if (startD && endD) {
-    daysTotal   = Math.max(1, daysBetween(startD, endD));
-    daysElapsed = daysBetween(startD, now);
-    timePct     = Math.min(100, Math.max(0, Math.round(daysElapsed/daysTotal*100)));
-    isOverdue   = now > endD && piecesPct < 100;
+  // ── Header ──
+  // Month row
+  let mHTML=''; let c=new Date(vs);
+  while(c<=ve){
+    const mo=c.getMonth(), yr=c.getFullYear();
+    let cnt=0; let p=new Date(c);
+    while(p<=ve&&p.getMonth()===mo&&p.getFullYear()===yr){cnt++;p=dAdd(p,1);}
+    mHTML+=`<div style="width:${cnt*DW}px;flex-shrink:0;font-size:.67rem;font-weight:700;color:#9ca3af;text-transform:capitalize;padding:0 8px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;border-right:1px solid rgba(255,255,255,.06)">${MESES[mo]} ${yr}</div>`;
+    c=dAdd(c,cnt);
+  }
+  // Day row
+  let dHTML=''; c=new Date(vs);
+  for(let i=0;i<nd;i++){
+    const isT=dKey(c)===todayStr, isW=c.getDay()===0||c.getDay()===6;
+    dHTML+=`<div style="width:${DW}px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:${isT?'#e85d00':isW?'#4b5563':'#5a6070'};font-weight:${isT?800:400};background:${isT?'rgba(232,93,0,.15)':isW?'rgba(255,255,255,.025)':'transparent'};border-right:1px solid rgba(255,255,255,.04);flex-shrink:0">${c.getDate()}</div>`;
+    c=dAdd(c,1);
   }
 
-  // Status badge
-  let badgeCls = estado === 'en proceso' ? 'badge-proceso' : 'badge-cola';
-  let badgeTxt = o['Estado de produccion'] || '—';
-  if (isOverdue) { badgeCls = 'badge-vencido'; badgeTxt = 'Vencida'; }
-
-  const timeProgHTML = (timePct !== null) ? `
-    <div class="time-prog">
-      <div class="time-prog-labels">
-        <span>${fmtDate(startD)}</span>
-        <span style="color:${isOverdue?'#f87171':'#cbd5e1'};font-weight:600">
-          ${isOverdue ? 'Venció '+fmtDate(endD) : 'Día '+Math.max(0,daysElapsed)+' de '+daysTotal}
-        </span>
-        <span>${fmtDate(endD)}</span>
-      </div>
-      <div class="time-prog-track">
-        <div class="time-prog-fill" style="width:${timePct}%;background:${isOverdue?'#dc2626':MAQ_HEX[maq.num]||'#e85d00'}">
-          <div class="time-prog-marker"></div>
-        </div>
-      </div>
-    </div>` : `<div style="font-size:.7rem;color:var(--gray);margin-bottom:6px">Sin fechas de producción</div>`;
-
-  return `
-  <div class="order-item" onclick="openModal('${id}')">
-    <div class="oi-top">
-      <div>
-        <div class="oi-id">${id}</div>
-        <div class="oi-product">${prods}</div>
-      </div>
-      <div class="oi-badges">
-        <span class="badge ${badgeCls}">${badgeTxt}</span>
-      </div>
-    </div>
-    ${timeProgHTML}
-    <div class="pieces-prog">
-      <div class="pieces-prog-row">
-        <div class="pieces-prog-track">
-          <div class="pieces-prog-fill" style="width:${piecesPct}%;background:${piecesColor}"></div>
-        </div>
-        <span class="pieces-pct" style="color:${piecesColor}">${piecesPct}%</span>
-        <span class="pieces-prog-label">${avance.toLocaleString('es-MX')} / ${total.toLocaleString('es-MX')} pzas</span>
-      </div>
-    </div>
-  </div>`;
-}
-
-// ══════════════════════════════════════
-// MODAL
-// ══════════════════════════════════════
-function openModal(id) {
-  const o = _allOrders.find(x => x['ID Produccion'] === id);
-  if (!o) return;
-  const items   = _infoMap[id] || [];
-  const now     = new Date();
-  const mn      = maqNum(o['Maquina']);
-  const maqCfg  = MACHINES.find(m=>m.num===mn) || {label:'Máquina '+mn, color:'#9ca3af', bg:'rgba(156,163,175,.15)'};
-  const hex     = MAQ_HEX[mn] || '#9ca3af';
-
-  const estado  = (o['Estado de produccion']||'').toLowerCase();
-  const badgeCls= estado==='en proceso' ? 'badge-proceso' : 'badge-cola';
-
-  // Dates
-  const inicio  = parseDate(o['Fecha de inicio']||o['Fecha de Inicio']);
-  const fin     = parseDate(o['Fecha de terminacion']||o['Fecha de Terminacion']);
-  const pedido  = parseDate(o['Fecha de Pedido']);
-  const startD  = inicio || pedido;
-  const endD    = fin;
-
-  // Time progress
-  let timePct=0, daysTotal=0, daysElapsed=0, isOverdue=false;
-  if (startD && endD) {
-    daysTotal   = Math.max(1, daysBetween(startD, endD));
-    daysElapsed = daysBetween(startD, now);
-    timePct     = Math.min(100, Math.max(0, Math.round(daysElapsed/daysTotal*100)));
-    isOverdue   = now > endD;
-  }
-  const todayPct = startD && endD
-    ? Math.min(100, Math.max(0, daysBetween(startD,now)/daysTotal*100)) : null;
-
-  // Piece progress
-  const total  = parseInt(o['Total de Produccion'])||0;
-  const avance = parseInt(o['Avance de produccion'])||0;
-  const piecesPct = total>0 ? Math.min(100,Math.round(avance/total*100)) : 0;
-  const piecesColor = piecesPct>=100 ? '#22c55e' : hex;
-
-  // Products list
-  const prods = [...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ') || '—';
-
-  // Timeline HTML
-  const timelineHTML = (startD && endD) ? `
-    <div class="modal-timeline">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-size:.75rem;color:#9ca3af">Tiempo transcurrido</span>
-        <span style="font-size:1rem;font-weight:800;color:${isOverdue?'#f87171':hex}">
-          ${isOverdue?'Vencida · '+Math.abs(daysElapsed-daysTotal)+' días tarde':timePct+'%'}
-        </span>
-      </div>
-      <div class="mt-track-wrap">
-        <div class="mt-track">
-          <div class="mt-fill" style="width:${timePct}%;background:${isOverdue?'#dc2626':hex}"></div>
-        </div>
-        ${todayPct!==null?`<div class="mt-today-line" style="left:${todayPct}%;background:${isOverdue?'#f87171':'#fff'}"></div>`:''}
-      </div>
-      <div class="mt-dates">
-        <span>Inicio: ${fmtDate(startD)}</span>
-        <span style="color:${isOverdue?'#f87171':'#cbd5e1'}">Hoy: ${fmtDate(now)}</span>
-        <span>Fin: ${fmtDate(endD)}</span>
-      </div>
-      <div class="mt-today-lbl">Día ${Math.max(0,daysElapsed)} de ${daysTotal} (${daysTotal-Math.max(0,daysElapsed)} días restantes)</div>
-    </div>` : `<p style="font-size:.8rem;color:var(--gray)">No hay fechas de producción registradas.</p>`;
-
-  // Workers breakdown
-  // Detect worker name field (try common names)
-  const workerFieldCandidates = ['Trabajador','Operario','Operador','Nombre','Quien','Empleado','Usuario','Hecho por','By'];
-  let workerField = null;
-  if (items.length) {
-    const keys = Object.keys(items[0]);
-    for (const c of workerFieldCandidates) {
-      if (keys.some(k => k.toLowerCase().includes(c.toLowerCase()))) {
-        workerField = keys.find(k => k.toLowerCase().includes(c.toLowerCase()));
-        break;
-      }
-    }
+  // Today bg gradient helper (for each timeline cell)
+  const todayRel=dBetween(vs,now); // 0-indexed column
+  const tPx=todayRel*DW;
+  function rowBg(extra){
+    return `linear-gradient(to right,transparent ${tPx}px,rgba(232,93,0,.07) ${tPx}px,rgba(232,93,0,.07) ${tPx+DW}px,transparent ${tPx+DW}px)${extra||''}`;
   }
 
-  // Group by worker if field found, else by product
-  let workersHTML = '';
-  if (items.length) {
-    const maxAv = Math.max(1, ...items.map(i=>parseInt(i['Avance de produccion'])||0));
+  // ── Rows ──
+  let rows='';
 
-    if (workerField) {
-      // Group by worker
-      const byWorker = {};
-      items.forEach(i => {
-        const w = i[workerField] || 'Sin nombre';
-        if (!byWorker[w]) byWorker[w] = { av:0, tot:0, prods:[] };
-        byWorker[w].av  += parseInt(i['Avance de produccion'])||0;
-        byWorker[w].tot += parseInt(i['Cantidad de Piezas'])||0;
-        if (i['Productos']) byWorker[w].prods.push(i['Productos']);
-      });
-      workersHTML = `<table class="workers-table">
-        <thead><tr><th>Trabajador</th><th>Productos</th><th>Producidas</th><th>Meta</th></tr></thead>
-        <tbody>${Object.entries(byWorker).map(([w,d])=>{
-          const pct = d.tot>0?Math.round(d.av/d.tot*100):0;
-          const barW = d.av>0?Math.round(d.av/maxAv*80):0;
-          return `<tr>
-            <td style="font-weight:600;color:#e5e7eb">${w}</td>
-            <td style="color:#9ca3af;font-size:.75rem">${[...new Set(d.prods)].join(', ')||'—'}</td>
-            <td>${d.av.toLocaleString('es-MX')}
-              <span class="wt-pct-bar" style="width:${barW}px;background:${hex}"></span>
-            </td>
-            <td style="color:${pct>=100?'#4ade80':'#fbbf24'};font-weight:600">${d.tot.toLocaleString('es-MX')} (${pct}%)</td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table>`;
-    } else {
-      // Show by product line
-      workersHTML = `<table class="workers-table">
-        <thead><tr><th>Producto</th><th>Máquina</th><th>Avance</th><th>Restante</th></tr></thead>
-        <tbody>${items.map(i=>{
-          const rest = parseInt(i['Restante de Produccion'])||0;
-          const av   = parseInt(i['Avance de produccion'])||0;
-          const tot  = parseInt(i['Cantidad de Piezas'])||0;
-          return `<tr>
-            <td>${i['Productos']||'—'}</td>
-            <td>${i['Maquina']||'—'}</td>
-            <td>${av.toLocaleString('es-MX')} / ${tot.toLocaleString('es-MX')}</td>
-            <td class="${rest<=0?'text-green':'text-yellow'}" style="${rest<=0?'color:#4ade80':'color:#fbbf24'};font-weight:600">
-              ${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')+' restantes'}
-            </td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table>`;
-    }
-  } else {
-    workersHTML = '<p style="font-size:.8rem;color:var(--gray)">Sin detalle de fabricación registrado.</p>';
-  }
+  MACH.forEach(maq=>{
+    const orders=_all.filter(o=>maqN(o['Maquina'])===maq.n)
+      .sort((a,b)=>{const sa=getStart(a),sb=getStart(b);if(!sa&&!sb)return 0;if(!sa)return 1;if(!sb)return-1;return sa-sb;});
 
-  document.getElementById('modal-box').innerHTML = `
-    <div class="modal-header">
-      <div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="modal-id">${id}</div>
-          <span class="badge ${badgeCls}">${o['Estado de produccion']}</span>
-          <span class="badge" style="background:${maqCfg.bg};color:${maqCfg.color};border:1px solid ${maqCfg.color}40">${maqCfg.label}</span>
-        </div>
-        <div class="modal-sub">${prods}</div>
+    // Machine header row
+    rows+=`
+    <div style="display:flex;height:${MH}px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.1)">
+      <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:12;background:rgba(14,14,24,.98);border-right:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:8px;padding:0 14px;box-shadow:3px 0 10px rgba(0,0,0,.4)">
+        <span style="width:9px;height:9px;border-radius:50%;background:${maq.hex};flex-shrink:0"></span>
+        <span style="font-size:.77rem;font-weight:700;color:#fff">${maq.label}</span>
+        <span style="font-size:.63rem;color:#6b7280;margin-left:auto;background:rgba(255,255,255,.06);padding:1px 7px;border-radius:10px">${orders.length}</span>
       </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-
-      <!-- Info grid -->
-      <div class="modal-section">
-        <div class="modal-section-title">Datos generales</div>
-        <div class="info-grid">
-          <div class="info-cell"><div class="info-cell-lbl">Fecha pedido</div><div class="info-cell-val">${fmtDate(pedido)}</div></div>
-          <div class="info-cell"><div class="info-cell-lbl">Inicio producción</div><div class="info-cell-val">${fmtDate(inicio)}</div></div>
-          <div class="info-cell"><div class="info-cell-lbl">Fecha entrega</div><div class="info-cell-val" style="color:${isOverdue?'#f87171':'inherit'}">${fmtDate(endD)}</div></div>
-          <div class="info-cell"><div class="info-cell-lbl">Máquina</div><div class="info-cell-val" style="color:${hex}">${maqCfg.label}</div></div>
-          ${o['Definicion de color']?`<div class="info-cell"><div class="info-cell-lbl">Color</div><div class="info-cell-val">${o['Definicion de color']}</div></div>`:''}
-          ${o['Cliente']?`<div class="info-cell"><div class="info-cell-lbl">Cliente</div><div class="info-cell-val">${o['Cliente']}</div></div>`:''}
-        </div>
-      </div>
-
-      <!-- Timeline -->
-      <div class="modal-section">
-        <div class="modal-section-title">Tiempo de producción</div>
-        ${timelineHTML}
-      </div>
-
-      <!-- Pieces progress -->
-      <div class="modal-section">
-        <div class="modal-section-title">Avance de piezas</div>
-        <div class="pieces-big">
-          <span class="pieces-big-val" style="color:${piecesColor}">${avance.toLocaleString('es-MX')}</span>
-          <span class="pieces-big-total">de ${total.toLocaleString('es-MX')} piezas</span>
-          <span style="font-size:1.25rem;font-weight:800;color:${piecesColor};margin-left:4px">${piecesPct}%</span>
-        </div>
-        <div class="pieces-bar-track">
-          <div class="pieces-bar-fill" style="width:${piecesPct}%;background:${piecesColor}"></div>
-        </div>
-        ${total>0?`<div style="font-size:.75rem;color:var(--gray);margin-top:4px">${(total-avance).toLocaleString('es-MX')} piezas restantes</div>`:''}
-      </div>
-
-      <!-- Workers -->
-      <div class="modal-section">
-        <div class="modal-section-title">Detalle de producción</div>
-        ${workersHTML}
-      </div>
-
+      <div style="width:${nd*DW}px;background:${rowBg()}"></div>
     </div>`;
 
-  document.getElementById('modal-overlay').classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
+    if(!orders.length){
+      rows+=`
+      <div style="display:flex;height:${RH}px;border-bottom:1px solid rgba(255,255,255,.03)">
+        <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 14px;box-shadow:3px 0 10px rgba(0,0,0,.4)">
+          <span style="font-size:.72rem;color:#374151;font-style:italic">Sin órdenes activas</span>
+        </div>
+        <div style="width:${nd*DW}px;background:${rowBg()}"></div>
+      </div>`;
+    }
+
+    orders.forEach(o=>{
+      const id=o['ID Produccion']||'—';
+      const eid=id.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+      const items=_imap[id]||[];
+      const prods=[...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ')||'—';
+      const total=parseInt(o['Total de Produccion'])||0;
+      const avance=parseInt(o['Avance de produccion'])||0;
+      const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
+      const startD=getStart(o), endD=getEnd(o);
+      const isOverdue=endD&&now>endD&&pct<100;
+      const barHex=isOverdue?'#dc2626':maq.hex;
+      const estado=(o['Estado de produccion']||'').toLowerCase();
+
+      let barHTML='';
+      if(startD){
+        const bLeft=Math.max(0,dBetween(vs,startD))*DW;
+        const durD=endD?Math.max(1,dBetween(startD,endD)+1):7;
+        const bW=Math.max(DW*1.5, durD*DW);
+        const fillW=Math.max(3, pct/100*bW);
+        const title=`${id}: ${prods} | ${pct}% completado`;
+
+        barHTML=`
+        <div onclick="openModal('${eid}');event.stopPropagation()"
+          title="${title.replace(/"/g,'&quot;')}"
+          style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:24px;border-radius:5px;background:${barHex}22;border:1.5px solid ${barHex}55;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
+          onmouseover="this.style.borderColor='${barHex}';this.style.boxShadow='0 0 0 2px ${barHex}44'"
+          onmouseout="this.style.borderColor='${barHex}55';this.style.boxShadow='none'">
+          <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:${barHex};opacity:.8;border-radius:4px 0 0 4px;transition:width .4s"></div>
+          <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:.64rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.9);pointer-events:none">${id}</span>
+        </div>`;
+      }
+
+      rows+=`
+      <div style="display:flex;height:${RH}px;border-bottom:1px solid rgba(255,255,255,.03)">
+        <div onclick="openModal('${eid}')"
+          style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.07);padding:4px 14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;box-shadow:3px 0 10px rgba(0,0,0,.4);transition:background .15s"
+          onmouseover="this.style.background='rgba(255,255,255,.05)'"
+          onmouseout="this.style.background='#0f0f1a'">
+          <div style="font-size:.77rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${id}</div>
+          <div style="font-size:.64rem;color:#6b7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px">${prods}</div>
+        </div>
+        <div style="width:${nd*DW}px;position:relative;background:${rowBg()}">
+          ${barHTML}
+        </div>
+      </div>`;
+    });
+  });
+
+  // ── Today label on header ──
+  const todayLabelX = todayX;
+
+  document.getElementById('gantt-container').innerHTML=`
+  <div style="overflow-x:auto;overflow-y:auto;max-height:74vh;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#0f0f1a;position:relative" id="gantt-scroll">
+    <div style="min-width:${TW}px;position:relative">
+
+      <!-- STICKY HEADER -->
+      <div style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column;background:#0f0f1a">
+        <!-- months + today badge row -->
+        <div style="display:flex;height:26px;border-bottom:1px solid rgba(255,255,255,.06)">
+          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 14px">
+            <span style="font-size:.68rem;color:#374151;font-weight:600">DIAGRAMA DE GANTT</span>
+          </div>
+          <div style="display:flex;flex:1;position:relative">${mHTML}
+            <div style="position:absolute;left:${todayLabelX - LW + DW/2}px;top:3px;transform:translateX(-50%);background:#e85d00;color:#fff;font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:4px;pointer-events:none;white-space:nowrap">HOY</div>
+          </div>
+        </div>
+        <!-- day numbers row -->
+        <div style="display:flex;height:26px;border-bottom:1px solid rgba(255,255,255,.08)">
+          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.1)"></div>
+          <div style="display:flex">${dHTML}</div>
+        </div>
+      </div>
+
+      <!-- ROWS -->
+      ${rows}
+
+    </div>
+  </div>`;
+
+  // Scroll to show today in view
+  setTimeout(()=>{
+    const el=document.getElementById('gantt-scroll');
+    if(el) el.scrollLeft=Math.max(0, todayX - LW - 120);
+  },80);
 }
 
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modal-overlay')) return;
-  document.getElementById('modal-overlay').classList.add('hidden');
-  document.body.style.overflow = '';
-}
+// ─── MODAL ────────────────────────────────────────────
+function openModal(id){
+  const o=_all.find(x=>x['ID Produccion']===id);
+  if(!o) return;
+  const items=_imap[id]||[];
+  const now=new Date(); now.setHours(12,0,0,0);
+  const mn=maqN(o['Maquina']);
+  const hex=MAQ_HEX[mn]||'#9ca3af';
+  const mLabel=(MACH.find(m=>m.n===mn)||{label:'Máquina '+mn}).label;
+  const startD=getStart(o), endD=getEnd(o), pedD=parseD(o['Fecha de Pedido']);
+  const total=parseInt(o['Total de Produccion'])||0;
+  const avance=parseInt(o['Avance de produccion'])||0;
+  const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
+  const pColor=pct>=100?'#22c55e':hex;
+  const estado=(o['Estado de produccion']||'').toLowerCase();
+  const badgeCls=estado==='en proceso'?'b-proceso':'b-cola';
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.getElementById('modal-overlay').classList.add('hidden');
-    document.body.style.overflow = '';
+  // Timeline
+  let tlHTML='<p style="font-size:.78rem;color:var(--gray)">Sin fechas de producción registradas.</p>';
+  if(startD&&endD){
+    const tot=Math.max(1,dBetween(startD,endD));
+    const elapsed=dBetween(startD,now);
+    const tPct=Math.min(100,Math.max(0,Math.round(elapsed/tot*100)));
+    const isOv=now>endD&&pct<100;
+    const tHex=isOv?'#dc2626':hex;
+    const nowPct=Math.min(100,Math.max(0,elapsed/tot*100));
+    tlHTML=`
+    <div class="tl-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:.73rem;color:#9ca3af">Tiempo transcurrido</span>
+        <span style="font-size:.98rem;font-weight:800;color:${isOv?'#f87171':tHex}">${isOv?'VENCIDA — '+(elapsed-tot)+' días tarde':tPct+'%'}</span>
+      </div>
+      <div class="tl-bar-wrap">
+        <div class="tl-track"><div class="tl-fill" style="width:${tPct}%;background:${tHex}"></div></div>
+        <div class="tl-now" style="left:${nowPct}%;background:${isOv?'#f87171':'#fff'}"></div>
+      </div>
+      <div class="tl-dates">
+        <span>Inicio: ${fmtD(startD)}</span>
+        <span style="color:${isOv?'#f87171':'#cbd5e1'}">Hoy: día ${Math.max(0,elapsed)} de ${tot} · ${Math.max(0,tot-elapsed)} restantes</span>
+        <span>Fin: ${fmtD(endD)}</span>
+      </div>
+    </div>`;
   }
-});
+
+  // Workers
+  const wField=['Trabajador','Operario','Operador','Nombre','Quien','Empleado'].reduce((f,c)=>{
+    if(f) return f;
+    if(!items.length) return null;
+    const k=Object.keys(items[0]).find(k=>k.toLowerCase().includes(c.toLowerCase()));
+    return k||null;
+  },null);
+
+  let wHTML='<p style="font-size:.78rem;color:var(--gray)">Sin detalle de fabricación registrado.</p>';
+  if(items.length){
+    const maxAv=Math.max(1,...items.map(i=>parseInt(i['Avance de produccion'])||0));
+    if(wField){
+      const byW={};
+      items.forEach(i=>{
+        const w=i[wField]||'Sin nombre';
+        if(!byW[w]) byW[w]={av:0,tot:0,prods:[]};
+        byW[w].av+=parseInt(i['Avance de produccion'])||0;
+        byW[w].tot+=parseInt(i['Cantidad de Piezas'])||0;
+        if(i['Productos']) byW[w].prods.push(i['Productos']);
+      });
+      wHTML=`<table class="wtable"><thead><tr><th>Trabajador</th><th>Producto(s)</th><th>Piezas</th><th>Meta</th></tr></thead><tbody>
+      ${Object.entries(byW).map(([w,d])=>{
+        const bp=d.tot>0?Math.round(d.av/d.tot*100):0;
+        const bw=Math.round(d.av/maxAv*70);
+        return `<tr>
+          <td style="font-weight:600;color:#e5e7eb">${w}</td>
+          <td style="font-size:.73rem;color:#9ca3af">${[...new Set(d.prods)].join(', ')||'—'}</td>
+          <td>${d.av.toLocaleString('es-MX')}<span class="wbar" style="width:${bw}px;background:${hex}"></span></td>
+          <td style="color:${bp>=100?'#4ade80':'#fbbf24'};font-weight:600">${d.tot.toLocaleString('es-MX')} (${bp}%)</td>
+        </tr>`;
+      }).join('')}</tbody></table>`;
+    } else {
+      wHTML=`<table class="wtable"><thead><tr><th>Producto</th><th>Máquina</th><th>Avance</th><th>Restante</th></tr></thead><tbody>
+      ${items.map(i=>{
+        const rest=parseInt(i['Restante de Produccion'])||0;
+        const av=parseInt(i['Avance de produccion'])||0;
+        const tot=parseInt(i['Cantidad de Piezas'])||0;
+        return `<tr>
+          <td>${i['Productos']||'—'}</td><td>${i['Maquina']||'—'}</td>
+          <td>${av.toLocaleString('es-MX')} / ${tot.toLocaleString('es-MX')}</td>
+          <td style="color:${rest<=0?'#4ade80':'#fbbf24'};font-weight:600">${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')}</td>
+        </tr>`;
+      }).join('')}</tbody></table>`;
+    }
+  }
+
+  const prods=[...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ')||'—';
+
+  document.getElementById('modal-box').innerHTML=`
+  <div class="mh">
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <div class="mh-id">${id}</div>
+        <span class="badge ${badgeCls}">${o['Estado de produccion']}</span>
+        <span class="badge" style="background:${hex}22;color:${hex};border:1px solid ${hex}44">${mLabel}</span>
+      </div>
+      <div class="mh-sub">${prods}</div>
+    </div>
+    <button class="mclose" onclick="closeModal()">✕</button>
+  </div>
+  <div class="mb">
+    <div class="ms">
+      <div class="ms-ttl">Datos generales</div>
+      <div class="info-grid">
+        <div class="ic"><div class="ic-l">Fecha pedido</div><div class="ic-v">${fmtD(pedD)}</div></div>
+        <div class="ic"><div class="ic-l">Inicio producción</div><div class="ic-v">${fmtD(startD)}</div></div>
+        <div class="ic"><div class="ic-l">Fecha entrega</div><div class="ic-v" style="color:${endD&&now>endD&&pct<100?'#f87171':'inherit'}">${fmtD(endD)}</div></div>
+        <div class="ic"><div class="ic-l">Máquina</div><div class="ic-v" style="color:${hex}">${mLabel}</div></div>
+        ${o['Definicion de color']?`<div class="ic"><div class="ic-l">Color</div><div class="ic-v">${o['Definicion de color']}</div></div>`:''}
+        ${o['Cliente']?`<div class="ic"><div class="ic-l">Cliente</div><div class="ic-v">${o['Cliente']}</div></div>`:''}
+      </div>
+    </div>
+    <div class="ms">
+      <div class="ms-ttl">Tiempo de producción</div>
+      ${tlHTML}
+    </div>
+    <div class="ms">
+      <div class="ms-ttl">Avance de piezas</div>
+      <div class="pieces-big">
+        <span class="pb-val" style="color:${pColor}">${avance.toLocaleString('es-MX')}</span>
+        <span class="pb-tot">de ${total.toLocaleString('es-MX')} piezas</span>
+        <span class="pb-pct" style="color:${pColor}">${pct}%</span>
+      </div>
+      <div class="pb-track"><div class="pb-fill" style="width:${pct}%;background:${pColor}"></div></div>
+      ${total>0?`<div style="font-size:.72rem;color:var(--gray);margin-top:4px">${(total-avance).toLocaleString('es-MX')} piezas restantes</div>`:''}
+    </div>
+    <div class="ms">
+      <div class="ms-ttl">Detalle de producción</div>
+      ${wHTML}
+    </div>
+  </div>`;
+
+  document.getElementById('modal-ov').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('modal-ov')) return;
+  document.getElementById('modal-ov').classList.add('hidden');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('modal-ov').classList.add('hidden');document.body.style.overflow='';}});
 </script>
 </body>
 </html>
