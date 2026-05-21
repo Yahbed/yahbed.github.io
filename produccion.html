@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INDRAM — Área de Producción</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#e85d00;--navy:#1a1a2e;--navy2:#16213e;
+  --green:#16a34a;--yellow:#ca8a04;--gray:#6b7280;
+  --bg:#0f0f1a;--card:#1a1a2e;--border:rgba(255,255,255,0.08);
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e7eb;min-height:100vh}
+
+/* ── LOGIN ── */
+#login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:380px}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-bottom:1.5rem}
+.login-logo-circle{width:46px;height:46px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.5px}
+.login-brand{font-size:1.4rem;font-weight:800;color:#fff}
+.login-subtitle{text-align:center;font-size:0.83rem;color:var(--gray);margin-bottom:2rem}
+.login-field{margin-bottom:1rem}
+.login-field label{display:block;font-size:0.78rem;color:#9ca3af;margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.login-field input{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+.login-field input:focus{border-color:var(--orange)}
+#login-error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;border-radius:8px;padding:10px 14px;font-size:0.83rem;margin-bottom:1rem;display:none}
+.btn-login{width:100%;background:var(--orange);color:#fff;border:none;border-radius:8px;padding:12px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;letter-spacing:0.3px}
+.btn-login:hover{opacity:0.9}
+.btn-login:disabled{opacity:0.5;cursor:not-allowed}
+
+/* ── DASHBOARD ── */
+#dashboard{display:none;min-height:100vh}
+.top-bar{background:var(--navy);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.top-bar-left{display:flex;align-items:center;gap:1rem}
+.top-bar-logo{width:34px;height:34px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.top-bar-title{font-size:0.95rem;font-weight:700;color:#fff}
+.top-bar-badge{background:rgba(232,93,0,0.15);color:var(--orange);border:1px solid rgba(232,93,0,0.3);border-radius:20px;font-size:0.72rem;padding:2px 10px;font-weight:600}
+.top-bar-right{display:flex;align-items:center;gap:0.75rem}
+.user-label{font-size:0.78rem;color:var(--gray)}
+.btn-refresh{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;padding:6px 14px;font-size:0.78rem;cursor:pointer;transition:background 0.2s}
+.btn-refresh:hover{background:rgba(255,255,255,0.1)}
+.btn-logout{background:none;border:1px solid rgba(255,255,255,0.1);color:var(--gray);border-radius:7px;padding:6px 12px;font-size:0.78rem;cursor:pointer}
+.btn-logout:hover{border-color:rgba(239,68,68,0.4);color:#fca5a5}
+
+.main-content{padding:1.5rem;max-width:1200px;margin:0 auto}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.stat-label{font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.stat-value{font-size:1.6rem;font-weight:800;color:#fff}
+.stat-sub{font-size:0.73rem;color:var(--gray);margin-top:2px}
+
+/* Section title */
+.section-title{font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Order cards */
+.orders-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem;margin-bottom:2rem}
+.order-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s}
+.order-card:hover{border-color:rgba(232,93,0,0.3)}
+.order-card.en-proceso{border-top:3px solid var(--orange)}
+.order-card.en-cola{border-top:3px solid #3b82f6}
+.order-header{padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:flex-start}
+.order-id{font-size:1rem;font-weight:800;color:#fff}
+.order-fecha{font-size:0.72rem;color:var(--gray);margin-top:2px}
+.status-badge{font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.status-badge.en-proceso{background:rgba(232,93,0,0.15);color:#fb923c;border:1px solid rgba(232,93,0,0.25)}
+.status-badge.en-cola{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25)}
+.order-body{padding:0 16px 14px}
+
+/* Progress */
+.progress-wrap{margin:10px 0}
+.progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.progress-label{font-size:0.75rem;color:var(--gray)}
+.progress-pct{font-size:1.1rem;font-weight:800;color:var(--orange)}
+.progress-track{height:7px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--orange),#ff8c42);transition:width 0.6s ease}
+.progress-fill.done{background:linear-gradient(90deg,var(--green),#22c55e)}
+.progress-nums{display:flex;justify-content:space-between;font-size:0.71rem;color:var(--gray);margin-top:4px}
+
+/* Machine chip */
+.machine-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:0.75rem;color:#d1d5db;margin:6px 0 10px}
+.machine-dot{width:6px;height:6px;border-radius:50%;background:var(--orange)}
+
+/* Products table inside card */
+.prod-table{width:100%;border-collapse:collapse;margin-top:8px}
+.prod-table th{font-size:0.66rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray);padding:4px 6px;text-align:left;border-bottom:1px solid var(--border)}
+.prod-table td{font-size:0.78rem;padding:5px 6px;border-bottom:1px solid rgba(255,255,255,0.04);color:#d1d5db}
+.prod-table tr:last-child td{border-bottom:none}
+.prod-restante{color:#fbbf24;font-weight:600}
+.prod-done{color:#4ade80}
+
+/* Color dot */
+.color-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle;border:1px solid rgba(255,255,255,0.2)}
+
+/* Loading / empty */
+.loading-state{text-align:center;padding:4rem 2rem;color:var(--gray)}
+.loading-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,0.1);border-top-color:var(--orange);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:3rem;color:var(--gray);font-size:0.9rem}
+
+/* Refresh bar */
+.refresh-bar{font-size:0.75rem;color:var(--gray);text-align:right;margin-bottom:1rem}
+#refresh-countdown{color:var(--orange);font-weight:600}
+
+/* Responsive */
+@media(max-width:600px){
+  .orders-grid{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .top-bar-title{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════ LOGIN ══════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-circle">IND</div>
+      <span class="login-brand">INDRAM</span>
+    </div>
+    <p class="login-subtitle">Área de Producción · Acceso restringido</p>
+    <div id="login-error"></div>
+    <div class="login-field">
+      <label>Correo electrónico</label>
+      <input type="email" id="login-email" placeholder="tu@correo.com" autocomplete="email">
+    </div>
+    <div class="login-field">
+      <label>Contraseña</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-login" id="login-btn" onclick="doLogin()">Entrar al área de producción</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════ DASHBOARD ══════════════════════ -->
+<div id="dashboard">
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="top-bar-logo">IND</div>
+      <span class="top-bar-title">Panel de Producción</span>
+      <span class="top-bar-badge">EN VIVO</span>
+    </div>
+    <div class="top-bar-right">
+      <span class="user-label" id="user-label"></span>
+      <button class="btn-refresh" onclick="loadData()">↺ Actualizar</button>
+      <button class="btn-logout" onclick="doLogout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="refresh-bar">
+      Última actualización: <span id="last-updated">—</span> &nbsp;·&nbsp;
+      Actualización automática en <span id="refresh-countdown">60</span>s
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-label">En proceso</div>
+        <div class="stat-value" id="stat-proceso">—</div>
+        <div class="stat-sub">órdenes activas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">En cola</div>
+        <div class="stat-value" id="stat-cola">—</div>
+        <div class="stat-sub">esperando máquina</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Piezas en proceso</div>
+        <div class="stat-value" id="stat-piezas">—</div>
+        <div class="stat-sub">total activas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Máquinas activas</div>
+        <div class="stat-value" id="stat-maquinas">—</div>
+        <div class="stat-sub">de 5 disponibles</div>
+      </div>
+    </div>
+
+    <!-- En Proceso -->
+    <div class="section-title">En proceso</div>
+    <div id="cards-proceso" class="orders-grid">
+      <div class="loading-state"><div class="loading-spinner"></div>Cargando datos de producción…</div>
+    </div>
+
+    <!-- En Cola -->
+    <div class="section-title" style="margin-top:1.5rem">En cola</div>
+    <div id="cards-cola" class="orders-grid">
+      <div class="loading-state"><div class="loading-spinner"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// USUARIOS AUTORIZADOS
+// Formato: "correo@dominio.com": "sha256(correo:contraseña)"
+// ══════════════════════════════════════════════════════════════
+const USERS = {
+  "diego@indram.net": "9e34c31df1032dc4b4b7a8d2505fd74b0456f32bb57e12befd2d129588491e9f",
+  "online@indram.net": "c3b61ddb32dcf4c8df5afe2ba84f205db94dce925b330cec870a118910f261c2",
+  "vanefrias2111@gmail.com": "9cc89455298d97f1cf1c2868d1b3ad4d543756ac8d3a50196f469cfdacb78d6b",
+  "perezcinthia639@gmail.com": "0b1bbc8634c7c9371e0b35c3a762a41f325e9245c2af8ff1b3b73cc82a7f73e7",
+  "sercho3121@gmail.com": "26fbd956b2b459c2dfff453f6d0234fbb68055a1b2c5a49587d3e77089d18f01"
+};
+
+// ══════════════════════════════════════════════════════════════
+// APPSHEET CONFIG
+// ══════════════════════════════════════════════════════════════
+const AS_APP   = 'd911f699-9021-4bf3-a892-6eb81926c6fe';
+const AS_KEY   = 'V2-x1VkT-hyljn-EF7IT-qTksN-5CsNG-2bx0W-2rrtI-ciqHH';
+const AS_BASE  = `https://api.appsheet.com/api/v2/apps/${AS_APP}/tables`;
+
+// ══════════════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════════════
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  const btn   = document.getElementById('login-btn');
+
+  errEl.style.display = 'none';
+  if (!email || !pass) { showErr('Ingresa tu correo y contraseña.'); return; }
+  if (!USERS[email])   { showErr('Correo no autorizado.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Verificando…';
+
+  const hash = await sha256(email + ':' + pass);
+  if (hash !== USERS[email]) {
+    showErr('Contraseña incorrecta.');
+    btn.disabled = false;
+    btn.textContent = 'Entrar al área de producción';
+    return;
+  }
+
+  sessionStorage.setItem('prod_user', email);
+  startDashboard(email);
+}
+
+function showErr(msg) {
+  const el = document.getElementById('login-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function doLogout() {
+  sessionStorage.removeItem('prod_user');
+  clearInterval(window._autoRefresh);
+  clearInterval(window._countdown);
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-pass').value = '';
+}
+
+document.getElementById('login-pass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// Auto-login if session exists
+window.addEventListener('DOMContentLoaded', () => {
+  const u = sessionStorage.getItem('prod_user');
+  if (u && USERS[u]) startDashboard(u);
+});
+
+// ══════════════════════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════════════════════
+function startDashboard(email) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display   = 'block';
+  document.getElementById('user-label').textContent = email;
+  loadData();
+  startAutoRefresh();
+}
+
+let _countdown = 60;
+function startAutoRefresh() {
+  clearInterval(window._autoRefresh);
+  clearInterval(window._countdown);
+  _countdown = 60;
+  window._countdown = setInterval(() => {
+    _countdown--;
+    const el = document.getElementById('refresh-countdown');
+    if (el) el.textContent = _countdown;
+    if (_countdown <= 0) { _countdown = 60; loadData(); }
+  }, 1000);
+}
+
+async function fetchAS(table) {
+  const res = await fetch(`${AS_BASE}/${encodeURIComponent(table)}/Action`, {
+    method: 'POST',
+    headers: { 'ApplicationAccessKey': AS_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ Action: 'Find', Properties: { Locale: 'en-US', Timezone: 'America/Mexico_City' }, Rows: [] })
+  });
+  return res.json();
+}
+
+async function loadData() {
+  document.getElementById('refresh-countdown').textContent = '60';
+  _countdown = 60;
+
+  try {
+    const [ordenes, infos] = await Promise.all([
+      fetchAS('orden de produccion'),
+      fetchAS('informacion de produccion')
+    ]);
+
+    const activas = ordenes.filter(o =>
+      ['en proceso','en cola'].includes((o['Estado de produccion'] || '').toLowerCase())
+    );
+
+    // Build map: ID Produccion → [info items]
+    const infoMap = {};
+    infos.forEach(i => {
+      const id = i['ID Produccion'];
+      if (!infoMap[id]) infoMap[id] = [];
+      infoMap[id].push(i);
+    });
+
+    const proceso = activas.filter(o => o['Estado de produccion'].toLowerCase() === 'en proceso');
+    const cola    = activas.filter(o => o['Estado de produccion'].toLowerCase() === 'en cola');
+
+    // Stats
+    document.getElementById('stat-proceso').textContent = proceso.length;
+    document.getElementById('stat-cola').textContent    = cola.length;
+    document.getElementById('stat-piezas').textContent  =
+      activas.reduce((s,o) => s + (parseInt(o['Total de Produccion']) || 0), 0).toLocaleString('es-MX');
+    const maquinasActivas = new Set(activas.map(o => o['Maquina']).filter(Boolean));
+    document.getElementById('stat-maquinas').textContent = maquinasActivas.size;
+
+    document.getElementById('last-updated').textContent =
+      new Date().toLocaleTimeString('es-MX', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+    renderCards('cards-proceso', proceso, infoMap, 'en-proceso');
+    renderCards('cards-cola',    cola,    infoMap, 'en-cola');
+
+  } catch(e) {
+    document.getElementById('cards-proceso').innerHTML =
+      '<div class="empty-state">Error al cargar datos. Intenta actualizar.</div>';
+  }
+}
+
+function renderCards(containerId, orders, infoMap, cls) {
+  const el = document.getElementById(containerId);
+  if (!orders.length) {
+    el.innerHTML = '<div class="empty-state">Sin órdenes en esta sección</div>';
+    return;
+  }
+
+  el.innerHTML = orders.map(o => {
+    const id     = o['ID Produccion'];
+    const pct    = Math.min(100, Math.round(parseFloat(o['PORCENTAJE AVANCE'] || 0) * 100));
+    const total  = parseInt(o['Total de Produccion']) || 0;
+    const avance = parseInt(o['Avance de produccion']) || 0;
+    const fecha  = o['Fecha de Pedido'] ? o['Fecha de Pedido'].split(' ')[0] : '—';
+    const maq    = o['Maquina'] || '—';
+    const color  = o['Definicion de color'] || '';
+    const items  = infoMap[id] || [];
+
+    const colorHex = getColorHex(color);
+    const pctClass = pct >= 100 ? 'done' : '';
+
+    const itemsHTML = items.length ? `
+      <table class="prod-table">
+        <thead><tr>
+          <th>Producto</th><th>Máquina</th><th>Avance</th><th>Restante</th>
+        </tr></thead>
+        <tbody>
+          ${items.map(i => {
+            const rest = parseInt(i['Restante de Produccion']) || 0;
+            const av   = parseInt(i['Avance de produccion']) || 0;
+            const tot  = parseInt(i['Cantidad de Piezas']) || 0;
+            return `<tr>
+              <td>${i['Productos'] || '—'}</td>
+              <td>${i['Maquina'] || '—'}</td>
+              <td>${av.toLocaleString('es-MX')} / ${tot.toLocaleString('es-MX')}</td>
+              <td class="${rest <= 0 ? 'prod-done' : 'prod-restante'}">${rest <= 0 ? '✓ Listo' : rest.toLocaleString('es-MX')}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>` : '<div style="font-size:0.75rem;color:var(--gray);padding-top:6px">Sin detalle de fabricación</div>';
+
+    return `
+    <div class="order-card ${cls}">
+      <div class="order-header">
+        <div>
+          <div class="order-id">${id}</div>
+          <div class="order-fecha">Pedido: ${fecha}</div>
+        </div>
+        <span class="status-badge ${cls}">${o['Estado de produccion']}</span>
+      </div>
+      <div class="order-body">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div class="machine-chip"><span class="machine-dot"></span>Máquina ${maq}</div>
+          ${color ? `<span style="font-size:0.75rem;color:#d1d5db"><span class="color-dot" style="background:${colorHex}"></span>${color}</span>` : ''}
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label">Avance general</span>
+            <span class="progress-pct">${pct}%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill ${pctClass}" style="width:${pct}%"></div>
+          </div>
+          <div class="progress-nums">
+            <span>${avance.toLocaleString('es-MX')} pzas producidas</span>
+            <span>${total.toLocaleString('es-MX')} total</span>
+          </div>
+        </div>
+        ${itemsHTML}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function getColorHex(name) {
+  const map = {
+    'red':'#ef4444','rojo':'#ef4444','blue':'#3b82f6','azul':'#3b82f6',
+    'green':'#22c55e','verde':'#22c55e','orange':'#f97316','naranja':'#f97316',
+    'yellow':'#eab308','amarillo':'#eab308','black':'#1f2937','negro':'#1f2937',
+    'white':'#f3f4f6','blanco':'#f3f4f6','pink':'#ec4899','rosa':'#ec4899',
+    'purple':'#a855f7','morado':'#a855f7','gray':'#6b7280','gris':'#6b7280',
+    'transparent':'rgba(255,255,255,0.3)','transparente':'rgba(255,255,255,0.3)',
+  };
+  return map[(name||'').toLowerCase()] || '#9ca3af';
+}
+</script>
+</body>
+</html>
