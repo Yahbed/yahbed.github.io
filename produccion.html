@@ -545,6 +545,39 @@ function openModal(id){
 
   const prods=[...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ')||'—';
 
+  // ── Products breakdown ──
+  let prodsHTML='<p style="font-size:.78rem;color:var(--gray)">Sin productos registrados.</p>';
+  if(items.length){
+    const byProd={};
+    items.forEach(i=>{
+      const pn=i['Productos']||'(sin nombre)';
+      if(!byProd[pn]) byProd[pn]={av:0,tot:0,rest:0};
+      byProd[pn].av  += parseInt(i['Avance de produccion'])||0;
+      byProd[pn].tot += parseInt(i['Cantidad de Piezas'])||0;
+      byProd[pn].rest+= parseInt(i['Restante de Produccion'])||0;
+    });
+    prodsHTML=Object.entries(byProd).map(([pn,d])=>{
+      const pp=d.tot>0?Math.min(100,Math.round(d.av/d.tot*100)):0;
+      const pc=pp>=100?'#22c55e':hex;
+      const isDone=d.rest<=0||pp>=100;
+      return `
+      <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid rgba(255,255,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px">
+          <span style="font-size:.85rem;font-weight:600;color:#e5e7eb;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${pn}</span>
+          <span style="font-size:1rem;font-weight:800;color:${pc};flex-shrink:0">${pp}%</span>
+        </div>
+        <div style="height:9px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin-bottom:6px">
+          <div style="height:100%;width:${pp}%;background:${pc};border-radius:6px;transition:width .5s"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#6b7280">
+          <span>${d.av.toLocaleString('es-MX')} producidas</span>
+          <span>de ${d.tot.toLocaleString('es-MX')} total</span>
+          <span style="color:${isDone?'#4ade80':'#fbbf24'};font-weight:600">${isDone?'✓ Completado':d.rest.toLocaleString('es-MX')+' restantes'}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
   document.getElementById('modal-box').innerHTML=`
   <div class="mh">
     <div>
@@ -584,7 +617,11 @@ function openModal(id){
       ${total>0?`<div style="font-size:.72rem;color:var(--gray);margin-top:4px">${(total-avance).toLocaleString('es-MX')} piezas restantes</div>`:''}
     </div>
     <div class="ms">
-      <div class="ms-ttl">Detalle de producción</div>
+      <div class="ms-ttl">Productos en fabricación</div>
+      ${prodsHTML}
+    </div>
+    <div class="ms">
+      <div class="ms-ttl">Detalle por trabajador</div>
       ${wHTML}
     </div>
   </div>`;
