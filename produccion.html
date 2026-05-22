@@ -208,6 +208,7 @@ const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto'
 
 function maqN(raw){const m=String(raw||'').trim().match(/(\d+)/);return m?m[1]:'?';}
 function prodName(code){return _catMap[code]||code;}
+function clientName(code){return _clientMap[code]||code;}
 
 // ─── AUTH ─────────────────────────────────────────────
 async function sha256(s){
@@ -285,21 +286,24 @@ function getStart(o){return parseD(o['Fecha de inicio']||o['Fecha de Inicio'])||
 function getEnd(o){return parseD(o['Fecha de terminacion']||o['Fecha de Terminacion']);}
 
 // ─── GLOBAL STATE ─────────────────────────────────────
-let _all=[],_imap={},_catMap={};
+let _all=[],_imap={},_catMap={},_clientMap={};
 
 // ─── LOAD DATA ────────────────────────────────────────
 async function loadData(){
   document.getElementById('cd').textContent='60';_cd=60;
   try{
-    const [ord,inf,cat]=await Promise.all([
+    const [ord,inf,cat,cli]=await Promise.all([
       fetchAS('orden de produccion'),
       fetchAS('informacion de produccion'),
-      fetchAS('catalogo')
+      fetchAS('catalogo'),
+      fetchAS('Costumers')
     ]);
     _imap={};
     (inf||[]).forEach(i=>{const id=i['ID Produccion'];if(!_imap[id])_imap[id]=[];_imap[id].push(i);});
     _catMap={};
     (cat||[]).forEach(c=>{if(c['ID producto']&&c['Productos'])_catMap[c['ID producto']]=c['Productos'];});
+    _clientMap={};
+    (cli||[]).forEach(c=>{if(c['Cliente ID']&&c['Nombre de Cliente'])_clientMap[c['Cliente ID']]=c['Nombre de Cliente'];});
     _all=(ord||[]).filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
     const proc=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en proceso');
     const cola=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en cola');
@@ -400,7 +404,8 @@ function renderGantt(){
       const eid=id.replace(/'/g,"\\'").replace(/"/g,'&quot;');
       const items=_imap[id]||[];
       const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
-      const cliente=(o['Cliente']||'').trim();
+      const clienteCode=(o['Cliente']||'').trim();
+      const cliente=clienteCode?clientName(clienteCode):clienteCode;
       const total=parseInt(o['Total de Produccion'])||0;
       const avance=parseInt(o['Avance de produccion'])||0;
       const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
@@ -489,7 +494,8 @@ function openModal(id){
   const pColor=pct>=100?'#16a34a':hex;
   const estado=(o['Estado de produccion']||'').toLowerCase();
   const badgeCls=estado==='en proceso'?'b-proceso':'b-cola';
-  const cliente=(o['Cliente']||'').trim();
+  const clienteCode=(o['Cliente']||'').trim();
+  const cliente=clienteCode?clientName(clienteCode):clienteCode;
 
   // Timeline
   let tlHTML='<p style="font-size:.78rem;color:var(--gray)">Sin fechas de producción registradas.</p>';
