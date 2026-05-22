@@ -403,64 +403,126 @@ function renderGantt(){
   const tPx=dBetween(vs,now)*DW;
   function rowBg(){return `linear-gradient(to right,transparent ${tPx}px,rgba(232,93,0,.07) ${tPx}px,rgba(232,93,0,.07) ${tPx+DW}px,transparent ${tPx+DW}px)`;}
 
-  const ROW_H=58;
   let rows='';
   MACH.forEach(maq=>{
     const orders=list.filter(o=>maqN(o['Maquina'])===maq.n)
       .sort((a,b)=>{const sa=getStart(a),sb=getStart(b);if(!sa&&!sb)return 0;if(!sa)return 1;if(!sb)return-1;return sa-sb;});
 
-    let barsHTML='';
-    if(!orders.length){
-      barsHTML=`<div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 16px"><span style="font-size:.72rem;color:${C.muted};font-style:italic">${isDone?'Sin órdenes terminadas':'Sin órdenes activas'}</span></div>`;
+    if(isDone){
+      // ── TERMINADAS: una sola fila por máquina con todas las barras ──
+      let barsHTML='';
+      if(!orders.length){
+        barsHTML=`<div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 16px"><span style="font-size:.72rem;color:${C.muted};font-style:italic">Sin órdenes terminadas</span></div>`;
+      } else {
+        orders.forEach(o=>{
+          const id=o['ID Produccion']||'—';
+          const eid=id.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+          const clienteCode=(o['Cliente']||'').trim();
+          const cliente=clienteCode?clientName(clienteCode):clienteCode;
+          const total=parseInt(o['Total de Produccion'])||0;
+          const avance=parseInt(o['Avance de produccion'])||0;
+          const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
+          const startD=getStart(o),endD=getEnd(o);
+          if(!startD)return;
+          const bLeft=Math.max(0,dBetween(vs,startD))*DW;
+          const durD=endD?Math.max(1,dBetween(startD,endD)+1):7;
+          const bW=Math.max(DW*1.5,durD*DW);
+          const fillW=Math.max(3,pct/100*bW);
+          const barLabel=cliente?`${id} · ${cliente}`:id;
+          const items=_imap[id]||[];
+          const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
+          barsHTML+=`
+          <div onclick="openModal('${eid}');event.stopPropagation()"
+            title="${barLabel} | ${pct}% · ${prods}"
+            style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:30px;border-radius:5px;background:#16a34a15;border:1.5px solid #16a34a50;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
+            onmouseover="this.style.borderColor='#16a34a';this.style.boxShadow='0 2px 10px #16a34a55';this.style.zIndex=20"
+            onmouseout="this.style.borderColor='#16a34a50';this.style.boxShadow='none';this.style.zIndex=4">
+            <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:#16a34a;opacity:.7;border-radius:4px 0 0 4px"></div>
+            <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 7px;font-size:.61rem;font-weight:700;color:${C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;mix-blend-mode:multiply">${barLabel}</span>
+          </div>`;
+        });
+      }
+      rows+=`
+      <div style="display:flex;height:58px;border-bottom:1px solid ${C.bdr}">
+        <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};padding:0 14px;display:flex;flex-direction:column;justify-content:center;gap:3px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="width:10px;height:10px;border-radius:50%;background:${maq.hex};flex-shrink:0"></span>
+            <span style="font-size:.83rem;font-weight:700;color:${C.txt}">${maq.label}</span>
+          </div>
+          <div style="font-size:.64rem;color:${C.gray};padding-left:17px">${orders.length} terminadas</div>
+        </div>
+        <div style="width:${nd*DW}px;position:relative;background:${rowBg()}">${barsHTML}</div>
+      </div>`;
+
     } else {
+      // ── EN PRODUCCIÓN: fila de encabezado + una fila por ORP ──
+      rows+=`
+      <div style="display:flex;height:${MH}px;background:${C.mHdr};border-bottom:1px solid ${C.bdr}">
+        <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:12;background:rgba(248,250,252,.98);border-right:1px solid ${C.bdr};display:flex;align-items:center;gap:8px;padding:0 14px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
+          <span style="width:9px;height:9px;border-radius:50%;background:${maq.hex};flex-shrink:0"></span>
+          <span style="font-size:.78rem;font-weight:700;color:${C.txt}">${maq.label}</span>
+          <span style="font-size:.63rem;color:${C.gray};margin-left:auto;background:rgba(0,0,0,.06);padding:1px 7px;border-radius:10px">${orders.length}</span>
+        </div>
+        <div style="width:${nd*DW}px;background:${rowBg()}"></div>
+      </div>`;
+
+      if(!orders.length){
+        rows+=`
+        <div style="display:flex;height:${RH}px;border-bottom:1px solid ${C.bdrLt}">
+          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};display:flex;align-items:center;padding:0 14px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
+            <span style="font-size:.72rem;color:${C.muted};font-style:italic">Sin órdenes activas</span>
+          </div>
+          <div style="width:${nd*DW}px;background:${rowBg()}"></div>
+        </div>`;
+      }
+
       orders.forEach(o=>{
         const id=o['ID Produccion']||'—';
         const eid=id.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+        const items=_imap[id]||[];
+        const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
         const clienteCode=(o['Cliente']||'').trim();
         const cliente=clienteCode?clientName(clienteCode):clienteCode;
         const total=parseInt(o['Total de Produccion'])||0;
         const avance=parseInt(o['Avance de produccion'])||0;
         const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
         const startD=getStart(o),endD=getEnd(o);
-        if(!startD)return;
-        const isOverdue=endD&&now>endD&&pct<100&&!isDone;
-        const barHex=isDone?'#16a34a':isOverdue?'#dc2626':maq.hex;
-        const bLeft=Math.max(0,dBetween(vs,startD))*DW;
-        const durD=endD?Math.max(1,dBetween(startD,endD)+1):7;
-        const bW=Math.max(DW*1.5,durD*DW);
-        const fillW=Math.max(3,pct/100*bW);
-        const barLabel=cliente?`${id} · ${cliente}`:id;
-        const items=_imap[id]||[];
-        const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
-        barsHTML+=`
-        <div onclick="openModal('${eid}');event.stopPropagation()"
-          title="${barLabel} | ${pct}% · ${prods}"
-          style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:30px;border-radius:5px;background:${barHex}15;border:1.5px solid ${barHex}50;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
-          onmouseover="this.style.borderColor='${barHex}';this.style.boxShadow='0 2px 10px ${barHex}55';this.style.zIndex=20"
-          onmouseout="this.style.borderColor='${barHex}50';this.style.boxShadow='none';this.style.zIndex=4">
-          <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:${barHex};opacity:.7;border-radius:4px 0 0 4px"></div>
-          <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 7px;font-size:.61rem;font-weight:700;color:${C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;mix-blend-mode:multiply">${barLabel}</span>
+        const isOverdue=endD&&now>endD&&pct<100;
+        const barHex=isOverdue?'#dc2626':maq.hex;
+        let barHTML='';
+        if(startD){
+          const bLeft=Math.max(0,dBetween(vs,startD))*DW;
+          const durD=endD?Math.max(1,dBetween(startD,endD)+1):7;
+          const bW=Math.max(DW*1.5,durD*DW);
+          const fillW=Math.max(3,pct/100*bW);
+          const barLabel=cliente?`${id} · ${cliente}`:id;
+          barHTML=`
+          <div onclick="openModal('${eid}');event.stopPropagation()"
+            title="${barLabel}: ${prods} | ${pct}% completado"
+            style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:24px;border-radius:5px;background:${barHex}18;border:1.5px solid ${barHex}55;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
+            onmouseover="this.style.borderColor='${barHex}';this.style.boxShadow='0 2px 8px ${barHex}44'"
+            onmouseout="this.style.borderColor='${barHex}55';this.style.boxShadow='none'">
+            <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:${barHex};opacity:.75;border-radius:4px 0 0 4px"></div>
+            <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:.63rem;font-weight:700;color:${barHex==='#dc2626'?'#fff':C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;mix-blend-mode:multiply">${barLabel}</span>
+          </div>`;
+        }
+        rows+=`
+        <div style="display:flex;height:${RH}px;border-bottom:1px solid ${C.bdrLt}">
+          <div onclick="openModal('${eid}')"
+            style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};padding:4px 14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;box-shadow:2px 0 8px rgba(0,0,0,.04);transition:background .15s"
+            onmouseover="this.style.background='#f8fafc'"
+            onmouseout="this.style.background='${C.card}'">
+            <div style="font-size:.77rem;font-weight:700;color:${C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${id}${cliente?` <span style="font-weight:500;color:${C.gray}">· ${cliente}</span>`:''}</div>
+            <div style="font-size:.64rem;color:${C.gray};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px">${prods}</div>
+          </div>
+          <div style="width:${nd*DW}px;position:relative;background:${rowBg()}">${barHTML}</div>
         </div>`;
       });
     }
-
-    rows+=`
-    <div style="display:flex;height:${ROW_H}px;border-bottom:1px solid ${C.bdr}">
-      <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};padding:0 14px;display:flex;flex-direction:column;justify-content:center;gap:3px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
-        <div style="display:flex;align-items:center;gap:7px">
-          <span style="width:10px;height:10px;border-radius:50%;background:${maq.hex};flex-shrink:0"></span>
-          <span style="font-size:.83rem;font-weight:700;color:${C.txt}">${maq.label}</span>
-        </div>
-        <div style="font-size:.64rem;color:${C.gray};padding-left:17px">${orders.length} ${isDone?'terminadas':'activas'}</div>
-      </div>
-      <div style="width:${nd*DW}px;position:relative;background:${rowBg()}">
-        ${barsHTML}
-      </div>
-    </div>`;
   });
 
   document.getElementById('gantt-container').innerHTML=`
-  <div style="overflow-x:auto;overflow-y:visible;border-radius:14px;border:1px solid ${C.bdr};background:${C.card};box-shadow:0 2px 12px rgba(0,0,0,.06)" id="gantt-scroll">
+  <div style="overflow-x:auto;overflow-y:auto;max-height:${isDone?'400px':'72vh'};border-radius:14px;border:1px solid ${C.bdr};background:${C.card};box-shadow:0 2px 12px rgba(0,0,0,.06)" id="gantt-scroll">
     <div style="min-width:${TW}px;position:relative">
       <!-- HEADER -->
       <div style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column;background:${C.card}">
