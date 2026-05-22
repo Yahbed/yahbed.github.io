@@ -7,97 +7,93 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --orange:#e85d00;--navy:#1a1a2e;--bg:#0f0f1a;--card:#1a1a2e;
-  --border:rgba(255,255,255,0.08);--gray:#6b7280;
+  --orange:#e85d00;--bg:#f1f5f9;--card:#fff;
+  --border:rgba(0,0,0,0.08);--gray:#64748b;--txt:#1e293b;--txt2:#475569;
   --m1:#f59e0b;--m2:#0d9488;--m3:#3b82f6;--m4:#ec4899;--m5:#8b5cf6;
 }
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e7eb;min-height:100vh}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
 
-/* LOGIN */
-#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
-.login-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:380px}
-.login-logo{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1.5rem}
-.login-logo-circle{width:46px;height:46px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
-.login-brand{font-size:1.4rem;font-weight:800;color:#fff}
+/* ── LOGIN ── */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:linear-gradient(135deg,#f1f5f9 0%,#e2e8f0 100%)}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:.85rem;margin-bottom:.5rem}
 .login-subtitle{text-align:center;font-size:.83rem;color:var(--gray);margin-bottom:2rem}
 .login-field{margin-bottom:1rem}
-.login-field label{display:block;font-size:.78rem;color:#9ca3af;margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
-.login-field input{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:.9rem;outline:none;transition:border-color .2s}
-.login-field input:focus{border-color:var(--orange)}
-#login-error{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:8px;padding:10px 14px;font-size:.83rem;margin-bottom:1rem;display:none}
-.btn-login{width:100%;background:var(--orange);color:#fff;border:none;border-radius:8px;padding:12px;font-size:.95rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.login-field label{display:block;font-size:.75rem;color:var(--gray);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.login-field input{width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:10px 14px;color:var(--txt);font-size:.9rem;outline:none;transition:border-color .2s}
+.login-field input:focus{border-color:var(--orange);background:#fff}
+#login-error{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:8px;padding:10px 14px;font-size:.83rem;margin-bottom:1rem;display:none}
+.btn-login{width:100%;background:var(--orange);color:#fff;border:none;border-radius:9px;padding:12px;font-size:.95rem;font-weight:700;cursor:pointer;transition:opacity .2s}
 .btn-login:hover{opacity:.9}
 .btn-login:disabled{opacity:.5;cursor:not-allowed}
 
-/* TOP BAR */
+/* ── TOP BAR ── */
 #dashboard{display:none;min-height:100vh}
-.top-bar{background:var(--navy);border-bottom:1px solid var(--border);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.top-bar{background:var(--card);border-bottom:1px solid var(--border);padding:0 1.5rem;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.06)}
 .tbl{display:flex;align-items:center;gap:1rem}
-.tbl-logo{width:34px;height:34px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
-.tbl-title{font-size:.95rem;font-weight:700;color:#fff}
-.tbl-badge{background:rgba(232,93,0,.15);color:var(--orange);border:1px solid rgba(232,93,0,.3);border-radius:20px;font-size:.72rem;padding:2px 10px;font-weight:600}
+.tbl-badge{background:rgba(232,93,0,.1);color:var(--orange);border:1px solid rgba(232,93,0,.25);border-radius:20px;font-size:.7rem;padding:2px 10px;font-weight:700}
 .tbr{display:flex;align-items:center;gap:.75rem}
 .user-lbl{font-size:.78rem;color:var(--gray)}
-.btn-sm{background:rgba(255,255,255,.06);border:1px solid var(--border);color:#d1d5db;border-radius:7px;padding:6px 14px;font-size:.78rem;cursor:pointer}
-.btn-sm:hover{background:rgba(255,255,255,.12)}
-.btn-out{background:none;border:1px solid rgba(255,255,255,.1);color:var(--gray);border-radius:7px;padding:6px 12px;font-size:.78rem;cursor:pointer}
-.btn-out:hover{border-color:rgba(239,68,68,.4);color:#fca5a5}
+.btn-sm{background:#f8fafc;border:1px solid #e2e8f0;color:var(--txt2);border-radius:8px;padding:6px 14px;font-size:.78rem;cursor:pointer;transition:background .15s}
+.btn-sm:hover{background:#f1f5f9}
+.btn-out{background:none;border:1px solid #e2e8f0;color:var(--gray);border-radius:8px;padding:6px 12px;font-size:.78rem;cursor:pointer}
+.btn-out:hover{border-color:#fca5a5;color:#dc2626}
 
-/* MAIN */
+/* ── MAIN ── */
 .main{padding:1.25rem 1.5rem;max-width:1600px;margin:0 auto}
 .refresh-bar{font-size:.73rem;color:var(--gray);text-align:right;margin-bottom:1rem}
-#cd{color:var(--orange);font-weight:600}
+#cd{color:var(--orange);font-weight:700}
 
 /* STATS */
 .stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.25rem}
-.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.85rem 1rem}
-.sc-lbl{font-size:.68rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.sc-val{font-size:1.5rem;font-weight:800;color:#fff}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.sc-lbl{font-size:.68rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;font-weight:600}
+.sc-val{font-size:1.6rem;font-weight:800;color:var(--txt)}
 .sc-sub{font-size:.68rem;color:var(--gray);margin-top:2px}
 
-/* MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+/* ── MODAL ── */
+.modal-ov{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
 .modal-ov.hidden{display:none}
-.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;animation:pop .18s ease}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;animation:pop .18s ease;box-shadow:0 20px 60px rgba(0,0,0,.15)}
 @keyframes pop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.mh{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:#1a1a2e;z-index:1}
-.mh-id{font-size:1.2rem;font-weight:800;color:#fff}
+.mh{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--card);z-index:1}
+.mh-id{font-size:1.2rem;font-weight:800;color:var(--txt)}
 .mh-sub{font-size:.76rem;color:var(--gray);margin-top:3px}
-.mclose{background:rgba(255,255,255,.08);border:none;color:#9ca3af;border-radius:8px;width:32px;height:32px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mclose:hover{background:rgba(255,255,255,.15);color:#fff}
+.mclose{background:#f1f5f9;border:none;color:var(--gray);border-radius:8px;width:32px;height:32px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mclose:hover{background:#e2e8f0;color:var(--txt)}
 .mb{padding:18px 22px}
 .ms{margin-bottom:18px}
-.ms-ttl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.ms-ttl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:9px;display:flex;align-items:center;gap:8px}
 .ms-ttl::after{content:'';flex:1;height:1px;background:var(--border)}
 .info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
-.ic{background:rgba(255,255,255,.04);border-radius:9px;padding:9px 11px}
-.ic-l{font-size:.64rem;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
-.ic-v{font-size:.85rem;font-weight:600;color:#e5e7eb}
+.ic{background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:9px 11px}
+.ic-l{font-size:.63rem;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;font-weight:600}
+.ic-v{font-size:.85rem;font-weight:600;color:var(--txt)}
 .badge{font-size:.66rem;font-weight:600;padding:2px 8px;border-radius:20px}
-.b-proceso{background:rgba(232,93,0,.15);color:#fb923c;border:1px solid rgba(232,93,0,.3)}
-.b-cola{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
-.b-vencido{background:rgba(220,38,38,.15);color:#f87171;border:1px solid rgba(220,38,38,.3)}
-.tl-wrap{background:rgba(255,255,255,.03);border-radius:11px;padding:13px}
+.b-proceso{background:rgba(232,93,0,.1);color:#c2410c;border:1px solid rgba(232,93,0,.25)}
+.b-cola{background:rgba(59,130,246,.1);color:#1d4ed8;border:1px solid rgba(59,130,246,.25)}
+.b-vencido{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.tl-wrap{background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px;padding:13px}
 .tl-bar-wrap{position:relative;margin:9px 0 6px}
-.tl-track{height:11px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
+.tl-track{height:11px;background:#e2e8f0;border-radius:6px;overflow:hidden}
 .tl-fill{height:100%;border-radius:6px}
-.tl-now{position:absolute;top:-4px;width:3px;height:19px;border-radius:2px;background:#fff;transform:translateX(-50%);box-shadow:0 0 8px rgba(255,255,255,.5)}
+.tl-now{position:absolute;top:-4px;width:3px;height:19px;border-radius:2px;background:var(--txt);transform:translateX(-50%);box-shadow:0 0 6px rgba(0,0,0,.3)}
 .tl-dates{display:flex;justify-content:space-between;font-size:.68rem;color:var(--gray)}
 .pieces-big{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
 .pb-val{font-size:1.9rem;font-weight:800}
 .pb-tot{font-size:.95rem;color:var(--gray)}
 .pb-pct{font-size:1.2rem;font-weight:800;margin-left:4px}
-.pb-track{height:11px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin-bottom:5px}
+.pb-track{height:11px;background:#e2e8f0;border-radius:8px;overflow:hidden;margin-bottom:5px}
 .pb-fill{height:100%;border-radius:8px}
 .wtable{width:100%;border-collapse:collapse}
-.wtable th{font-size:.64rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);padding:5px 9px;text-align:left;border-bottom:1px solid var(--border)}
-.wtable td{font-size:.8rem;padding:7px 9px;border-bottom:1px solid rgba(255,255,255,.04);color:#d1d5db}
+.wtable th{font-size:.64rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);padding:5px 9px;text-align:left;border-bottom:1px solid var(--border);font-weight:700}
+.wtable td{font-size:.8rem;padding:7px 9px;border-bottom:1px solid #f1f5f9;color:var(--txt2)}
 .wtable tr:last-child td{border-bottom:none}
+.wtable tr:hover td{background:#f8fafc}
 .wbar{display:inline-block;height:4px;border-radius:2px;vertical-align:middle;margin-left:5px}
 
-/* LOADING */
 .loading-state{text-align:center;padding:4rem 1rem;color:var(--gray)}
-.spinner{width:34px;height:34px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+.spinner{width:34px;height:34px;border:3px solid #e2e8f0;border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 @media(max-width:600px){
@@ -112,10 +108,19 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
-      <div class="login-logo-circle">IND</div>
-      <span class="login-brand">INDRAM</span>
+      <!-- INDRAM logo -->
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#e85d00"/>
+        <rect x="9" y="12" width="4" height="16" rx="2" fill="white"/>
+        <path d="M15 12h4l7 8-7 8h-4l7-8-7-8z" fill="white" opacity=".9"/>
+        <rect x="27" y="12" width="4" height="16" rx="2" fill="white"/>
+      </svg>
+      <div>
+        <div style="font-size:1.35rem;font-weight:900;color:#1e293b;letter-spacing:-0.5px;line-height:1">INDRAM</div>
+        <div style="font-size:.65rem;color:#64748b;font-weight:500;letter-spacing:1.5px;text-transform:uppercase">Producción</div>
+      </div>
     </div>
-    <p class="login-subtitle">Área de Producción · Acceso restringido</p>
+    <p class="login-subtitle" style="margin-top:.5rem">Área privada · Acceso restringido</p>
     <div id="login-error"></div>
     <div class="login-field">
       <label>Correo electrónico</label>
@@ -133,8 +138,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
 <div id="dashboard">
   <div class="top-bar">
     <div class="tbl">
-      <div class="tbl-logo">IND</div>
-      <span class="tbl-title">Producción</span>
+      <!-- INDRAM logo compact -->
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#e85d00"/>
+        <rect x="9" y="12" width="4" height="16" rx="2" fill="white"/>
+        <path d="M15 12h4l7 8-7 8h-4l7-8-7-8z" fill="white" opacity=".9"/>
+        <rect x="27" y="12" width="4" height="16" rx="2" fill="white"/>
+      </svg>
+      <div style="line-height:1.1">
+        <div style="font-size:.95rem;font-weight:900;color:#1e293b;letter-spacing:-.3px">INDRAM</div>
+        <div style="font-size:.62rem;color:#64748b;font-weight:500;letter-spacing:1px;text-transform:uppercase">Panel de Producción</div>
+      </div>
       <span class="tbl-badge">EN VIVO</span>
     </div>
     <div class="tbr">
@@ -150,10 +164,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#e5e
       &nbsp;·&nbsp; Próximo en <span id="cd">60</span>s
     </div>
     <div class="stats-bar">
-      <div class="sc"><div class="sc-lbl">En proceso</div><div class="sc-val" id="s-proceso">—</div><div class="sc-sub">órdenes</div></div>
+      <div class="sc"><div class="sc-lbl">En proceso</div><div class="sc-val" id="s-proceso">—</div><div class="sc-sub">órdenes activas</div></div>
       <div class="sc"><div class="sc-lbl">En cola</div><div class="sc-val" id="s-cola">—</div><div class="sc-sub">esperando</div></div>
       <div class="sc"><div class="sc-lbl">Piezas activas</div><div class="sc-val" id="s-piezas">—</div><div class="sc-sub">en producción</div></div>
-      <div class="sc"><div class="sc-lbl">Máquinas activas</div><div class="sc-val" id="s-maq">—</div><div class="sc-sub">de 5</div></div>
+      <div class="sc"><div class="sc-lbl">Máquinas activas</div><div class="sc-val" id="s-maq">—</div><div class="sc-sub">de 5 disponibles</div></div>
     </div>
     <div id="gantt-container">
       <div class="loading-state"><div class="spinner"></div>Cargando Gantt…</div>
@@ -183,17 +197,17 @@ const AS_BASE = `https://api.appsheet.com/api/v2/apps/${AS_APP}/tables`;
 
 // ─── MACHINES ─────────────────────────────────────────
 const MACH = [
-  {n:'1', label:'Máquina 1', hex:'#f59e0b'},
-  {n:'2', label:'Máquina 2', hex:'#0d9488'},
-  {n:'3', label:'Máquina 3', hex:'#3b82f6'},
-  {n:'4', label:'Máquina 4', hex:'#ec4899'},
-  {n:'5', label:'Máquina 5', hex:'#8b5cf6'},
+  {n:'1',label:'Máquina 1',hex:'#f59e0b'},
+  {n:'2',label:'Máquina 2',hex:'#0d9488'},
+  {n:'3',label:'Máquina 3',hex:'#3b82f6'},
+  {n:'4',label:'Máquina 4',hex:'#ec4899'},
+  {n:'5',label:'Máquina 5',hex:'#8b5cf6'},
 ];
-const MAQ_HEX = Object.fromEntries(MACH.map(m=>[m.n, m.hex]));
+const MAQ_HEX = Object.fromEntries(MACH.map(m=>[m.n,m.hex]));
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
-function maqN(raw){ const m=String(raw||'').trim().match(/(\d+)/); return m?m[1]:'?'; }
-function prodName(code){ return _catMap[code] || code; }
+function maqN(raw){const m=String(raw||'').trim().match(/(\d+)/);return m?m[1]:'?';}
+function prodName(code){return _catMap[code]||code;}
 
 // ─── AUTH ─────────────────────────────────────────────
 async function sha256(s){
@@ -203,11 +217,11 @@ async function sha256(s){
 async function doLogin(){
   const email=document.getElementById('login-email').value.trim().toLowerCase();
   const pass=document.getElementById('login-pass').value;
-  const err=document.getElementById('login-error'), btn=document.getElementById('login-btn');
+  const err=document.getElementById('login-error'),btn=document.getElementById('login-btn');
   err.style.display='none';
   if(!email||!pass){showErr('Ingresa tu correo y contraseña.');return;}
   if(!USERS[email]){showErr('Correo no autorizado.');return;}
-  btn.disabled=true; btn.textContent='Verificando…';
+  btn.disabled=true;btn.textContent='Verificando…';
   const h=await sha256(email+':'+pass);
   if(h!==USERS[email]){showErr('Contraseña incorrecta.');btn.disabled=false;btn.textContent='Entrar al área de producción';return;}
   sessionStorage.setItem('prod_user',email);
@@ -215,7 +229,7 @@ async function doLogin(){
 }
 function showErr(m){const e=document.getElementById('login-error');e.textContent=m;e.style.display='block';}
 function doLogout(){
-  sessionStorage.removeItem('prod_user'); clearInterval(window._cdt);
+  sessionStorage.removeItem('prod_user');clearInterval(window._cdt);
   document.getElementById('dashboard').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('login-email').value='';
@@ -232,15 +246,14 @@ function startDash(email){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('dashboard').style.display='block';
   document.getElementById('user-label').textContent=email;
-  loadData(); startAR();
+  loadData();startAR();
 }
 let _cd=60;
 function startAR(){
-  clearInterval(window._cdt); _cd=60;
+  clearInterval(window._cdt);_cd=60;
   window._cdt=setInterval(()=>{
-    _cd--;
-    const e=document.getElementById('cd'); if(e) e.textContent=_cd;
-    if(_cd<=0){_cd=60; loadData();}
+    _cd--;const e=document.getElementById('cd');if(e)e.textContent=_cd;
+    if(_cd<=0){_cd=60;loadData();}
   },1000);
 }
 
@@ -256,12 +269,12 @@ async function fetchAS(t){
 
 // ─── DATE HELPERS ─────────────────────────────────────
 function parseD(s){
-  if(!s) return null;
+  if(!s)return null;
   const p=s.trim().split(' ')[0];
   let m=p.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if(m) return new Date(+m[3],+m[1]-1,+m[2]);
+  if(m)return new Date(+m[3],+m[1]-1,+m[2]);
   m=p.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if(m) return new Date(+m[1],+m[2]-1,+m[3]);
+  if(m)return new Date(+m[1],+m[2]-1,+m[3]);
   return null;
 }
 function dKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
@@ -272,17 +285,21 @@ function getStart(o){return parseD(o['Fecha de inicio']||o['Fecha de Inicio'])||
 function getEnd(o){return parseD(o['Fecha de terminacion']||o['Fecha de Terminacion']);}
 
 // ─── GLOBAL STATE ─────────────────────────────────────
-let _all=[], _imap={}, _catMap={};
+let _all=[],_imap={},_catMap={};
 
 // ─── LOAD DATA ────────────────────────────────────────
 async function loadData(){
-  document.getElementById('cd').textContent='60'; _cd=60;
+  document.getElementById('cd').textContent='60';_cd=60;
   try{
-    const [ord,inf,cat]=await Promise.all([fetchAS('orden de produccion'),fetchAS('informacion de produccion'),fetchAS('catalogo')]);
+    const [ord,inf,cat]=await Promise.all([
+      fetchAS('orden de produccion'),
+      fetchAS('informacion de produccion'),
+      fetchAS('catalogo')
+    ]);
     _imap={};
     (inf||[]).forEach(i=>{const id=i['ID Produccion'];if(!_imap[id])_imap[id]=[];_imap[id].push(i);});
     _catMap={};
-    (cat||[]).forEach(c=>{if(c['ID producto']&&c['Productos']) _catMap[c['ID producto']]=c['Productos'];});
+    (cat||[]).forEach(c=>{if(c['ID producto']&&c['Productos'])_catMap[c['ID producto']]=c['Productos'];});
     _all=(ord||[]).filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
     const proc=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en proceso');
     const cola=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en cola');
@@ -293,78 +310,86 @@ async function loadData(){
     document.getElementById('last-updated').textContent=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
     renderGantt();
   }catch(e){
-    document.getElementById('gantt-container').innerHTML='<div class="loading-state" style="color:#fca5a5">Error al cargar. Intenta actualizar.</div>';
+    document.getElementById('gantt-container').innerHTML='<div class="loading-state" style="color:#dc2626">Error al cargar datos. Intenta actualizar.</div>';
     console.error(e);
   }
 }
 
 // ─── GANTT ────────────────────────────────────────────
-const DW=30,LW=215,RH=40,MH=30,HH=52;
+const DW=30,LW=220,RH=42,MH=32,HH=52;
+
+// Light-theme color constants for JS-generated HTML
+const C = {
+  bg:     '#f8fafc',
+  card:   '#ffffff',
+  bdr:    'rgba(0,0,0,.08)',
+  bdrMid: 'rgba(0,0,0,.06)',
+  bdrLt:  'rgba(0,0,0,.04)',
+  mHdr:   'rgba(0,0,0,.025)',
+  hover:  'rgba(0,0,0,.04)',
+  stickyBg: 'rgba(255,255,255,.97)',
+  txt:    '#1e293b',
+  txt2:   '#475569',
+  muted:  '#94a3b8',
+  gray:   '#64748b',
+};
 
 function renderGantt(){
-  const now=new Date(); now.setHours(12,0,0,0);
+  const now=new Date();now.setHours(12,0,0,0);
   const todayStr=dKey(now);
 
-  // Compute view window
-  let vs=dAdd(now,-14), ve=dAdd(now,45);
+  let vs=dAdd(now,-14),ve=dAdd(now,45);
   _all.forEach(o=>{
-    const s=getStart(o), e=getEnd(o);
-    if(s&&s<vs) vs=dAdd(s,-3);
-    if(e&&e>ve) ve=dAdd(e,3);
+    const s=getStart(o),e=getEnd(o);
+    if(s&&s<vs)vs=dAdd(s,-3);
+    if(e&&e>ve)ve=dAdd(e,3);
   });
-  vs.setHours(0,0,0,0); ve.setHours(0,0,0,0);
+  vs.setHours(0,0,0,0);ve.setHours(0,0,0,0);
   const nd=dBetween(vs,ve)+1;
   const TW=LW+nd*DW;
-  const todayX=LW+dBetween(vs,now)*DW; // left edge of today column
+  const todayX=LW+dBetween(vs,now)*DW;
 
-  // ── Header ──
-  // Month row
-  let mHTML=''; let c=new Date(vs);
-  while(c<=ve){
-    const mo=c.getMonth(), yr=c.getFullYear();
-    let cnt=0; let p=new Date(c);
+  // Header: month row
+  let mHTML='';let cur=new Date(vs);
+  while(cur<=ve){
+    const mo=cur.getMonth(),yr=cur.getFullYear();
+    let cnt=0;let p=new Date(cur);
     while(p<=ve&&p.getMonth()===mo&&p.getFullYear()===yr){cnt++;p=dAdd(p,1);}
-    mHTML+=`<div style="width:${cnt*DW}px;flex-shrink:0;font-size:.67rem;font-weight:700;color:#9ca3af;text-transform:capitalize;padding:0 8px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;border-right:1px solid rgba(255,255,255,.06)">${MESES[mo]} ${yr}</div>`;
-    c=dAdd(c,cnt);
+    mHTML+=`<div style="width:${cnt*DW}px;flex-shrink:0;font-size:.67rem;font-weight:700;color:${C.gray};text-transform:capitalize;padding:0 8px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;border-right:1px solid ${C.bdrLt}">${MESES[mo]} ${yr}</div>`;
+    cur=dAdd(cur,cnt);
   }
   // Day row
-  let dHTML=''; c=new Date(vs);
+  let dHTML='';cur=new Date(vs);
   for(let i=0;i<nd;i++){
-    const isT=dKey(c)===todayStr, isW=c.getDay()===0||c.getDay()===6;
-    dHTML+=`<div style="width:${DW}px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:${isT?'#e85d00':isW?'#4b5563':'#5a6070'};font-weight:${isT?800:400};background:${isT?'rgba(232,93,0,.15)':isW?'rgba(255,255,255,.025)':'transparent'};border-right:1px solid rgba(255,255,255,.04);flex-shrink:0">${c.getDate()}</div>`;
-    c=dAdd(c,1);
+    const isT=dKey(cur)===todayStr,isW=cur.getDay()===0||cur.getDay()===6;
+    dHTML+=`<div style="width:${DW}px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:${isT?'#e85d00':isW?'#cbd5e1':C.muted};font-weight:${isT?800:400};background:${isT?'rgba(232,93,0,.1)':isW?'rgba(0,0,0,.02)':'transparent'};border-right:1px solid ${C.bdrLt};flex-shrink:0">${cur.getDate()}</div>`;
+    cur=dAdd(cur,1);
   }
 
-  // Today bg gradient helper (for each timeline cell)
-  const todayRel=dBetween(vs,now); // 0-indexed column
-  const tPx=todayRel*DW;
-  function rowBg(extra){
-    return `linear-gradient(to right,transparent ${tPx}px,rgba(232,93,0,.07) ${tPx}px,rgba(232,93,0,.07) ${tPx+DW}px,transparent ${tPx+DW}px)${extra||''}`;
-  }
+  const tPx=dBetween(vs,now)*DW;
+  function rowBg(){return `linear-gradient(to right,transparent ${tPx}px,rgba(232,93,0,.07) ${tPx}px,rgba(232,93,0,.07) ${tPx+DW}px,transparent ${tPx+DW}px)`;}
 
-  // ── Rows ──
   let rows='';
-
   MACH.forEach(maq=>{
     const orders=_all.filter(o=>maqN(o['Maquina'])===maq.n)
       .sort((a,b)=>{const sa=getStart(a),sb=getStart(b);if(!sa&&!sb)return 0;if(!sa)return 1;if(!sb)return-1;return sa-sb;});
 
-    // Machine header row
+    // Machine header
     rows+=`
-    <div style="display:flex;height:${MH}px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.1)">
-      <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:12;background:rgba(14,14,24,.98);border-right:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:8px;padding:0 14px;box-shadow:3px 0 10px rgba(0,0,0,.4)">
+    <div style="display:flex;height:${MH}px;background:${C.mHdr};border-bottom:1px solid ${C.bdr}">
+      <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:12;background:rgba(248,250,252,.98);border-right:1px solid ${C.bdr};display:flex;align-items:center;gap:8px;padding:0 14px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
         <span style="width:9px;height:9px;border-radius:50%;background:${maq.hex};flex-shrink:0"></span>
-        <span style="font-size:.77rem;font-weight:700;color:#fff">${maq.label}</span>
-        <span style="font-size:.63rem;color:#6b7280;margin-left:auto;background:rgba(255,255,255,.06);padding:1px 7px;border-radius:10px">${orders.length}</span>
+        <span style="font-size:.78rem;font-weight:700;color:${C.txt}">${maq.label}</span>
+        <span style="font-size:.63rem;color:${C.gray};margin-left:auto;background:rgba(0,0,0,.06);padding:1px 7px;border-radius:10px">${orders.length}</span>
       </div>
       <div style="width:${nd*DW}px;background:${rowBg()}"></div>
     </div>`;
 
     if(!orders.length){
       rows+=`
-      <div style="display:flex;height:${RH}px;border-bottom:1px solid rgba(255,255,255,.03)">
-        <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 14px;box-shadow:3px 0 10px rgba(0,0,0,.4)">
-          <span style="font-size:.72rem;color:#374151;font-style:italic">Sin órdenes activas</span>
+      <div style="display:flex;height:${RH}px;border-bottom:1px solid ${C.bdrLt}">
+        <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};display:flex;align-items:center;padding:0 14px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
+          <span style="font-size:.72rem;color:${C.muted};font-style:italic">Sin órdenes activas</span>
         </div>
         <div style="width:${nd*DW}px;background:${rowBg()}"></div>
       </div>`;
@@ -375,41 +400,42 @@ function renderGantt(){
       const eid=id.replace(/'/g,"\\'").replace(/"/g,'&quot;');
       const items=_imap[id]||[];
       const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
+      const cliente=(o['Cliente']||'').trim();
       const total=parseInt(o['Total de Produccion'])||0;
       const avance=parseInt(o['Avance de produccion'])||0;
       const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
-      const startD=getStart(o), endD=getEnd(o);
+      const startD=getStart(o),endD=getEnd(o);
       const isOverdue=endD&&now>endD&&pct<100;
       const barHex=isOverdue?'#dc2626':maq.hex;
-      const estado=(o['Estado de produccion']||'').toLowerCase();
 
       let barHTML='';
       if(startD){
         const bLeft=Math.max(0,dBetween(vs,startD))*DW;
         const durD=endD?Math.max(1,dBetween(startD,endD)+1):7;
-        const bW=Math.max(DW*1.5, durD*DW);
-        const fillW=Math.max(3, pct/100*bW);
-        const title=`${id}: ${prods} | ${pct}% completado`;
+        const bW=Math.max(DW*1.5,durD*DW);
+        const fillW=Math.max(3,pct/100*bW);
+        // Bar label: ORP + client
+        const barLabel=cliente?`${id} · ${cliente}`:id;
 
         barHTML=`
         <div onclick="openModal('${eid}');event.stopPropagation()"
-          title="${title.replace(/"/g,'&quot;')}"
-          style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:24px;border-radius:5px;background:${barHex}22;border:1.5px solid ${barHex}55;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
-          onmouseover="this.style.borderColor='${barHex}';this.style.boxShadow='0 0 0 2px ${barHex}44'"
+          title="${barLabel}: ${prods} | ${pct}% completado"
+          style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:24px;border-radius:5px;background:${barHex}18;border:1.5px solid ${barHex}55;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
+          onmouseover="this.style.borderColor='${barHex}';this.style.boxShadow='0 2px 8px ${barHex}44'"
           onmouseout="this.style.borderColor='${barHex}55';this.style.boxShadow='none'">
-          <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:${barHex};opacity:.8;border-radius:4px 0 0 4px;transition:width .4s"></div>
-          <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:.64rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.9);pointer-events:none">${id}</span>
+          <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:${barHex};opacity:.75;border-radius:4px 0 0 4px"></div>
+          <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:.63rem;font-weight:700;color:${barHex === '#dc2626' ? '#fff' : C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:none;pointer-events:none;mix-blend-mode:multiply">${barLabel}</span>
         </div>`;
       }
 
       rows+=`
-      <div style="display:flex;height:${RH}px;border-bottom:1px solid rgba(255,255,255,.03)">
+      <div style="display:flex;height:${RH}px;border-bottom:1px solid ${C.bdrLt}">
         <div onclick="openModal('${eid}')"
-          style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.07);padding:4px 14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;box-shadow:3px 0 10px rgba(0,0,0,.4);transition:background .15s"
-          onmouseover="this.style.background='rgba(255,255,255,.05)'"
-          onmouseout="this.style.background='#0f0f1a'">
-          <div style="font-size:.77rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${id}</div>
-          <div style="font-size:.64rem;color:#6b7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px">${prods}</div>
+          style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};padding:4px 14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;box-shadow:2px 0 8px rgba(0,0,0,.04);transition:background .15s"
+          onmouseover="this.style.background='#f8fafc'"
+          onmouseout="this.style.background='${C.card}'">
+          <div style="font-size:.77rem;font-weight:700;color:${C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${id}${cliente?` <span style="font-weight:500;color:${C.gray}">· ${cliente}</span>`:''}</div>
+          <div style="font-size:.64rem;color:${C.gray};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px">${prods}</div>
         </div>
         <div style="width:${nd*DW}px;position:relative;background:${rowBg()}">
           ${barHTML}
@@ -418,60 +444,52 @@ function renderGantt(){
     });
   });
 
-  // ── Today label on header ──
-  const todayLabelX = todayX;
-
   document.getElementById('gantt-container').innerHTML=`
-  <div style="overflow-x:auto;overflow-y:auto;max-height:74vh;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#0f0f1a;position:relative" id="gantt-scroll">
+  <div style="overflow-x:auto;overflow-y:auto;max-height:72vh;border-radius:14px;border:1px solid ${C.bdr};background:${C.card};box-shadow:0 2px 12px rgba(0,0,0,.06)" id="gantt-scroll">
     <div style="min-width:${TW}px;position:relative">
-
-      <!-- STICKY HEADER -->
-      <div style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column;background:#0f0f1a">
-        <!-- months + today badge row -->
-        <div style="display:flex;height:26px;border-bottom:1px solid rgba(255,255,255,.06)">
-          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.1);display:flex;align-items:center;padding:0 14px">
-            <span style="font-size:.68rem;color:#374151;font-weight:600">DIAGRAMA DE GANTT</span>
+      <!-- HEADER -->
+      <div style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column;background:${C.card}">
+        <div style="display:flex;height:26px;border-bottom:1px solid ${C.bdrLt};background:#f8fafc">
+          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#f8fafc;border-right:1px solid ${C.bdr};display:flex;align-items:center;padding:0 14px">
+            <span style="font-size:.67rem;color:${C.muted};font-weight:700;letter-spacing:.5px">DIAGRAMA DE GANTT</span>
           </div>
           <div style="display:flex;flex:1;position:relative">${mHTML}
-            <div style="position:absolute;left:${todayLabelX - LW + DW/2}px;top:3px;transform:translateX(-50%);background:#e85d00;color:#fff;font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:4px;pointer-events:none;white-space:nowrap">HOY</div>
+            <div style="position:absolute;left:${todayX-LW+DW/2}px;top:3px;transform:translateX(-50%);background:#e85d00;color:#fff;font-size:.57rem;font-weight:800;padding:1px 6px;border-radius:4px;pointer-events:none;white-space:nowrap;box-shadow:0 1px 4px rgba(232,93,0,.4)">HOY</div>
           </div>
         </div>
-        <!-- day numbers row -->
-        <div style="display:flex;height:26px;border-bottom:1px solid rgba(255,255,255,.08)">
-          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#0f0f1a;border-right:1px solid rgba(255,255,255,.1)"></div>
+        <div style="display:flex;height:26px;border-bottom:1px solid ${C.bdr};background:#fff">
+          <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#fff;border-right:1px solid ${C.bdr}"></div>
           <div style="display:flex">${dHTML}</div>
         </div>
       </div>
-
       <!-- ROWS -->
       ${rows}
-
     </div>
   </div>`;
 
-  // Scroll to show today in view
   setTimeout(()=>{
     const el=document.getElementById('gantt-scroll');
-    if(el) el.scrollLeft=Math.max(0, todayX - LW - 120);
+    if(el)el.scrollLeft=Math.max(0,todayX-LW-120);
   },80);
 }
 
 // ─── MODAL ────────────────────────────────────────────
 function openModal(id){
   const o=_all.find(x=>x['ID Produccion']===id);
-  if(!o) return;
+  if(!o)return;
   const items=_imap[id]||[];
-  const now=new Date(); now.setHours(12,0,0,0);
+  const now=new Date();now.setHours(12,0,0,0);
   const mn=maqN(o['Maquina']);
-  const hex=MAQ_HEX[mn]||'#9ca3af';
+  const hex=MAQ_HEX[mn]||'#64748b';
   const mLabel=(MACH.find(m=>m.n===mn)||{label:'Máquina '+mn}).label;
-  const startD=getStart(o), endD=getEnd(o), pedD=parseD(o['Fecha de Pedido']);
+  const startD=getStart(o),endD=getEnd(o),pedD=parseD(o['Fecha de Pedido']);
   const total=parseInt(o['Total de Produccion'])||0;
   const avance=parseInt(o['Avance de produccion'])||0;
   const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
-  const pColor=pct>=100?'#22c55e':hex;
+  const pColor=pct>=100?'#16a34a':hex;
   const estado=(o['Estado de produccion']||'').toLowerCase();
   const badgeCls=estado==='en proceso'?'b-proceso':'b-cola';
+  const cliente=(o['Cliente']||'').trim();
 
   // Timeline
   let tlHTML='<p style="font-size:.78rem;color:var(--gray)">Sin fechas de producción registradas.</p>';
@@ -485,50 +503,80 @@ function openModal(id){
     tlHTML=`
     <div class="tl-wrap">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-size:.73rem;color:#9ca3af">Tiempo transcurrido</span>
-        <span style="font-size:.98rem;font-weight:800;color:${isOv?'#f87171':tHex}">${isOv?'VENCIDA — '+(elapsed-tot)+' días tarde':tPct+'%'}</span>
+        <span style="font-size:.73rem;color:var(--gray)">Tiempo transcurrido</span>
+        <span style="font-size:.98rem;font-weight:800;color:${isOv?'#dc2626':tHex}">${isOv?'VENCIDA — '+(elapsed-tot)+' días tarde':tPct+'%'}</span>
       </div>
       <div class="tl-bar-wrap">
         <div class="tl-track"><div class="tl-fill" style="width:${tPct}%;background:${tHex}"></div></div>
-        <div class="tl-now" style="left:${nowPct}%;background:${isOv?'#f87171':'#fff'}"></div>
+        <div class="tl-now" style="left:${nowPct}%;background:${isOv?'#dc2626':'#1e293b'}"></div>
       </div>
       <div class="tl-dates">
         <span>Inicio: ${fmtD(startD)}</span>
-        <span style="color:${isOv?'#f87171':'#cbd5e1'}">Hoy: día ${Math.max(0,elapsed)} de ${tot} · ${Math.max(0,tot-elapsed)} restantes</span>
+        <span style="color:${isOv?'#dc2626':'#475569'}">Hoy: día ${Math.max(0,elapsed)} de ${tot} · ${Math.max(0,tot-elapsed)} restantes</span>
         <span>Fin: ${fmtD(endD)}</span>
       </div>
     </div>`;
   }
 
+  // Products breakdown
+  let prodsHTML='<p style="font-size:.78rem;color:var(--gray)">Sin productos registrados.</p>';
+  if(items.length){
+    const byProd={};
+    items.forEach(i=>{
+      const pn=prodName(i['Productos'])||'(sin nombre)';
+      if(!byProd[pn])byProd[pn]={av:0,tot:0,rest:0};
+      byProd[pn].av  +=parseInt(i['Avance de produccion'])||0;
+      byProd[pn].tot +=parseInt(i['Cantidad de Piezas'])||0;
+      byProd[pn].rest+=parseInt(i['Restante de Produccion'])||0;
+    });
+    prodsHTML=Object.entries(byProd).map(([pn,d])=>{
+      const pp=d.tot>0?Math.min(100,Math.round(d.av/d.tot*100)):0;
+      const pc=pp>=100?'#16a34a':hex;
+      const isDone=d.rest<=0||pp>=100;
+      return `
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px">
+          <span style="font-size:.85rem;font-weight:600;color:#1e293b;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${pn}</span>
+          <span style="font-size:1rem;font-weight:800;color:${pc};flex-shrink:0">${pp}%</span>
+        </div>
+        <div style="height:9px;background:#e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:6px">
+          <div style="height:100%;width:${pp}%;background:${pc};border-radius:6px;transition:width .5s"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#64748b">
+          <span>${d.av.toLocaleString('es-MX')} producidas</span>
+          <span>de ${d.tot.toLocaleString('es-MX')} total</span>
+          <span style="color:${isDone?'#16a34a':'#d97706'};font-weight:600">${isDone?'✓ Completado':d.rest.toLocaleString('es-MX')+' restantes'}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
   // Workers
   const wField=['Trabajador','Operario','Operador','Nombre','Quien','Empleado'].reduce((f,c)=>{
-    if(f) return f;
-    if(!items.length) return null;
+    if(f)return f;if(!items.length)return null;
     const k=Object.keys(items[0]).find(k=>k.toLowerCase().includes(c.toLowerCase()));
     return k||null;
   },null);
-
-  let wHTML='<p style="font-size:.78rem;color:var(--gray)">Sin detalle de fabricación registrado.</p>';
+  let wHTML='<p style="font-size:.78rem;color:var(--gray)">Sin detalle registrado.</p>';
   if(items.length){
     const maxAv=Math.max(1,...items.map(i=>parseInt(i['Avance de produccion'])||0));
     if(wField){
       const byW={};
       items.forEach(i=>{
         const w=i[wField]||'Sin nombre';
-        if(!byW[w]) byW[w]={av:0,tot:0,prods:[]};
+        if(!byW[w])byW[w]={av:0,tot:0,prods:[]};
         byW[w].av+=parseInt(i['Avance de produccion'])||0;
         byW[w].tot+=parseInt(i['Cantidad de Piezas'])||0;
-        if(i['Productos']) byW[w].prods.push(prodName(i['Productos']));
+        if(i['Productos'])byW[w].prods.push(prodName(i['Productos']));
       });
       wHTML=`<table class="wtable"><thead><tr><th>Trabajador</th><th>Producto(s)</th><th>Piezas</th><th>Meta</th></tr></thead><tbody>
       ${Object.entries(byW).map(([w,d])=>{
         const bp=d.tot>0?Math.round(d.av/d.tot*100):0;
         const bw=Math.round(d.av/maxAv*70);
-        return `<tr>
-          <td style="font-weight:600;color:#e5e7eb">${w}</td>
-          <td style="font-size:.73rem;color:#9ca3af">${[...new Set(d.prods)].join(', ')||'—'}</td>
+        return `<tr><td style="font-weight:600;color:#1e293b">${w}</td>
+          <td style="font-size:.73rem;color:#64748b">${[...new Set(d.prods)].join(', ')||'—'}</td>
           <td>${d.av.toLocaleString('es-MX')}<span class="wbar" style="width:${bw}px;background:${hex}"></span></td>
-          <td style="color:${bp>=100?'#4ade80':'#fbbf24'};font-weight:600">${d.tot.toLocaleString('es-MX')} (${bp}%)</td>
+          <td style="color:${bp>=100?'#16a34a':'#d97706'};font-weight:600">${d.tot.toLocaleString('es-MX')} (${bp}%)</td>
         </tr>`;
       }).join('')}</tbody></table>`;
     } else {
@@ -537,49 +585,15 @@ function openModal(id){
         const rest=parseInt(i['Restante de Produccion'])||0;
         const av=parseInt(i['Avance de produccion'])||0;
         const tot=parseInt(i['Cantidad de Piezas'])||0;
-        return `<tr>
-          <td>${prodName(i['Productos'])||'—'}</td><td>${i['Maquina']||'—'}</td>
+        return `<tr><td>${prodName(i['Productos'])||'—'}</td><td>${i['Maquina']||'—'}</td>
           <td>${av.toLocaleString('es-MX')} / ${tot.toLocaleString('es-MX')}</td>
-          <td style="color:${rest<=0?'#4ade80':'#fbbf24'};font-weight:600">${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')}</td>
+          <td style="color:${rest<=0?'#16a34a':'#d97706'};font-weight:600">${rest<=0?'✓ Listo':rest.toLocaleString('es-MX')}</td>
         </tr>`;
       }).join('')}</tbody></table>`;
     }
   }
 
-  const prods=[...new Set(items.map(i=>i['Productos']).filter(Boolean))].join(', ')||'—';
-
-  // ── Products breakdown ──
-  let prodsHTML='<p style="font-size:.78rem;color:var(--gray)">Sin productos registrados.</p>';
-  if(items.length){
-    const byProd={};
-    items.forEach(i=>{
-      const pn=prodName(i['Productos'])||'(sin nombre)';
-      if(!byProd[pn]) byProd[pn]={av:0,tot:0,rest:0};
-      byProd[pn].av  += parseInt(i['Avance de produccion'])||0;
-      byProd[pn].tot += parseInt(i['Cantidad de Piezas'])||0;
-      byProd[pn].rest+= parseInt(i['Restante de Produccion'])||0;
-    });
-    prodsHTML=Object.entries(byProd).map(([pn,d])=>{
-      const pp=d.tot>0?Math.min(100,Math.round(d.av/d.tot*100)):0;
-      const pc=pp>=100?'#22c55e':hex;
-      const isDone=d.rest<=0||pp>=100;
-      return `
-      <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid rgba(255,255,255,.06)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px">
-          <span style="font-size:.85rem;font-weight:600;color:#e5e7eb;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${pn}</span>
-          <span style="font-size:1rem;font-weight:800;color:${pc};flex-shrink:0">${pp}%</span>
-        </div>
-        <div style="height:9px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin-bottom:6px">
-          <div style="height:100%;width:${pp}%;background:${pc};border-radius:6px;transition:width .5s"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#6b7280">
-          <span>${d.av.toLocaleString('es-MX')} producidas</span>
-          <span>de ${d.tot.toLocaleString('es-MX')} total</span>
-          <span style="color:${isDone?'#4ade80':'#fbbf24'};font-weight:600">${isDone?'✓ Completado':d.rest.toLocaleString('es-MX')+' restantes'}</span>
-        </div>
-      </div>`;
-    }).join('');
-  }
+  const prods=[...new Set(items.map(i=>prodName(i['Productos'])).filter(Boolean))].join(', ')||'—';
 
   document.getElementById('modal-box').innerHTML=`
   <div class="mh">
@@ -587,7 +601,8 @@ function openModal(id){
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <div class="mh-id">${id}</div>
         <span class="badge ${badgeCls}">${o['Estado de produccion']}</span>
-        <span class="badge" style="background:${hex}22;color:${hex};border:1px solid ${hex}44">${mLabel}</span>
+        <span class="badge" style="background:${hex}15;color:${hex};border:1px solid ${hex}35">${mLabel}</span>
+        ${cliente?`<span class="badge" style="background:#f1f5f9;color:#475569;border:1px solid #e2e8f0">👤 ${cliente}</span>`:''}
       </div>
       <div class="mh-sub">${prods}</div>
     </div>
@@ -599,15 +614,14 @@ function openModal(id){
       <div class="info-grid">
         <div class="ic"><div class="ic-l">Fecha pedido</div><div class="ic-v">${fmtD(pedD)}</div></div>
         <div class="ic"><div class="ic-l">Inicio producción</div><div class="ic-v">${fmtD(startD)}</div></div>
-        <div class="ic"><div class="ic-l">Fecha entrega</div><div class="ic-v" style="color:${endD&&now>endD&&pct<100?'#f87171':'inherit'}">${fmtD(endD)}</div></div>
+        <div class="ic"><div class="ic-l">Fecha entrega</div><div class="ic-v" style="color:${endD&&now>endD&&pct<100?'#dc2626':'inherit'}">${fmtD(endD)}</div></div>
         <div class="ic"><div class="ic-l">Máquina</div><div class="ic-v" style="color:${hex}">${mLabel}</div></div>
+        ${cliente?`<div class="ic"><div class="ic-l">Cliente</div><div class="ic-v">${cliente}</div></div>`:''}
         ${o['Definicion de color']?`<div class="ic"><div class="ic-l">Color</div><div class="ic-v">${o['Definicion de color']}</div></div>`:''}
-        ${o['Cliente']?`<div class="ic"><div class="ic-l">Cliente</div><div class="ic-v">${o['Cliente']}</div></div>`:''}
       </div>
     </div>
     <div class="ms">
-      <div class="ms-ttl">Tiempo de producción</div>
-      ${tlHTML}
+      <div class="ms-ttl">Tiempo de producción</div>${tlHTML}
     </div>
     <div class="ms">
       <div class="ms-ttl">Avance de piezas</div>
@@ -620,12 +634,10 @@ function openModal(id){
       ${total>0?`<div style="font-size:.72rem;color:var(--gray);margin-top:4px">${(total-avance).toLocaleString('es-MX')} piezas restantes</div>`:''}
     </div>
     <div class="ms">
-      <div class="ms-ttl">Productos en fabricación</div>
-      ${prodsHTML}
+      <div class="ms-ttl">Productos en fabricación</div>${prodsHTML}
     </div>
     <div class="ms">
-      <div class="ms-ttl">Detalle por trabajador</div>
-      ${wHTML}
+      <div class="ms-ttl">Detalle por trabajador</div>${wHTML}
     </div>
   </div>`;
 
@@ -633,11 +645,13 @@ function openModal(id){
   document.body.style.overflow='hidden';
 }
 function closeModal(e){
-  if(e&&e.target!==document.getElementById('modal-ov')) return;
+  if(e&&e.target!==document.getElementById('modal-ov'))return;
   document.getElementById('modal-ov').classList.add('hidden');
   document.body.style.overflow='';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('modal-ov').classList.add('hidden');document.body.style.overflow='';}});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){document.getElementById('modal-ov').classList.add('hidden');document.body.style.overflow='';}
+});
 </script>
 </body>
 </html>
