@@ -72,7 +72,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .badge{font-size:.66rem;font-weight:600;padding:2px 8px;border-radius:20px}
 .b-proceso{background:rgba(232,93,0,.1);color:#c2410c;border:1px solid rgba(232,93,0,.25)}
 .b-cola{background:rgba(59,130,246,.1);color:#1d4ed8;border:1px solid rgba(59,130,246,.25)}
+.b-terminada{background:rgba(22,163,74,.1);color:#15803d;border:1px solid rgba(22,163,74,.25)}
 .b-vencido{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+/* ── GANTT TABS ── */
+.gantt-tabs{display:flex;gap:6px;margin-bottom:.75rem;align-items:center}
+.gtab{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:7px 18px;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--gray);transition:all .15s;display:flex;align-items:center;gap:6px}
+.gtab.active{background:var(--orange);color:#fff;border-color:var(--orange);box-shadow:0 2px 8px rgba(232,93,0,.25)}
+.gtab:not(.active):hover{background:#f1f5f9;border-color:#cbd5e1;color:var(--txt2)}
+.gtab-count{font-size:.7rem;background:rgba(0,0,0,.12);border-radius:10px;padding:1px 7px;font-weight:700}
+.gtab.active .gtab-count{background:rgba(255,255,255,.25)}
 .tl-wrap{background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px;padding:13px}
 .tl-bar-wrap{position:relative;margin:9px 0 6px}
 .tl-track{height:11px;background:#e2e8f0;border-radius:6px;overflow:hidden}
@@ -168,6 +176,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="sc"><div class="sc-lbl">En cola</div><div class="sc-val" id="s-cola">—</div><div class="sc-sub">esperando</div></div>
       <div class="sc"><div class="sc-lbl">Piezas activas</div><div class="sc-val" id="s-piezas">—</div><div class="sc-sub">en producción</div></div>
       <div class="sc"><div class="sc-lbl">Máquinas activas</div><div class="sc-val" id="s-maq">—</div><div class="sc-sub">de 5 disponibles</div></div>
+    </div>
+    <div class="gantt-tabs">
+      <button class="gtab active" id="tab-active" onclick="switchTab('active')">
+        📋 En Producción <span class="gtab-count" id="tc-active">—</span>
+      </button>
+      <button class="gtab" id="tab-done" onclick="switchTab('done')">
+        ✅ Terminadas <span class="gtab-count" id="tc-done">—</span>
+      </button>
     </div>
     <div id="gantt-container">
       <div class="loading-state"><div class="spinner"></div>Cargando Gantt…</div>
@@ -286,7 +302,7 @@ function getStart(o){return parseD(o['Fecha de inicio']||o['Fecha de Inicio'])||
 function getEnd(o){return parseD(o['Fecha de terminacion']||o['Fecha de Terminacion']);}
 
 // ─── GLOBAL STATE ─────────────────────────────────────
-let _all=[],_imap={},_catMap={},_clientMap={};
+let _all=[],_done=[],_imap={},_catMap={},_clientMap={},_activeTab='active';
 
 // ─── LOAD DATA ────────────────────────────────────────
 async function loadData(){
@@ -304,13 +320,17 @@ async function loadData(){
     (cat||[]).forEach(c=>{if(c['ID producto']&&c['Productos'])_catMap[c['ID producto']]=c['Productos'];});
     _clientMap={};
     (cli||[]).forEach(c=>{if(c['Cliente ID']&&c['Nombre de Cliente'])_clientMap[c['Cliente ID']]=c['Nombre de Cliente'];});
-    _all=(ord||[]).filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
+    const allOrd = ord||[];
+    _all=allOrd.filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
+    _done=allOrd.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='terminada');
     const proc=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en proceso');
     const cola=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en cola');
     document.getElementById('s-proceso').textContent=proc.length;
     document.getElementById('s-cola').textContent=cola.length;
     document.getElementById('s-piezas').textContent=_all.reduce((s,o)=>s+(parseInt(o['Total de Produccion'])||0),0).toLocaleString('es-MX');
     document.getElementById('s-maq').textContent=new Set(_all.map(o=>maqN(o['Maquina'])).filter(x=>x!=='?')).size;
+    document.getElementById('tc-active').textContent=_all.length;
+    document.getElementById('tc-done').textContent=_done.length.toLocaleString('es-MX');
     document.getElementById('last-updated').textContent=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
     renderGantt();
   }catch(e){
@@ -338,12 +358,22 @@ const C = {
   gray:   '#64748b',
 };
 
+function switchTab(tab){
+  _activeTab=tab;
+  document.getElementById('tab-active').classList.toggle('active',tab==='active');
+  document.getElementById('tab-done').classList.toggle('active',tab==='done');
+  renderGantt();
+}
+
 function renderGantt(){
+  const list=_activeTab==='done'?_done:_all;
+  const isDone=_activeTab==='done';
   const now=new Date();now.setHours(12,0,0,0);
   const todayStr=dKey(now);
 
-  let vs=dAdd(now,-14),ve=dAdd(now,45);
-  _all.forEach(o=>{
+  let vs=isDone?dAdd(now,-90):dAdd(now,-14);
+  let ve=isDone?dAdd(now,7):dAdd(now,45);
+  list.forEach(o=>{
     const s=getStart(o),e=getEnd(o);
     if(s&&s<vs)vs=dAdd(s,-3);
     if(e&&e>ve)ve=dAdd(e,3);
@@ -375,7 +405,7 @@ function renderGantt(){
 
   let rows='';
   MACH.forEach(maq=>{
-    const orders=_all.filter(o=>maqN(o['Maquina'])===maq.n)
+    const orders=list.filter(o=>maqN(o['Maquina'])===maq.n)
       .sort((a,b)=>{const sa=getStart(a),sb=getStart(b);if(!sa&&!sb)return 0;if(!sa)return 1;if(!sb)return-1;return sa-sb;});
 
     // Machine header
@@ -393,7 +423,7 @@ function renderGantt(){
       rows+=`
       <div style="display:flex;height:${RH}px;border-bottom:1px solid ${C.bdrLt}">
         <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:11;background:${C.card};border-right:1px solid ${C.bdr};display:flex;align-items:center;padding:0 14px;box-shadow:2px 0 8px rgba(0,0,0,.04)">
-          <span style="font-size:.72rem;color:${C.muted};font-style:italic">Sin órdenes activas</span>
+          <span style="font-size:.72rem;color:${C.muted};font-style:italic">${isDone?'Sin órdenes terminadas':'Sin órdenes activas'}</span>
         </div>
         <div style="width:${nd*DW}px;background:${rowBg()}"></div>
       </div>`;
@@ -410,8 +440,8 @@ function renderGantt(){
       const avance=parseInt(o['Avance de produccion'])||0;
       const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
       const startD=getStart(o),endD=getEnd(o);
-      const isOverdue=endD&&now>endD&&pct<100;
-      const barHex=isOverdue?'#dc2626':maq.hex;
+      const isOverdue=endD&&now>endD&&pct<100&&!isDone;
+      const barHex=isDone?'#16a34a':isOverdue?'#dc2626':maq.hex;
 
       let barHTML='';
       if(startD){
@@ -456,7 +486,7 @@ function renderGantt(){
       <div style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column;background:${C.card}">
         <div style="display:flex;height:26px;border-bottom:1px solid ${C.bdrLt};background:#f8fafc">
           <div style="width:${LW}px;flex-shrink:0;position:sticky;left:0;z-index:21;background:#f8fafc;border-right:1px solid ${C.bdr};display:flex;align-items:center;padding:0 14px">
-            <span style="font-size:.67rem;color:${C.muted};font-weight:700;letter-spacing:.5px">DIAGRAMA DE GANTT</span>
+            <span style="font-size:.67rem;color:${C.muted};font-weight:700;letter-spacing:.5px">${isDone?'ÓRDENES TERMINADAS':'DIAGRAMA DE GANTT'}</span>
           </div>
           <div style="display:flex;flex:1;position:relative">${mHTML}
             <div style="position:absolute;left:${todayX-LW+DW/2}px;top:3px;transform:translateX(-50%);background:#e85d00;color:#fff;font-size:.57rem;font-weight:800;padding:1px 6px;border-radius:4px;pointer-events:none;white-space:nowrap;box-shadow:0 1px 4px rgba(232,93,0,.4)">HOY</div>
@@ -480,7 +510,7 @@ function renderGantt(){
 
 // ─── MODAL ────────────────────────────────────────────
 function openModal(id){
-  const o=_all.find(x=>x['ID Produccion']===id);
+  const o=_all.find(x=>x['ID Produccion']===id)||_done.find(x=>x['ID Produccion']===id);
   if(!o)return;
   const items=_imap[id]||[];
   const now=new Date();now.setHours(12,0,0,0);
@@ -491,9 +521,9 @@ function openModal(id){
   const total=parseInt(o['Total de Produccion'])||0;
   const avance=parseInt(o['Avance de produccion'])||0;
   const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
-  const pColor=pct>=100?'#16a34a':hex;
   const estado=(o['Estado de produccion']||'').toLowerCase();
-  const badgeCls=estado==='en proceso'?'b-proceso':'b-cola';
+  const pColor=estado==='terminada'?'#16a34a':pct>=100?'#16a34a':hex;
+  const badgeCls=estado==='en proceso'?'b-proceso':estado==='terminada'?'b-terminada':'b-cola';
   const clienteCode=(o['Cliente']||'').trim();
   const cliente=clienteCode?clientName(clienteCode):clienteCode;
 
