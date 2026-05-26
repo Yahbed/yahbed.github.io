@@ -74,6 +74,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .b-cola{background:rgba(59,130,246,.1);color:#1d4ed8;border:1px solid rgba(59,130,246,.25)}
 .b-terminada{background:rgba(22,163,74,.1);color:#15803d;border:1px solid rgba(22,163,74,.25)}
 .b-vencido{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.b-pausada{background:rgba(217,119,6,.1);color:#b45309;border:1px solid rgba(217,119,6,.3)}
 /* ── ORP SEARCH ── */
 .orp-search-wrap{position:relative;margin-bottom:.75rem}
 .orp-search-input{width:100%;max-width:340px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px 14px 8px 36px;font-size:.85rem;color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s}
@@ -190,6 +191,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="stats-bar">
       <div class="sc"><div class="sc-lbl">En proceso</div><div class="sc-val" id="s-proceso">—</div><div class="sc-sub">órdenes activas</div></div>
       <div class="sc"><div class="sc-lbl">En cola</div><div class="sc-val" id="s-cola">—</div><div class="sc-sub">esperando</div></div>
+      <div class="sc"><div class="sc-lbl">Pausadas</div><div class="sc-val" id="s-pausada" style="color:#d97706">—</div><div class="sc-sub">en pausa</div></div>
       <div class="sc"><div class="sc-lbl">Piezas activas</div><div class="sc-val" id="s-piezas">—</div><div class="sc-sub">en producción</div></div>
       <div class="sc"><div class="sc-lbl">Máquinas activas</div><div class="sc-val" id="s-maq">—</div><div class="sc-sub">de 5 disponibles</div></div>
     </div>
@@ -350,12 +352,14 @@ async function loadData(){
     _clientMap={};
     (cli||[]).forEach(c=>{if(c['Cliente ID']&&c['Nombre de Cliente'])_clientMap[c['Cliente ID']]=c['Nombre de Cliente'];});
     const allOrd = ord||[];
-    _all=allOrd.filter(o=>['en proceso','en cola'].includes((o['Estado de produccion']||'').toLowerCase()));
+    _all=allOrd.filter(o=>['en proceso','en cola','pausada'].includes((o['Estado de produccion']||'').toLowerCase()));
     _done=allOrd.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='terminada');
     const proc=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en proceso');
     const cola=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='en cola');
+    const pausa=_all.filter(o=>(o['Estado de produccion']||'').toLowerCase()==='pausada');
     document.getElementById('s-proceso').textContent=proc.length;
     document.getElementById('s-cola').textContent=cola.length;
+    document.getElementById('s-pausada').textContent=pausa.length;
     document.getElementById('s-piezas').textContent=_all.reduce((s,o)=>s+(parseInt(o['Total de Produccion'])||0),0).toLocaleString('es-MX');
     document.getElementById('s-maq').textContent=new Set(_all.map(o=>maqN(o['Maquina'])).filter(x=>x!=='?')).size;
     document.getElementById('tc-active').textContent=_all.length;
@@ -411,8 +415,9 @@ function searchORP(q){
     const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
     const badgeStyle=est==='en proceso'?'background:rgba(232,93,0,.12);color:#c2410c'
       :est==='terminada'?'background:rgba(22,163,74,.12);color:#15803d'
+      :est==='pausada'?'background:rgba(217,119,6,.12);color:#b45309'
       :'background:rgba(59,130,246,.12);color:#1d4ed8';
-    const label=est==='en proceso'?'En proceso':est==='terminada'?'Terminada':'En cola';
+    const label=est==='en proceso'?'En proceso':est==='terminada'?'Terminada':est==='pausada'?'Pausada':'En cola';
     return `<div class="orp-result" onclick="selectORP('${id.replace(/'/g,"\\'")}')">
       <div>
         <div class="orp-result-id">${id}</div>
@@ -621,8 +626,11 @@ function renderGantt(){
         const avance=parseInt(o['Avance de produccion'])||0;
         const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
         const startD=getStart(o),endD=getEnd(o);
-        const isOverdue=endD&&now>endD&&pct<100;
-        const barHex=isOverdue?'#dc2626':maq.hex;
+        const estO=(o['Estado de produccion']||'').toLowerCase();
+        const isPaused=estO==='pausada';
+        const motivo=isPaused?(o['Motivo de pausa']||''):'';
+        const isOverdue=endD&&now>endD&&pct<100&&!isPaused;
+        const barHex=isPaused?'#d97706':isOverdue?'#dc2626':maq.hex;
         let barHTML='';
         if(startD){
           const bLeft=Math.max(0,dBetween(vs,startD))*DW;
@@ -630,15 +638,21 @@ function renderGantt(){
           const bW=Math.max(DW*1.5,durD*DW);
           const fillW=Math.max(3,pct/100*bW);
           const barLabel=cliente?`${id} · ${cliente}`:id;
+          const barTitle=isPaused
+            ?`${barLabel}: ${prods} | ⏸ PAUSADA${motivo?' — '+motivo:''}`
+            :`${barLabel}: ${prods} | ${pct}% completado`;
+          const pauseStripe=isPaused?`repeating-linear-gradient(135deg,${barHex}22 0px,${barHex}22 4px,transparent 4px,transparent 8px)`:'';
+          const barBg=isPaused?pauseStripe:`${barHex}18`;
           _ORPMeta[id]={tab:'active',bLeft};
           barHTML=`
           <div id="orpbar-${id}" onclick="openModal('${eid}');event.stopPropagation()"
-            title="${barLabel}: ${prods} | ${pct}% completado"
-            style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:24px;border-radius:5px;background:${barHex}18;border:1.5px solid ${barHex}55;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
+            title="${barTitle}"
+            style="position:absolute;left:${bLeft}px;top:50%;transform:translateY(-50%);width:${bW}px;height:24px;border-radius:5px;background:${barBg};border:1.5px ${isPaused?'dashed':'solid'} ${barHex}55;cursor:pointer;overflow:hidden;z-index:4;transition:border-color .15s,box-shadow .15s"
             onmouseover="this.style.borderColor='${barHex}';this.style.boxShadow='0 2px 8px ${barHex}44'"
             onmouseout="this.style.borderColor='${barHex}55';this.style.boxShadow='none'">
+            ${isPaused?`<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:0 5px;pointer-events:none"><span style="font-size:.65rem;opacity:.7">⏸</span></div>`:''}
             <div style="position:absolute;left:0;top:0;height:100%;width:${fillW}px;background:${barHex};opacity:.75;border-radius:4px 0 0 4px"></div>
-            <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:.63rem;font-weight:700;color:${barHex==='#dc2626'?'#fff':C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;mix-blend-mode:multiply">${barLabel}</span>
+            <span style="position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:.63rem;font-weight:700;color:${barHex==='#dc2626'?'#fff':C.txt};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;mix-blend-mode:multiply">${barLabel}${isPaused?' ⏸':''}</span>
           </div>`;
         }
         rows+=`
@@ -700,7 +714,7 @@ function openModal(id){
   const pct=total>0?Math.min(100,Math.round(avance/total*100)):0;
   const estado=(o['Estado de produccion']||'').toLowerCase();
   const pColor=estado==='terminada'?'#16a34a':pct>=100?'#16a34a':hex;
-  const badgeCls=estado==='en proceso'?'b-proceso':estado==='terminada'?'b-terminada':'b-cola';
+  const badgeCls=estado==='en proceso'?'b-proceso':estado==='terminada'?'b-terminada':estado==='pausada'?'b-pausada':'b-cola';
   const clienteCode=(o['Cliente']||'').trim();
   const cliente=clienteCode?clientName(clienteCode):clienteCode;
 
@@ -831,6 +845,8 @@ function openModal(id){
         <div class="ic"><div class="ic-l">Máquina</div><div class="ic-v" style="color:${hex}">${mLabel}</div></div>
         ${cliente?`<div class="ic"><div class="ic-l">Cliente</div><div class="ic-v">${cliente}</div></div>`:''}
         ${o['Definicion de color']?`<div class="ic"><div class="ic-l">Color</div><div class="ic-v">${o['Definicion de color']}</div></div>`:''}
+        ${estado==='pausada'&&o['Motivo de pausa']?`<div class="ic" style="border-color:rgba(217,119,6,.35);background:rgba(217,119,6,.06)"><div class="ic-l" style="color:#b45309">⏸ Motivo de pausa</div><div class="ic-v" style="color:#92400e">${o['Motivo de pausa']}</div></div>`:''}
+        ${estado==='pausada'&&o['Proximo disponible Maq']?`<div class="ic"><div class="ic-l">Próx. disponible maq.</div><div class="ic-v">${o['Proximo disponible Maq']}</div></div>`:''}
       </div>
     </div>
     <div class="ms">
